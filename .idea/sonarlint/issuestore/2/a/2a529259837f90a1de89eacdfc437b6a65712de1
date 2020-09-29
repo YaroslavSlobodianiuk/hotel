@@ -1,0 +1,15 @@
+
+Z
+java:S1118":Add a private constructor to hide the implicit public one.(¹ûÚûÿÿÿÿ8İĞ®±Ì.
+S
+java:S1444"3Make this "public static connectionUrl" field final(¨¥¸Šøÿÿÿÿ8¢°³±Ì.
+N
+java:S1444".Make this "public static password" field final(İÿ¢şÿÿÿÿ8¾ã·±Ì.
+t
+java:S1104"TMake password a static final constant or non-public and provide accessors if needed.(İÿ¢şÿÿÿÿ8¾ã·±Ì.
+o
+java:S1104"TMake username a static final constant or non-public and provide accessors if needed.(Ÿ’—î8¾ã·±Ì.
+I
+java:S1444".Make this "public static username" field final(Ÿ’—î8¾ã·±Ì.
+y
+java:S1104"YMake connectionUrl a static final constant or non-public and provide accessors if needed.(¨¥¸Šøÿÿÿÿ8¢°³±Ì.
