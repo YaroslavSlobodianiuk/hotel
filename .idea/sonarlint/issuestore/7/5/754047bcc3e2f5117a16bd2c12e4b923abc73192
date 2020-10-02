@@ -1,3 +1,5 @@
 
-X
-java:S2094"BRemove this empty class, write its code or make it an "interface".(’ëìµ
+L
+java:S1144S"*Remove this unused private "close" method.(İ›µÏıÿÿÿÿ8¥›ëÈÍ.
+W
+java:S1118":Add a private constructor to hide the implicit public one.(’ëìµ8†„‘ÊÍ.

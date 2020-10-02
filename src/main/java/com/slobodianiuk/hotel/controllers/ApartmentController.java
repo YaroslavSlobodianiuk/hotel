@@ -8,22 +8,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 
-@WebServlet("/apartments")
+@WebServlet("/apartments/*")
 public class ApartmentController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        List<Apartment> apartmentsAttribute = (List<Apartment>) session.getAttribute("apartments");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if (apartmentsAttribute == null) {
-            List<Apartment> apartments = ApartmentRepository.getApartments();
-            session.setAttribute("apartments", apartments);
+        try {
+            int id = Integer.parseInt(req.getParameter("details"));
+            Optional<Apartment> apartmentOptional = ApartmentRepository.getApartmentById(id);
+            if (apartmentOptional.isPresent()) {
+                req.setAttribute("apartment", apartmentOptional.get());
+                req.getRequestDispatcher("/apartment.jsp").forward(req, resp);
+            } else {
+                resp.setStatus(404);
+            }
+        } catch (NumberFormatException ex) {
+            resp.setStatus(404);
         }
-        req.getRequestDispatcher("apartments.jsp").forward(req, resp);
     }
 }

@@ -7,8 +7,34 @@ import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ApartmentRepository {
+
+    public static Optional<Apartment> getApartmentById(int id) {
+        ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
+        PreparedStatement preparedStatement = null;
+        ResultSet set = null;
+        Connection connection = null;
+        Apartment apartment = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("select * from apartments inner join categories on apartments.category_id = categories.id inner join room_capacity on apartments.room_capacity_id = room_capacity.id where apartments.id =(?)");
+            preparedStatement.setInt(1, id);
+            set = preparedStatement.executeQuery();
+
+            if (set.next()) {
+                apartment = extractApartments(set);
+            }
+        } catch (SQLException e) {
+            //Logger
+            e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
+            close(preparedStatement, set);
+        }
+        return Optional.of(apartment);
+    }
 
     public static List<Apartment> getApartments() {
         List<Apartment> apartments = new ArrayList<>();
@@ -19,7 +45,7 @@ public class ApartmentRepository {
         try {
             connection = connectionPool.getConnection();
 
-            preparedStatement = connection.prepareStatement("select * from apartments");
+            preparedStatement = connection.prepareStatement("select * from apartments inner join categories on apartments.category_id = categories.id inner join room_capacity on apartments.room_capacity_id = room_capacity.id order by apartments.id;");
             set = preparedStatement.executeQuery();
             while (set.next()) {
                 apartments.add(extractApartments(set));
@@ -37,8 +63,8 @@ public class ApartmentRepository {
         Apartment apartments = new Apartment();
         apartments.setId(rs.getInt("id"));
         apartments.setTitle(rs.getString("title"));
-        apartments.setRoomCapacityId(rs.getInt("room_capacity_id"));
-        apartments.setCategoryId(rs.getInt("category_id"));
+        apartments.setRoomCapacity(rs.getInt("capacity"));
+        apartments.setCategory(rs.getString("category_name"));
         apartments.setPrice(rs.getDouble("price"));
         apartments.setStatusId(rs.getInt("status_id"));
         return apartments;

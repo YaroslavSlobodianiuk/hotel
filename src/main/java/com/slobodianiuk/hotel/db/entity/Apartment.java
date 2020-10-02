@@ -4,19 +4,19 @@ public class Apartment {
 
     private int id;
     private String title;
-    private int roomCapacityId;
-    private int categoryId;
+    private int roomCapacity;
+    private String category;
     private Double price;
     private int statusId;
 
     public Apartment() {
     }
 
-    public Apartment(int id, String title, int roomCapacityId, int categoryId, Double price, int statusId) {
+    public Apartment(int id, String title, int roomCapacity, String category, Double price, int statusId) {
         this.id = id;
         this.title = title;
-        this.roomCapacityId = roomCapacityId;
-        this.categoryId = categoryId;
+        this.roomCapacity = roomCapacity;
+        this.category = category;
         this.price = price;
         this.statusId = statusId;
     }
@@ -37,20 +37,20 @@ public class Apartment {
         this.title = title;
     }
 
-    public int getRoomCapacityId() {
-        return roomCapacityId;
+    public int getRoomCapacity() {
+        return roomCapacity;
     }
 
-    public void setRoomCapacityId(int roomCapacityId) {
-        this.roomCapacityId = roomCapacityId;
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Double getPrice() {
@@ -74,8 +74,8 @@ public class Apartment {
         return "Apartment{" +
                 "id=" + id +
                 ", name='" + title + '\'' +
-                ", roomCapacityId=" + roomCapacityId +
-                ", categoryId=" + categoryId +
+                ", roomCapacity=" + roomCapacity +
+                ", category=" + category +
                 ", price=" + price +
                 ", statusId=" + statusId +
                 '}';

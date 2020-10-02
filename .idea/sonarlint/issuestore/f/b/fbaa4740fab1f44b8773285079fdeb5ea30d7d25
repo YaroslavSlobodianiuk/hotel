@@ -1,7 +1,6 @@
 
-S	java:S106"9Replace this use of System.out or System.err by a logger.(²•ñŸ8†“³Ë.
-j
-java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(¼¤«8ì«²Ë.
-g
-java:S2095"GUse try-with-resources or close this "ResultSet" in a "finally" clause.(ÌÚÖáşÿÿÿÿ8ì«²Ë.
-X	java:S106"9Replace this use of System.out or System.err by a logger.(ÿŒ†îÿÿÿÿÿ8ì«²Ë.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(Ìúˆùÿÿÿÿ8óÓšşÍ.
+d
+java:S1128"GRemove this unused import 'com.slobodianiuk.hotel.db.entity.Apartment'.(«¾Óê8óÓšşÍ.
+‹
+java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(Á¯¦ş8°Á¡şÍ.

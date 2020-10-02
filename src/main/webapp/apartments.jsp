@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<% List<Apartment> apartments = (List<Apartment>) session.getAttribute("apartments"); %>
+<% List<Apartment> apartments = (List<Apartment>) session.getAttribute("apartments");%>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
     <nav class="my-2 my-md-0 mr-md-3">
@@ -32,12 +32,15 @@
     <div class="container mt-5">
         <div class="alert alert-info mt-2">
             <h3>${apart.title}</h3>
-            <p>Id: ${apart.id}</p>
-            <p>Max guests: %></p>
-            <p>Category: ${apart.categoryId}</p>
+            <p>Max guests: ${apart.roomCapacity}</p>
+            <p>Category: ${apart.category}</p>
             <p>Price: ${apart.price}</p>
-            <a href="/apartments/ + ${apart.id}" class="btn btn-warning">Details...</a>
-            <form action="/apartments/ + ${apart.id} + /book" method="post">
+            <form action="/apartments/${apart.id}" method="post">
+                <input type="hidden" name="details" value="${apart.id}">
+                <button type="submit" class="btn btn-warning">Details...</button>
+            </form>
+
+            <form action="/apartments/${apart.id}/book" method="post">
                 <button type="submit" class="btn btn-warning">Book Now</button>
             </form>
         </div>

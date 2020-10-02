@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/2b3797ce-3d4d-48b2-a975-bbcae22ed854/console.sql">
           <value>
             <set />
@@ -73,6 +78,66 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../autotests/a">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/main/resources/allure.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/test/java/com/avenga/EnglishDomTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/test/java/com/avenga/GoogleTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/test/java/com/avenga/WebDriver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/test/java/com/avenga/drivers/ChromeWebDriver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/test/java/com/avenga/drivers/WebDriver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/src/test/java/com/google/GoogleTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/target/allure-results/allure.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/target/allure-results/executor.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../autotests/target/site/allure-maven-plugin/allure-maven.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../final_task/HotelMysql.iml">
           <value>
             <set />
@@ -119,6 +184,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/controllers/ApartmentController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/controllers/ApartmentsController.java">
           <value>
             <set />
           </value>
@@ -278,6 +348,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/apartment.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/apartments.jsp">
           <value>
             <set />
@@ -314,6 +389,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/welcomeAdmin.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../xqwvhcvz-task8/src/test/java/com/epam/rd/java/basic/practice8/Part1StudentTest.java">
           <value>
             <set />
           </value>
