@@ -7,18 +7,18 @@ public class Apartment {
     private int roomCapacity;
     private String category;
     private Double price;
-    private int statusId;
+    private String status;
 
     public Apartment() {
     }
 
-    public Apartment(int id, String title, int roomCapacity, String category, Double price, int statusId) {
+    public Apartment(int id, String title, int roomCapacity, String category, Double price, String status) {
         this.id = id;
         this.title = title;
         this.roomCapacity = roomCapacity;
         this.category = category;
         this.price = price;
-        this.statusId = statusId;
+        this.status = status;
     }
 
     public int getId() {
@@ -61,12 +61,12 @@ public class Apartment {
         this.price = price;
     }
 
-    public int getStatusId() {
-        return statusId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Apartment {
                 ", roomCapacity=" + roomCapacity +
                 ", category=" + category +
                 ", price=" + price +
-                ", statusId=" + statusId +
+                ", statusId=" + status +
                 '}';
     }
 }

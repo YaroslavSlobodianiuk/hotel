@@ -30,6 +30,7 @@
         <p>Max guests: ${apartment.roomCapacity}</p>
         <p>Category: ${apartment.category}</p>
         <p>Price: ${apartment.price}</p>
+        <p>Status: ${apartment.status}</p>
 
         <form action="/apartments/${apartment.id}/book" method="post">
             <button type="submit" class="btn btn-warning">Book Now</button>

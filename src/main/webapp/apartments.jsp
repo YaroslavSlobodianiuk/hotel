@@ -11,23 +11,78 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+    <html onload="getSelectedOption()">
 <head>
+    <script>
+
+        function getSelectedOption() {
+            // if (localStorage.getItem('sort-select')) {
+            //     var id = localStorage.getItem('sort-select').id;
+            //     document.getElementById(id).selected = true;
+            //
+            //     //$("#sort-select option").eq(localStorage.getItem('sort-select')).prop('selected', true);
+            // }
+
+            // if (localStorage.getItem('selectedItem')) {
+            //     document.getElementById('sort-select').options[localStorage.getItem('selectedItem')].selected = true;
+            // }
+            const queryString = window.location.search;
+
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            document.getElementById('sort-select').options[urlParams.get('selected')].selected = true;
+            console.log(urlParams.get('selected'));
+
+        }
+
+        // function setSelectedItem(value) {
+        //     console.assert(true,"selectedItem");
+        //     localStorage.setItem('selectedItem', value);
+        //
+        // }
+        function sort(value) {
+            console.log("aaaaaaaaaaaaaa");
+
+            window.location.replace("/apartments?sort=" + value + "&selected=" + value);
+
+
+            //localStorage.setItem('selectedItem', document.getElementById('sort-select').value);
+
+
+            // $("#sort-select").on('change', function() {
+            //     localStorage.setItem('sort-select', $('option:selected', this).index());
+            // });
+            // window.location.replace("/apartments?sort="+value);
+
+            //y
+            //
+            //
+            // history.pushState()
+            // var selectEl = document.getElementById("sort-select");
+            // var id = selectEl.options[selectEl.selectedIndex].id;
+            // document.getElementById(id).selected = true;
+
+        }
+    </script>
     <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <%@ include file="blocks/header.jsp" %>
 </head>
 <body>
-<% List<Apartment> apartments = (List<Apartment>) session.getAttribute("apartments");%>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="/apartments">Apartments</a>
-        <a class="p-2 text-dark" href="#">Enterprise</a>
-        <a class="p-2 text-dark" href="#">Support</a>
-        <a class="p-2 text-dark" href="#">Pricing</a>
-    </nav>
-    <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Sign out</a>
+<div>
+    <select name="sort-select" onchange="sort(value)">
+        <option value="">Select a sort type:</option>
+        <option id="price" value="price">price</option>
+        <option id="capacity" value="capacity">number of places</option>
+    </select>
 </div>
+<%--<script>--%>
+<%--    --%>
+
+<%--    if (window.localStorage.getItem('selectedItem')) {--%>
+<%--        document.getElementById('sort-select').options[window.localStorage.getItem('selectedItem')].selected = true;--%>
+<%--    }--%>
+<%--</script>--%>
+<h1>Sorting: ${sortingType}</h1>
 <c:forEach items="${apartments}" var="apart">
     <div class="container mt-5">
         <div class="alert alert-info mt-2">
@@ -35,6 +90,7 @@
             <p>Max guests: ${apart.roomCapacity}</p>
             <p>Category: ${apart.category}</p>
             <p>Price: ${apart.price}</p>
+            <p>Status: ${apart.status}</p>
             <form action="/apartments/${apart.id}" method="post">
                 <input type="hidden" name="details" value="${apart.id}">
                 <button type="submit" class="btn btn-warning">Details...</button>
@@ -46,5 +102,25 @@
         </div>
     </div>
 </c:forEach>
+<c:if test="${currentPage != 1}">
+    <td><a href="apartments?page=${currentPage - 1}">Previous</a></td>
+</c:if>
+<table border="1" cellpadding="5" cellspacing="5">
+    <tr>
+        <c:forEach begin="1" var="i" end="${numberOfPages}">
+            <c:choose>
+                <c:when test="${currentPage eq i}">
+                    <td>${i}</td>
+                </c:when>
+                <c:otherwise>
+                    <td><a href="/apartments?page=${i}">${i}</a></td>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </tr>
+</table>
+<c:if test="${currentPage lt numberOfPages}">
+    <td><a href="apartments?page=${currentPage + 1}">Next</a></td>
+</c:if>
 </body>
 </html>

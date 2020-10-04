@@ -138,6 +138,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../exps-core/target/classes/templates/blocks/footer.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../final_task/HotelMysql.iml">
           <value>
             <set />
@@ -189,6 +194,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/controllers/ApartmentsController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/controllers/BookingController.java">
           <value>
             <set />
           </value>
@@ -303,6 +313,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/enums/SortingType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/pool/BasicConnectionPool.java">
           <value>
             <set />
@@ -358,7 +373,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/blocks/header.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/book.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/index.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/js/sort.js">
           <value>
             <set />
           </value>
@@ -389,6 +419,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/welcomeAdmin.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../jsp-serlet-pagination/pom.xml">
           <value>
             <set />
           </value>
