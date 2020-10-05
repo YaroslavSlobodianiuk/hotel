@@ -44,9 +44,9 @@ public class BasicConnectionPool implements ConnectionPool {
 
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
 
-        if(!connection.isValid(MAX_TIMEOUT)){
-            connection = createConnection(url, user, password);
-        }
+//        if(!connection.isValid(MAX_TIMEOUT)){
+//            connection = createConnection(url, user, password);
+//        }
 
         usedConnections.add(connection);
         return connection;
@@ -66,6 +66,10 @@ public class BasicConnectionPool implements ConnectionPool {
             e.printStackTrace();
         }
         return DriverManager.getConnection(url, user, password);
+    }
+
+    public List<Connection> getUsedConnections() {
+        return usedConnections;
     }
 
     @Override

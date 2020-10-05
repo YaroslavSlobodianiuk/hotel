@@ -13,5 +13,6 @@ public interface ConnectionPool {
     String getUrl();
     String getUser();
     String getPassword();
-    void shutdown() throws SQLException;;
+    void shutdown() throws SQLException;
+    List<Connection> getUsedConnections();
 }

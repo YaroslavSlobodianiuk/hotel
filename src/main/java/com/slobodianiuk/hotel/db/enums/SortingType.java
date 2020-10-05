@@ -1,11 +1,11 @@
 package com.slobodianiuk.hotel.db.enums;
 
 public enum  SortingType {
-    DEFAULT(""),
+    DEFAULT("apartments.id"),
     PRICE("price"),
     CAPACITY("capacity"),
-    CATEGORY("category"),
-    STATUS("status");
+    CATEGORY_NAME("category_name"),
+    STATUS_NAME("status_name");
 
     private String value;
 

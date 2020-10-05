@@ -36,6 +36,7 @@
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             document.getElementById('sort-select').options[urlParams.get('sort')].selected = true;
+            document.getElementById('sort-order').options[urlParams.get('order')].selected = true;
         }
 
         // function setSelectedItem(value) {
@@ -43,12 +44,17 @@
         //     localStorage.setItem('selectedItem', value);
         //
         // }
-        function sort(value) {
+        function sort() {
 
 
             // localStorage.setItem('selectedItem', value);
             // window.location.replace("/apartments?sort=" + value);
-            window.location.replace("/apartments?sort=" + value);
+            var e = document.getElementById('sort-select');
+            var sort = e.options[e.selectedIndex].value;
+
+            var el = document.getElementById('sort-order');
+            var order = el.options[el.selectedIndex].value;
+            window.location.replace('/apartments?sort=' + sort + '&order=' + order);
 
 
 
@@ -74,10 +80,18 @@
 </head>
 <body onload="getSelectedOption()">
 <div>
-    <select id="sort-select" name="sort-select" onchange="sort(value)">
-        <option value="default" selected>Select a sort type:</option>
+    <select id="sort-select" onchange="sort()">
+        <option id="default" value="default">default</option>
         <option id="price" value="price">price</option>
         <option id="capacity" value="capacity">number of places</option>
+        <option id="category_name" value="category_name">category</option>
+        <option id="status_name" value="status_name">status</option>
+    </select>
+</div>
+<div>
+    <select id="sort-order" onchange="sort()">
+        <option id="asc" value="asc">asc</option>
+        <option id="desc" value="desc">desc</option>
     </select>
 </div>
 <%--<script>--%>
@@ -108,7 +122,7 @@
     </div>
 </c:forEach>
 <c:if test="${currentPage != 1}">
-    <td><a href="apartments?page=${currentPage - 1}&sort=${sortingType}">Previous</a></td>
+    <td><a href="${pageContext.request.contextPath}/apartments?page=${currentPage - 1}&sort=${sortingType}&order=${sortingOrder}">Previous</a></td>
 </c:if>
 <table border="1" cellpadding="5" cellspacing="5">
     <tr>
@@ -118,14 +132,14 @@
                     <td>${i}</td>
                 </c:when>
                 <c:otherwise>
-                    <td><a href="/apartments?page=${i}&sort=${sortingType}">${i}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/apartments?page=${i}&sort=${sortingType}&order=${sortingOrder}">${i}</a></td>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
     </tr>
 </table>
 <c:if test="${currentPage lt numberOfPages}">
-    <td><a href="apartments?page=${currentPage + 1}&sort=${sortingType}">Next</a></td>
+    <td><a href="${pageContext.request.contextPath}/apartments?page=${currentPage + 1}&sort=${sortingType}&order=${sortingOrder}">Next</a></td>
 <%--    <td><a href="apartments?page=${currentPage + 1}">Next</a></td>--%>
 </c:if>
 </body>

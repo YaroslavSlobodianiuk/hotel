@@ -1,6 +1,7 @@
 package com.slobodianiuk.hotel.db.repo;
 
 import com.slobodianiuk.hotel.db.entity.Apartment;
+import com.slobodianiuk.hotel.db.enums.SortingOrder;
 import com.slobodianiuk.hotel.db.enums.SortingType;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
@@ -37,7 +38,7 @@ public class ApartmentRepository {
         return Optional.of(apartment);
     }
 
-    public static List<Apartment> getApartments(int offset, int numberOfRecords, SortingType sortingType) {
+    public static List<Apartment> getApartments(int offset, int numberOfRecords, SortingType sortingType, SortingOrder sortingOrder) {
         StringBuilder queryBuilder = new StringBuilder();
         List<Apartment> apartments = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
@@ -46,8 +47,11 @@ public class ApartmentRepository {
         Connection connection = null;
 
         queryBuilder.append("select * from apartments inner join categories on apartments.category_id = categories.id inner join room_capacity on apartments.room_capacity_id = room_capacity.id inner join statuses on apartments.status_id = statuses.id");
-        if (!SortingType.DEFAULT.equals(sortingType)) {
+        if (sortingType != null) {
             queryBuilder.append(" order by ").append(sortingType.getValue());
+        }
+        if (!SortingOrder.ASC.equals(sortingOrder)) {
+            queryBuilder.append(" ").append(sortingOrder.getValue());
         }
         queryBuilder.append(" limit ").append(offset).append(", ").append(numberOfRecords);
         System.out.println(queryBuilder.toString());
@@ -62,7 +66,9 @@ public class ApartmentRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            System.out.println("size" + connectionPool.getSize());
             connectionPool.releaseConnection(connection);
+            System.out.println("size" + connectionPool.getSize());
             close(preparedStatement, set);
         }
         return apartments;
@@ -85,6 +91,9 @@ public class ApartmentRepository {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);
             e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
+            close(preparedStatement, set);
         }
         return numberOfRecords;
     }
