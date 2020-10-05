@@ -338,6 +338,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/RoomCapacityRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserRepository.java">
           <value>
             <set />
@@ -379,6 +384,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/book.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/booking.jsp">
           <value>
             <set />
           </value>

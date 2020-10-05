@@ -25,4 +25,12 @@ public class RoomCapacity {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    @Override
+    public String toString() {
+        return "RoomCapacity{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                '}';
+    }
 }

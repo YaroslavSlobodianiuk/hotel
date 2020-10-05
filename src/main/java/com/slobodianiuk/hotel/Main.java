@@ -1,22 +1,26 @@
 package com.slobodianiuk.hotel;
 
 
-import com.slobodianiuk.hotel.db.entity.Apartment;
-import com.slobodianiuk.hotel.db.enums.SortingType;
-import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
-import com.slobodianiuk.hotel.db.repo.UserRepository;
-
 import java.sql.SQLException;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        List<Apartment> apartments = ApartmentRepository.getApartments(0, 5, SortingType.DEFAULT);
-        for (Apartment apartment : apartments) {
-            System.out.println(apartment);
-        }
+
+        DateTimeFormatter formatter
+                = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+
+        LocalDateTime dateTime = LocalDateTime.now(Clock.systemDefaultZone());
+        dateTime = dateTime.plusYears(1);
+        String tenYearsAfterString = dateTime.format(formatter);
+        System.out.println(tenYearsAfterString);
 
 
     }

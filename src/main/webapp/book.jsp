@@ -13,5 +13,9 @@
 </head>
 <body>
     <h1>Booking</h1>
+    <h1>${capacity}</h1>
+    <h1>${category}</h1>
+    <h1>${from}</h1>
+    <h1>${to}</h1>
 </body>
 </html>

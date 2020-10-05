@@ -3,7 +3,9 @@ package com.slobodianiuk.hotel.db.enums;
 public enum  SortingType {
     DEFAULT(""),
     PRICE("price"),
-    CAPACITY("capacity");
+    CAPACITY("capacity"),
+    CATEGORY("category"),
+    STATUS("status");
 
     private String value;
 

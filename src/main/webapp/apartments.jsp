@@ -11,15 +11,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <html onload="getSelectedOption()">
+    <html>
 <head>
     <script>
-
+        // window.addEventListener('DOMContentLoaded', (event) => {
+        //     const queryString = window.location.search;
+        //
+        //     console.log(queryString);
+        //     const urlParams = new URLSearchParams(queryString);
+        //     document.getElementById('sort-select').options[urlParams.get('selected')].selected = true;
+        //     console.log(urlParams.get('selected'));
+        // });
         function getSelectedOption() {
-            // if (localStorage.getItem('sort-select')) {
-            //     var id = localStorage.getItem('sort-select').id;
-            //     document.getElementById(id).selected = true;
-            //
+            // if (localStorage.getItem('selectedItem')) {
+            //     // var id = localStorage.getItem('sort-select').id;
+            //     // document.getElementById(id).selected = true;
+            //     document.getElementById('sort-select').options[localStorage.getItem('selectedItem')].selected = true;
             //     //$("#sort-select option").eq(localStorage.getItem('sort-select')).prop('selected', true);
             // }
 
@@ -27,12 +34,8 @@
             //     document.getElementById('sort-select').options[localStorage.getItem('selectedItem')].selected = true;
             // }
             const queryString = window.location.search;
-
-            console.log(queryString);
             const urlParams = new URLSearchParams(queryString);
-            document.getElementById('sort-select').options[urlParams.get('selected')].selected = true;
-            console.log(urlParams.get('selected'));
-
+            document.getElementById('sort-select').options[urlParams.get('sort')].selected = true;
         }
 
         // function setSelectedItem(value) {
@@ -41,12 +44,14 @@
         //
         // }
         function sort(value) {
-            console.log("aaaaaaaaaaaaaa");
-
-            window.location.replace("/apartments?sort=" + value + "&selected=" + value);
 
 
-            //localStorage.setItem('selectedItem', document.getElementById('sort-select').value);
+            // localStorage.setItem('selectedItem', value);
+            // window.location.replace("/apartments?sort=" + value);
+            window.location.replace("/apartments?sort=" + value);
+
+
+
 
 
             // $("#sort-select").on('change', function() {
@@ -67,10 +72,10 @@
     <title>Title</title>
     <%@ include file="blocks/header.jsp" %>
 </head>
-<body>
+<body onload="getSelectedOption()">
 <div>
-    <select name="sort-select" onchange="sort(value)">
-        <option value="">Select a sort type:</option>
+    <select id="sort-select" name="sort-select" onchange="sort(value)">
+        <option value="default" selected>Select a sort type:</option>
         <option id="price" value="price">price</option>
         <option id="capacity" value="capacity">number of places</option>
     </select>
@@ -103,7 +108,7 @@
     </div>
 </c:forEach>
 <c:if test="${currentPage != 1}">
-    <td><a href="apartments?page=${currentPage - 1}">Previous</a></td>
+    <td><a href="apartments?page=${currentPage - 1}&sort=${sortingType}">Previous</a></td>
 </c:if>
 <table border="1" cellpadding="5" cellspacing="5">
     <tr>
@@ -113,14 +118,15 @@
                     <td>${i}</td>
                 </c:when>
                 <c:otherwise>
-                    <td><a href="/apartments?page=${i}">${i}</a></td>
+                    <td><a href="/apartments?page=${i}&sort=${sortingType}">${i}</a></td>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
     </tr>
 </table>
 <c:if test="${currentPage lt numberOfPages}">
-    <td><a href="apartments?page=${currentPage + 1}">Next</a></td>
+    <td><a href="apartments?page=${currentPage + 1}&sort=${sortingType}">Next</a></td>
+<%--    <td><a href="apartments?page=${currentPage + 1}">Next</a></td>--%>
 </c:if>
 </body>
 </html>

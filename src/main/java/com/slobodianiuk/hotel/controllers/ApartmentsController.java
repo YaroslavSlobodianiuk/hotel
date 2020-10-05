@@ -22,7 +22,7 @@ public class ApartmentsController extends HttpServlet {
         System.out.println(req.getParameter("sort"));
         SortingType sortingType = SortingType.DEFAULT;
         if (req.getParameter("sort") != null) {
-            String sort = req.getParameter("sort");
+            String sort = req.getParameter("sort").toLowerCase();
             if (SortingType.PRICE.getValue().equals(sort)) {
                 System.out.println("a");
                 sortingType = SortingType.PRICE;
@@ -43,7 +43,7 @@ public class ApartmentsController extends HttpServlet {
         req.setAttribute("apartments", apartments);
         req.setAttribute("numberOfPages", numberOfPages);
         req.setAttribute("currentPage", page);
-        req.setAttribute("sortingType", sortingType);
+        req.setAttribute("sortingType", sortingType.toString().toLowerCase());
         System.out.println("c");
         req.getRequestDispatcher("apartments.jsp").forward(req, resp);
         System.out.println("d");
