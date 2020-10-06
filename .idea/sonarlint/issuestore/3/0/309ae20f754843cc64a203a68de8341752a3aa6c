@@ -1,0 +1,21 @@
+
+z	java:S131"YComplete cases by adding the missing enum constants or add a default case to this switch.(Ñ­¤¢üÿÿÿÿ8ý—‰±Í.
+£
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦¯ÇÑÿÿÿÿÿ8«øéøÌ.
+~
+java:S1989'"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8‡ÖÌ®Í.
+p
+java:S1989 "SHandle the following exception that could be thrown by "sendRedirect": IOException.(Â¸ý8ü§½®Í.
+z	java:S1317"YComplete cases by adding the missing enum constants or add a default case to this switch.(½ìê‘ûÿÿÿÿ8ìå©Í.
+p
+java:S1989:"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Â¸ý8Åö·®Í.
+m
+java:S1301"KReplace this "switch" statement by "if" statements to increase readability.(Ñ­¤¢üÿÿÿÿ8ý—‰±Í.
+m
+java:S13017"KReplace this "switch" statement by "if" statements to increase readability.(½ìê‘ûÿÿÿÿ8ìå©Í.
+u
+java:S1989>"SHandle the following exception that could be thrown by "sendRedirect": IOException.(‚•²‰ÿÿÿÿÿ8óÐ´®Í.
+u
+java:S1989#"SHandle the following exception that could be thrown by "sendRedirect": IOException.(‚•²‰ÿÿÿÿÿ8–ñ¼®Í.
+~
+java:S1989D"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8«¸æÌÍ.

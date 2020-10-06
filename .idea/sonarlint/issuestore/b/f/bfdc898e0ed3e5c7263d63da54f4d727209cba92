@@ -1,0 +1,16 @@
+
+U	java:S106$"9Replace this use of System.out or System.err by a logger.(ı³ÓÆ8·›·îÎ.
+v
+java:S19893"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ç¤ñı8¿şÛÎ.
+U	java:S106="9Replace this use of System.out or System.err by a logger.(öôÊ¡8õùäîÎ.
+W	java:S125A"<This block of commented-out lines of code should be removed.(‰ˆŠP8¿şÛÎ.
+Z	java:S106'"9Replace this use of System.out or System.err by a logger.(±éÂÒùÿÿÿÿ8ÔÍ·îÎ.
+h
+java:S1192"FDefine a constant instead of duplicating this literal "order" 3 times.(ˆ¢Ì÷ıÿÿÿÿ8íæ§³Ï.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ˆ¢Ì÷ıÿÿÿÿ8³â’³Ï.
+ƒ
+java:S1989>"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(íÙ ıÿÿÿÿ8ÃÿîÎ.
+U	java:S106"9Replace this use of System.out or System.err by a logger.(üÍ“Ê8•áèíÎ.
+U	java:S106?"9Replace this use of System.out or System.err by a logger.(¢ˆüŞ8Ìü‚ïÎ.
+X
+java:S1128";Remove this unused import 'javax.servlet.http.HttpSession'.(í¨ô8å´üîÎ.

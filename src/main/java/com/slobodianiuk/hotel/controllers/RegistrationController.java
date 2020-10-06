@@ -76,8 +76,8 @@ public class RegistrationController extends HttpServlet {
             req.getRequestDispatcher("register.jsp").forward(req, resp);
             System.out.println("Login " + login + "is already exist");
         }
-
-        Optional<User> registeredUser = UserRepository.registerUser(login, password, firstName, lastName);
+        String locale = session.getAttribute("locale") != null ? (String) session.getAttribute("locale") : "en";
+        Optional<User> registeredUser = UserRepository.registerUser(login, password, firstName, lastName, locale);
         if (!registeredUser.isPresent()) {
             req.setAttribute("message", "Something happened while registration, please try again");
             req.getRequestDispatcher("register.jsp").forward(req, resp);

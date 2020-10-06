@@ -41,8 +41,6 @@ L
 src/main/webapp/register.jsp,b\d\bde35d3876092f82f8efadc1a6675aaf6bd96946
 u
 Esrc/main/java/com/slobodianiuk/hotel/db/pool/BasicConnectionPool.java,1\8\181bcdf1f010d025bb5bf6f306a7e8c3894c68c6
-Q
-!src/main/java/database.properties,8\6\86ed53cca501b767d7e4514f86e81b296df9e505
 w
 Gsrc/main/java/com/slobodianiuk/hotel/properties/DatabaseProperties.java,2\a\2a529259837f90a1de89eacdfc437b6a65712de1
 p
@@ -101,3 +99,9 @@ n
 >src/main/java/com/slobodianiuk/hotel/db/enums/SortingType.java,d\f\df0eae95852a67859df497c4c5edddda22ec38e9
 x
 Hsrc/main/java/com/slobodianiuk/hotel/db/repo/RoomCapacityRepository.java,7\4\747a4cc6eecaaaeabfb0ab8a3a5c3451f2ee65e6
+R
+"src/main/java/resources.properties,7\9\7914533b00c57d4b165a64b1b9e673ccef24ebbe
+U
+%src/main/java/resources_en.properties,5\0\50742ee90162c18f5ffc8051787e49ad7baf552a
+h
+8src/main/java/com/slobodianiuk/hotel/database.properties,a\c\acf23438da5469276d12f1a26467f40851769437

@@ -12,18 +12,19 @@ public class UserRepository {
 
     private UserRepository() {}
 
-    public static Optional<User> registerUser(String login, String password, String firstName, String lastName) {
+    public static Optional<User> registerUser(String login, String password, String firstName, String lastName, String locale) {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         User user = null;
         ResultSet set;
         try {
-            preparedStatement = connectionPool.getConnection().prepareStatement("insert into users (login, password, first_name, last_name, role_id) values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connectionPool.getConnection().prepareStatement("insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstName);
             preparedStatement.setString(4, lastName);
             preparedStatement.setInt(5, RoleEnum.User.getRoleId());
+            preparedStatement.setString(6, locale);
             preparedStatement.execute();
 
             set = preparedStatement.getGeneratedKeys();
@@ -31,7 +32,7 @@ public class UserRepository {
             if (set.next()) {
                 id = set.getInt(1);
             }
-            user = new User(id, login, password, firstName, lastName, RoleEnum.User.getRoleId());
+            user = new User(id, login, password, firstName, lastName, RoleEnum.User.getRoleId(), locale);
 
         } catch (SQLException e) {
             //Logger
@@ -68,6 +69,28 @@ public class UserRepository {
         return user;
     }
 
+    public static boolean updateUser(User user) {
+        ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("update users set locale_name = (?) where id = (?)");
+            preparedStatement.setString(1, user.getLocaleName());
+            preparedStatement.setInt(2, user.getId());
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            connectionPool.releaseConnection(connection);
+            close(preparedStatement);
+        }
+        return true;
+    }
+
     private static Optional<User> extractUser(ResultSet rs) {
         User user = new User();
         try {
@@ -77,11 +100,13 @@ public class UserRepository {
             user.setFirstName(rs.getString("first_name"));
             user.setLastName(rs.getString("last_name"));
             user.setRoleId(rs.getInt("role_id"));
+            user.setLocaleName(rs.getString("locale_name"));
         } catch (SQLException ex) {
             // Logger
         }
         return Optional.of(user);
     }
+
 
     private static void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
@@ -102,5 +127,6 @@ public class UserRepository {
             }
         }
     }
+
 
 }

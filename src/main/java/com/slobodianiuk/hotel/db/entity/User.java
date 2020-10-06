@@ -9,17 +9,19 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private int roleId;
+    private String localeName;
 
     public User() {
     }
 
-    public User(int id, String login, String password, String firstName, String lastName, int roleId) {
+    public User(int id, String login, String password, String firstName, String lastName, int roleId, String localeName) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.roleId = roleId;
+        this.localeName = localeName;
     }
 
     public int getId() {
@@ -68,6 +70,14 @@ public class User implements Serializable {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public String getLocaleName() {
+        return localeName;
+    }
+
+    public void setLocaleName(String localeName) {
+        this.localeName = localeName;
     }
 
     @Override

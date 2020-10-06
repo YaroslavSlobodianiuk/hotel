@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: GUEST USER
@@ -9,7 +10,6 @@
 <html>
 <head>
     <title>Title</title>
-    <%@ include file="blocks/header.jsp"%>
 </head>
 <body>
     <h1>Booking</h1>
@@ -17,5 +17,9 @@
     <h1>${category}</h1>
     <h1>${from}</h1>
     <h1>${to}</h1>
+    <c:forEach items="${locale}">
+        <h1>${locale.toUpperCase()}</h1>
+    </c:forEach>
+<h1>${locale}</h1>
 </body>
 </html>

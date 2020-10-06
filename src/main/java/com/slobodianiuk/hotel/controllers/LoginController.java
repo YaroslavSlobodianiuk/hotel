@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -55,13 +56,20 @@ public class LoginController extends HttpServlet {
                 switch (RoleEnum.getRole(user.getRoleId())) {
                     case Admin:
                         session.setAttribute("user", user);
+                        Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", user.getLocaleName());
+                        session.setAttribute("locale", user.getLocaleName());
                         resp.sendRedirect(req.getContextPath() + "/admin");
                         break;
                     case User:
                         session.setAttribute("user", user);
+                        Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", user.getLocaleName());
+                        session.setAttribute("locale", user.getLocaleName());
                         resp.sendRedirect(req.getContextPath() + "/welcome");
                         break;
                 }
+            } else {
+                req.setAttribute("message", "Invalid login or password");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
             }
         }  else {
             req.setAttribute("message", "Invalid login or password");
