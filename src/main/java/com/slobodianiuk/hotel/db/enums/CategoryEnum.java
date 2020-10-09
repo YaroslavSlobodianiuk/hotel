@@ -10,7 +10,7 @@ public enum CategoryEnum {
         this.categoryId = categoryId;
     }
 
-    public static CategoryEnum getRole(Integer categoryId) {
+    public static CategoryEnum getCategory(Integer categoryId) {
         for (CategoryEnum categoryEnum : values()) {
             if (categoryEnum.categoryId.equals(categoryId)) return categoryEnum;
         }

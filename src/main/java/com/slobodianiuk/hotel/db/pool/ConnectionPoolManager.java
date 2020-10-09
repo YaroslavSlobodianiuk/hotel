@@ -17,7 +17,7 @@ public class ConnectionPoolManager {
                 localInstance = instance;
                 if (localInstance == null) {
                     try {
-                        instance  = localInstance = BasicConnectionPool.create("jdbc:mysql://localhost:3306/final_project_db", "root", "admin");
+                        instance  = localInstance = BasicConnectionPool.create("jdbc:mysql://localhost:3306/final_project_db?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8", "root", "admin");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

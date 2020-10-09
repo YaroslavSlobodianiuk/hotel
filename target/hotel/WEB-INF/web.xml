@@ -27,8 +27,8 @@
 
   <!-- supported locales -->
   <context-param>
-    <param-name>locale</param-name>
-    <param-value>ru en</param-value>
+    <param-name>locales</param-name>
+    <param-value>en ru</param-value>
   </context-param>
 
 

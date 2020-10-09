@@ -1,9 +1,11 @@
 package com.slobodianiuk.hotel;
 
 
+import com.slobodianiuk.hotel.db.entity.RoomCapacity;
 import com.slobodianiuk.hotel.db.pool.BasicConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import com.slobodianiuk.hotel.db.repo.RoomCapacityRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,36 +29,10 @@ public class Main {
 //        String tenYearsAfterString = dateTime.format(formatter);
 //        System.out.println(tenYearsAfterString);
 
-        BasicConnectionPool basicConnectionPool = (BasicConnectionPool) ConnectionPoolManager.getInstance();
-
-        ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
-        Connection connection = null;
-        for (int i = 0; i < 5; i++) {
-            connection = connectionPool.getConnection();
-
-            connectionPool.releaseConnection(connection);
-            System.out.println(connectionPool.getUsedConnections().size());
+        List<RoomCapacity> capacities = RoomCapacityRepository.getRoomCapacitiesByCategoryId(3);
+        for (RoomCapacity roomCapacity : capacities) {
+            System.out.println(roomCapacity);
         }
-
-        ConnectionPool connectionPool1 = ConnectionPoolManager.getInstance();
-        Connection connection1 = null;
-        for (int i = 0; i < 5; i++) {
-            connection = connectionPool1.getConnection();
-            connectionPool1.releaseConnection(connection1);
-
-            System.out.println(connectionPool1.getUsedConnections().size());
-        }
-
-        ConnectionPool connectionPool2 = ConnectionPoolManager.getInstance();
-        Connection connection2 = null;
-        for (int i = 0; i < 5; i++) {
-            connection = connectionPool2.getConnection();
-            connectionPool2.releaseConnection(connection1);
-
-            System.out.println(connectionPool2.getUsedConnections().size());
-        }
-
-
 
 
     }

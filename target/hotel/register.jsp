@@ -5,17 +5,18 @@
   Time: 18:38
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Title</title>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/register" method="post">
     <table>
         <tr>
             <td>${message}</td>
-            <td></td>
+            <td>${tmp}</td>
         </tr>
         <tr>
             <td>Login:</td>

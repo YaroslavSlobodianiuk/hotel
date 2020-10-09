@@ -5,6 +5,9 @@ public class RoomCapacity {
     private int id;
     private int capacity;
 
+    public RoomCapacity() {
+    }
+
     public RoomCapacity(int id, int capacity) {
         this.id = id;
         this.capacity = capacity;

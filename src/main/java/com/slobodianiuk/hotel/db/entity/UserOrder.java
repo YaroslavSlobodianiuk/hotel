@@ -6,22 +6,26 @@ public class UserOrder {
 
     private int id;
     private int userId;
+    private int apartmentId;
     private int roomCapacityId;
     private int categoryId;
     private Date arrival;
     private Date departure;
+    private int orderStatusId;
     private String comment;
 
     public UserOrder() {
     }
 
-    public UserOrder(int id, int userId, int roomCapacityId, int categoryId, Date arrival, Date departure, String comment) {
+    public UserOrder(int id, int userId, int apartmentId, int roomCapacityId, int categoryId, Date arrival, Date departure, int orderStatusId, String comment) {
         this.id = id;
         this.userId = userId;
+        this.apartmentId = apartmentId;
         this.roomCapacityId = roomCapacityId;
         this.categoryId = categoryId;
         this.arrival = arrival;
         this.departure = departure;
+        this.orderStatusId = orderStatusId;
         this.comment = comment;
     }
 
@@ -81,15 +85,33 @@ public class UserOrder {
         this.comment = comment;
     }
 
+    public int getApartmentId() {
+        return apartmentId;
+    }
+
+    public void setApartmentId(int apartmentId) {
+        this.apartmentId = apartmentId;
+    }
+
+    public int getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(int orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
+
     @Override
     public String toString() {
         return "UserOrder{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", apartmentId=" + apartmentId +
                 ", roomCapacityId=" + roomCapacityId +
                 ", categoryId=" + categoryId +
                 ", arrival=" + arrival +
                 ", departure=" + departure +
+                ", orderStatusId=" + orderStatusId +
                 ", comment='" + comment + '\'' +
                 '}';
     }

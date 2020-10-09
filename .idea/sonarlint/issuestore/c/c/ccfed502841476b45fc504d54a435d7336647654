@@ -1,34 +1,32 @@
 
-K
-java:S1121=".Extract the assignment out of this expression.(ÊÑü8ÑÜéøÌ.
-£
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Êª³ºùÿÿÿÿ8ÑÜéøÌ.
-p
-java:S1989("SHandle the following exception that could be thrown by "sendRedirect": IOException.(¢ò¯ô8Ç¸¯°Í.
-U	java:S106T"9Replace this use of System.out or System.err by a logger.(–™•ƒ8Øò´±Í.
-ƒ
-java:S1989E"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
-Z	java:S106F"9Replace this use of System.out or System.err by a logger.(È¸‚ìøÿÿÿÿ8ÑÜéøÌ.
-j
-java:S1192>"HDefine a constant instead of duplicating this literal "message" 5 times.(±îƒÇùÿÿÿÿ8ÑÜéøÌ.
-o
-java:S1989W"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ˆİÙJ8½¦È±Í.
-ƒ
-java:S1989S"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8Øò´±Í.
-T	java:S106X"9Replace this use of System.out or System.err by a logger.(¤ì†68ÑÜéøÌ.
-Z	java:S106@"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ8ÑÜéøÌ.
+
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8Øò´±Í.
+s
+java:S1989"SHandle the following exception that could be thrown by "sendRedirect": IOException.(š«„šÿÿÿÿÿ8°íµ°Í.
+m
+java:S1989"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ˆİÙJ8½¦È±Í.
+X	java:S106"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ8æ¿ÀĞ.
 I
-java:S14814",Remove this unused "session" local variable.(ôÜ½¯8ùä‘²Í.
-ƒ
-java:S1989."aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8Ç¸¯°Í.
-ƒ
-java:S1989L"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
-u
-java:S1989$"SHandle the following exception that could be thrown by "sendRedirect": IOException.(š«„šÿÿÿÿÿ8°íµ°Í.
-ƒ
-java:S1989?"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
-X
-java:S18544";Remove this useless assignment to local variable "session".(ôÜ½¯8ùä‘²Í.
-Z	java:S106M"9Replace this use of System.out or System.err by a logger.(íö—úÿÿÿÿ8ÑÜéøÌ.
-o
-java:S1192."MDefine a constant instead of duplicating this literal "register.jsp" 5 times.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
+java:S1121".Extract the assignment out of this expression.(ÊÑü8æ¿ÀĞ.
+R	java:S106"9Replace this use of System.out or System.err by a logger.(¤ì†68ÑÜéøÌ.
+S	java:S106"9Replace this use of System.out or System.err by a logger.(–™•ƒ8Øò´±Í.
+
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8æ¿ÀĞ.
+X	java:S106"9Replace this use of System.out or System.err by a logger.(íö—úÿÿÿÿ8ÑÜéøÌ.
+X	java:S106"9Replace this use of System.out or System.err by a logger.(È¸‚ìøÿÿÿÿ8æ¿ÀĞ.
+R	java:S106"9Replace this use of System.out or System.err by a logger.(¥˜8»÷¿Ğ.
+
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8œ¿ñÀĞ.
+S	java:S106"9Replace this use of System.out or System.err by a logger.(¶åÚæ8Ë¬øÀĞ.
+n
+java:S1989"SHandle the following exception that could be thrown by "sendRedirect": IOException.(¢ò¯ô8Ç¸¯°Í.
+h
+java:S1192"HDefine a constant instead of duplicating this literal "message" 5 times.(±îƒÇùÿÿÿÿ8ÑÜéøÌ.
+¡
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Êª³ºùÿÿÿÿ8ÑÜéøÌ.
+
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8æ¿ÀĞ.
+
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
+m
+java:S1192"MDefine a constant instead of duplicating this literal "register.jsp" 5 times.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.

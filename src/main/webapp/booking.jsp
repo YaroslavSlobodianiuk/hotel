@@ -10,7 +10,7 @@
   Time: 17:47
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Title</title>
@@ -30,16 +30,24 @@
 <body>
     <h1>${message}</h1>
     <form action="/booking" method="post">
+        <div class="container mt-5">
+            <div class="row">
+
+            </div>
+        </div>
+
+
+        Category: <select id="category" name="category">
+        <c:forEach items="${categories}" var="categories">
+            <option value="${categories.categoryName}">${categories.categoryName}</option>
+        </c:forEach>
+    </select> <br>
         Capacity: <select id="capacity" name="capacity">
             <c:forEach items="${capacities}" var="capacities">
                 <option value="${capacities.capacity}">${capacities.capacity}</option>
             </c:forEach>
         </select> <br>
-        Category: <select id="category" name="category">
-            <c:forEach items="${categories}" var="categories">
-                <option value="${categories.categoryName}">${categories.categoryName}</option>
-            </c:forEach>
-        </select> <br>
+
         <%
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDateTime currentTime = LocalDateTime.now(Clock.systemDefaultZone());
@@ -62,7 +70,9 @@
         <input type="date" id="finish" name="trip-finish"
                value="<%=oneDayAfterCurrentDay%>"
                min="<%=oneDayAfterCurrentDay%>" max="<%=oneYearAndOneDayAfterCurrentDay%>"> <br>
-        <input type="submit" value="Book Now">
+        Comment: <br>
+        <input type="text" height="100" width="200" name="comment">
+        <br><input type="submit" value="Book Now"><br>
     </form>
 </body>
 </html>

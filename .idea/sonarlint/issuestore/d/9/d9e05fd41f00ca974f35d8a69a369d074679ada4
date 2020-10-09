@@ -1,6 +1,26 @@
 
 ~
-java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8“”·ŸÏ.
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–‚²ÏĞ.
+Z
+java:S1854/"=Remove this useless assignment to local variable "orderFlag".(êÿêÓ8–‚²ÏĞ.
+S
+java:S1854)"6Remove this useless assignment to local variable "to".(»ùÕ8–‚²ÏĞ.
+U
+java:S1854("8Remove this useless assignment to local variable "from".(á»‰ƒ8–‚²ÏĞ.
+Y
+java:S1854'"<Remove this useless assignment to local variable "category".(Öêèı8–‚²ÏĞ.
+Y
+java:S1854&"<Remove this useless assignment to local variable "capacity".(­Å¼8–‚²ÏĞ.
 ~
-java:S1989,"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¦ÕªŒ8›˜ß¥Ï.
-]	java:S125+"<This block of commented-out lines of code should be removed.(Ö£ßışÿÿÿÿ8Ş§Å¡Ï.
+java:S19894"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¦ÕªŒ8–‚²ÏĞ.
+J
+java:S1481&"-Remove this unused "capacity" local variable.(­Å¼8–‚²ÏĞ.
+J
+java:S1481'"-Remove this unused "category" local variable.(Öêèı8–‚²ÏĞ.
+F
+java:S1481(")Remove this unused "from" local variable.(á»‰ƒ8–‚²ÏĞ.
+D
+java:S1481)"'Remove this unused "to" local variable.(»ùÕ8–‚²ÏĞ.
+K
+java:S1481/".Remove this unused "orderFlag" local variable.(êÿêÓ8–‚²ÏĞ.
+]	java:S1253"<This block of commented-out lines of code should be removed.(Ö£ßışÿÿÿÿ8–‚²ÏĞ.

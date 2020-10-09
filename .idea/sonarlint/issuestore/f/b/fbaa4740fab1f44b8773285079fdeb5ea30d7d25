@@ -1,14 +1,16 @@
 
 M
+java:S1128"0Remove this unused import 'java.sql.Connection'.(¥ËôÖ8¯âˆÁĞ.
+M
 java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¼ÜÄ¡Ï.
-U	java:S1066"9Replace this use of System.out or System.err by a logger.(²•ñŸ8¡ú²·Ï.
-]	java:S125%"<This block of commented-out lines of code should be removed.(İ«Šğûÿÿÿÿ8Å„®·Ï.
-X	java:S125/"<This block of commented-out lines of code should be removed.(³Ù’É8Å„®·Ï.
+l
+java:S1128"JRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPool'.(ÚˆŸÖùÿÿÿÿ8¯âˆÁĞ.
+‹
+java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(Á¯¦ş8¯âˆÁĞ.
 X	java:S125"<This block of commented-out lines of code should be removed.(­ºĞğ8ØÑ»¶Ï.
 X	java:S125"<This block of commented-out lines of code should be removed.(«Ó’œ8ØÑ»¶Ï.
-d
-java:S1854"GRemove this useless assignment to local variable "basicConnectionPool".(Œ’¹8‰˜÷¶Ï.
-]	java:S125 "<This block of commented-out lines of code should be removed.(É­ŒŸùÿÿÿÿ8Å„®·Ï.
-U
-java:S1481"8Remove this unused "basicConnectionPool" local variable.(Œ’¹8‰˜÷¶Ï.
-X	java:S125)"<This block of commented-out lines of code should be removed.(Îíèº8Å„®·Ï.
+U	java:S106"9Replace this use of System.out or System.err by a logger.(ä „’8¯âˆÁĞ.
+q
+java:S1128"ORemove this unused import 'com.slobodianiuk.hotel.db.pool.BasicConnectionPool'.(­Š±ëúÿÿÿÿ8¯âˆÁĞ.
+n
+java:S1128"QRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPoolManager'.(’‰’Á8¯âˆÁĞ.

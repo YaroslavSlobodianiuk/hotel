@@ -1,3 +1,6 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.StringTokenizer" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
@@ -7,7 +10,7 @@
   Time: 13:22
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Title</title>
@@ -24,6 +27,7 @@
         <a class="p-2 text-dark" href="/booking">Booking</a>
         <a class="p-2 text-dark" href="#">Contacts</a>
         <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/login">Sign in</a>
+        <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Log out</a>
         <div class="dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                 Language

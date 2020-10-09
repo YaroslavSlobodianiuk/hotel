@@ -23,6 +23,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/idea64.exe.vmoptions">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/scratches/scratch.properties">
           <value>
             <set />
@@ -363,12 +368,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserOrderRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserRepository.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/properties/DatabaseProperties.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/ui/filters/EncodingFilter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/ui/filters/RegistrationFilter.java">
           <value>
             <set />
           </value>
@@ -449,6 +469,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/booking.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/dynamicDependentDropDownList.jsp">
           <value>
             <set />
           </value>

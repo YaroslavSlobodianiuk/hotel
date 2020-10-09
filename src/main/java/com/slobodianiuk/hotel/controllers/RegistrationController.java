@@ -26,6 +26,8 @@ public class RegistrationController extends HttpServlet {
 
         Integer roleId = (Integer) session.getAttribute("role");
         User userAtt = (User) session.getAttribute("user");
+        String parameter = req.getParameter("tmp");
+        System.out.println(parameter);
 
 
         if (userAtt != null) {
@@ -43,6 +45,7 @@ public class RegistrationController extends HttpServlet {
                     break;
             }
         } else {
+            req.setAttribute("tmp", parameter);
             req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
     }
@@ -70,6 +73,7 @@ public class RegistrationController extends HttpServlet {
             System.out.println("Password does not match");
         }
 
+        System.out.println("login: " + login);
         Optional<User> optionalUser = UserRepository.getUserByLogin(login);
         if (optionalUser.isPresent()) {
             req.setAttribute("message", "Login " + login + " is already exist");
