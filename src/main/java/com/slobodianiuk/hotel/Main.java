@@ -1,15 +1,18 @@
 package com.slobodianiuk.hotel;
 
 
+import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.RoomCapacity;
 import com.slobodianiuk.hotel.db.pool.BasicConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
 import com.slobodianiuk.hotel.db.repo.RoomCapacityRepository;
+import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Clock;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -29,9 +32,9 @@ public class Main {
 //        String tenYearsAfterString = dateTime.format(formatter);
 //        System.out.println(tenYearsAfterString);
 
-        List<RoomCapacity> capacities = RoomCapacityRepository.getRoomCapacitiesByCategoryId(3);
-        for (RoomCapacity roomCapacity : capacities) {
-            System.out.println(roomCapacity);
+        List<UserOrderBean> orders = UserOrderRepository.getOrders();
+        for (UserOrderBean userOrderBean : orders) {
+            System.out.println(userOrderBean);
         }
 
 

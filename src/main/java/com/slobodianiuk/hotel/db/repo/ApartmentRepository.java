@@ -98,6 +98,35 @@ public class ApartmentRepository {
         return numberOfRecords;
     }
 
+    public static List<Apartment> getFreeApartmentsByCategoryAndCapacity(int categoryId, int capacityId) {
+        List<Apartment> apartments = new ArrayList<>();
+        ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet set = null;
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("select id, title from apartments where category_id = (?) and room_capacity_id = (?) and status_id = 1;");
+            preparedStatement.setInt(1, categoryId);
+            preparedStatement.setInt(2, capacityId);
+            set = preparedStatement.executeQuery();
+            while (set.next()) {
+                Apartment apartment = new Apartment();
+                apartment.setId(set.getInt("id"));
+                apartment.setTitle(set.getString("title"));
+                apartments.add(apartment);
+            }
+        } catch (SQLException e) {
+            connectionPool.releaseConnection(connection);
+            e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
+            close(preparedStatement, set);
+        }
+        return apartments;
+    }
+
     private static Apartment extractApartments(ResultSet rs) throws SQLException {
         Apartment apartments = new Apartment();
         apartments.setId(rs.getInt("id"));

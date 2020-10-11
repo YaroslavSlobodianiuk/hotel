@@ -1,4 +1,4 @@
-package com.slobodianiuk.hotel.ui.listener;
+package com.slobodianiuk.hotel.listeners;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;

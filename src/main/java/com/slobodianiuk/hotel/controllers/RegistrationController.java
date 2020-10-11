@@ -39,7 +39,7 @@ public class RegistrationController extends HttpServlet {
                     break;
                 case Admin:
                     session.setAttribute("name", userAtt.getFirstName());
-                    resp.sendRedirect("admin.jsp");
+                    resp.sendRedirect("adminPanel.jsp");
                     break;
                 default:
                     break;

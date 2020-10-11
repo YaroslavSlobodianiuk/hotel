@@ -1,6 +1,12 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.Clock" %>
+<%@ page import="java.time.Clock" %><%--
+  Created by IntelliJ IDEA.
+  User: GUEST USER
+  Date: 10.10.2020
+  Time: 12:17
+  To change this template use File | Settings | File Templates.
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,9 +23,7 @@
             width: 50%;
             padding: 30px;
         }
-        h6 {
-            color: red;
-        }
+
     </style>
 </head>
 <%
@@ -40,31 +44,28 @@
             <h5>Application</h5>
         </div>
         <div class="divider"></div>
-        <form action="/booking" method="post">
+        <form>
             <div class="input-field">
-                <select id="category" name="category">
+                <select id="category">
                     <option>Select Category</option>
                 </select>
             </div>
-            <h6>${categoryErrorMessage}</h6>
             <div class="input-field">
-                <select id="capacity" name="capacity">
+                <select id="capacity">
                     <option>Select Capacity</option>
                 </select>
             </div>
-            <h6>${capacityErrorMessage}</h6>
             <div class="input-field">
-                <select id="apartment" name="apartment">
+                <select id="apartment">
                     <option>Select Apartment</option>
                 </select>
             </div>
-            <h6>${appErrorMessage}</h6>
             <label for="start">From date:</label>
             <input type="date" id="start" name="trip-start"
                    value="<%=currentDay%>"
                    min="<%=currentDay%>" max="<%=oneYearAfterCurrentDay%>">
             <label for="start">To date:</label>
-            <h6>${dateErrorMessage}</h6>
+
             <input type="date" id="finish" name="trip-finish"
                    value="<%=oneDayAfterCurrentDay%>"
                    min="<%=oneDayAfterCurrentDay%>" max="<%=oneYearAndOneDayAfterCurrentDay%>"> <br>

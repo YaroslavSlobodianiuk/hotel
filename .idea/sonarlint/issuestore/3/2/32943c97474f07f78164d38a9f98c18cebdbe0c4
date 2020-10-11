@@ -1,5 +1,5 @@
 
-W
-java:S1118	":Add a private constructor to hide the implicit public one.(Æ¢§¾8ãí´ÎĞ.
 L
-java:S1144%"*Remove this unused private "close" method.(óÉÓÛûÿÿÿÿ8¼„ùÎĞ.
+java:S1144%"*Remove this unused private "close" method.(óÉÓÛûÿÿÿÿ8äç·ïĞ.
+W
+java:S1118	":Add a private constructor to hide the implicit public one.(Æ¢§¾8äç·ïĞ.

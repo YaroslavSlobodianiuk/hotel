@@ -1,26 +1,50 @@
 
+I
+java:S1481^",Remove this unused "comment" local variable.(Ü ù8«±ÜöĞ.
+m
+java:S19892"PHandle the following exception that could be thrown by "getWriter": IOException.(Ÿç«†8„ŠüôĞ.
+v
+java:S1989W"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(¹ƒ³8¦ëÑ.
+f
+java:S11925"IDefine a constant instead of duplicating this literal "capacity" 3 times.(Ì¢±8–ù™÷Ğ.
+r
+java:S1989;"PHandle the following exception that could be thrown by "getWriter": IOException.(£ şêøÿÿÿÿ8„ŠüôĞ.
+Z	java:S106?"9Replace this use of System.out or System.err by a logger.(®ßüÿÿÿÿ8òçÑ.
+X
+java:S1854^";Remove this useless assignment to local variable "comment".(Ü ù8«±ÜöĞ.
+k
+java:S1192-"IDefine a constant instead of duplicating this literal "category" 3 times.(œÃêùÿÿÿÿ8–ù™÷Ğ.
+v
+java:S1989Y"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™¶¤ˆ8ˆÙÍöĞ.
 ~
-java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–‚²ÏĞ.
+java:S1989*"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–šš÷Ğ.
+{
+java:S1989@"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ò¨°õşÿÿÿÿ8¼Í´Ñ.
 Z
-java:S1854/"=Remove this useless assignment to local variable "orderFlag".(êÿêÓ8–‚²ÏĞ.
-S
-java:S1854)"6Remove this useless assignment to local variable "to".(»ùÕ8–‚²ÏĞ.
-U
-java:S1854("8Remove this useless assignment to local variable "from".(á»‰ƒ8–‚²ÏĞ.
-Y
-java:S1854'"<Remove this useless assignment to local variable "category".(Öêèı8–‚²ÏĞ.
-Y
-java:S1854&"<Remove this useless assignment to local variable "capacity".(­Å¼8–‚²ÏĞ.
+java:S1854V"8Remove this useless assignment to local variable "user".(¾˜ îüÿÿÿÿ8öÛŒ÷Ğ.
+]	java:S125k"<This block of commented-out lines of code should be removed.(Ö£ßışÿÿÿÿ8„ŠüôĞ.
+f
+java:S11921"JDefine a constant instead of duplicating this literal "text/html" 4 times.(µ°H8¼Í´Ñ.
+v
+java:S1989A"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(İ©¨ª8ààµÑ.
+U	java:S106B"9Replace this use of System.out or System.err by a logger.(ˆÛ¥Ë8…óìÑ.
+ƒ
+java:S1989$"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ªıòøüÿÿÿÿ8¸¥ºŒÑ.
+m
+java:S1989H"PHandle the following exception that could be thrown by "getWriter": IOException.(©È½«8Ü•ƒ£Ñ.
+m
+java:S1989K"PHandle the following exception that could be thrown by "getWriter": IOException.(ÔÅì8Øİ‡£Ñ.
+]	java:S125c"<This block of commented-out lines of code should be removed.(©³Ôíÿÿÿÿÿ8„ŠüôĞ.
+N
+java:S1481W"1Remove this unused "apartmentsId" local variable.(¹ƒ³8¦ëÑ.
+v
+java:S19896"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™Œóœ8„ŠüôĞ.
+v
+java:S1989X"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(Ïó¬8àäÌöĞ.
+]
+java:S1854W"@Remove this useless assignment to local variable "apartmentsId".(¹ƒ³8¦ëÑ.
 ~
-java:S19894"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¦ÕªŒ8–‚²ÏĞ.
-J
-java:S1481&"-Remove this unused "capacity" local variable.(­Å¼8–‚²ÏĞ.
-J
-java:S1481'"-Remove this unused "category" local variable.(Öêèı8–‚²ÏĞ.
-F
-java:S1481(")Remove this unused "from" local variable.(á»‰ƒ8–‚²ÏĞ.
-D
-java:S1481)"'Remove this unused "to" local variable.(»ùÕ8–‚²ÏĞ.
+java:S1989l"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¦ÕªŒ8„ŠüôĞ.
 K
-java:S1481/".Remove this unused "orderFlag" local variable.(êÿêÓ8–‚²ÏĞ.
-]	java:S1253"<This block of commented-out lines of code should be removed.(Ö£ßışÿÿÿÿ8–‚²ÏĞ.
+java:S1481V")Remove this unused "user" local variable.(¾˜ îüÿÿÿÿ8öÛŒ÷Ğ.
+Z	java:S106N"9Replace this use of System.out or System.err by a logger.(Æì° úÿÿÿÿ8Ã²ìÑ.

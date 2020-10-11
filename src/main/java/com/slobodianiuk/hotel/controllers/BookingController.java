@@ -2,9 +2,11 @@ package com.slobodianiuk.hotel.controllers;
 
 
 import com.google.gson.Gson;
+import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.entity.Category;
 import com.slobodianiuk.hotel.db.entity.RoomCapacity;
 import com.slobodianiuk.hotel.db.entity.User;
+import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
 import com.slobodianiuk.hotel.db.repo.CategoryRepository;
 import com.slobodianiuk.hotel.db.repo.RoomCapacityRepository;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
@@ -16,18 +18,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @WebServlet("/booking")
 public class BookingController extends HttpServlet {
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
 
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            req.getRequestDispatcher("notRegisteredUser.jsp").forward(req, resp);
+        }
 
         String op = req.getParameter("operation");
 
-        if (op.equals("category")) {
+        if (op == null) {
+            req.getRequestDispatcher("booking.jsp").forward(req, resp);
+        }
+
+        if ("category".equals(op)) {
             List<Category> categories = CategoryRepository.getCategories();
             Gson json = new Gson();
             String categoriesList = json.toJson(categories);
@@ -35,7 +53,7 @@ public class BookingController extends HttpServlet {
             resp.getWriter().write(categoriesList);
         }
 
-        if (op.equals("capacity")) {
+        if ("capacity".equals(op)) {
             int id = Integer.parseInt(req.getParameter("id"));
             List<RoomCapacity> capacities = RoomCapacityRepository.getRoomCapacitiesByCategoryId(id);
             Gson json = new Gson();
@@ -44,40 +62,85 @@ public class BookingController extends HttpServlet {
             resp.getWriter().write(capacitiesList);
         }
 
+        if ("apartment".equals(op)) {
+            System.out.println("start");
+            int categoryId = Integer.parseInt(req.getParameter("categoryId"));
+            int capacityId = Integer.parseInt(req.getParameter("capacityId"));
+            System.out.println(categoryId + " - " + capacityId);
+            List<Apartment> apartments = ApartmentRepository.getFreeApartmentsByCategoryAndCapacity(categoryId, capacityId);
+            if (!apartments.isEmpty()) {
+                Gson json = new Gson();
+                String apartmentsList = json.toJson(apartments);
+                resp.setContentType("text/html");
+                resp.getWriter().write(apartmentsList);
+            } else {
+                resp.setContentType("text/html");
+                resp.getWriter().write("");
+            }
 
-//        List<RoomCapacity> capacities = RoomCapacityRepository.getRoomCapacities();
-//        List<Category> categories = CategoryRepository.getCategories();
-//        req.setAttribute("capacities", capacities);
-//        req.setAttribute("categories", categories);
-//        req.getRequestDispatcher("booking.jsp").forward(req, resp);
+            System.out.println("end");
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
 
-        String category = req.getParameter("category");
-        String capacity = req.getParameter("capacity");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate from = LocalDate.parse(req.getParameter("trip-start"), formatter);
+        LocalDate to = LocalDate.parse(req.getParameter("trip-finish"), formatter);
 
-        System.out.println(capacity + " " + category);
+        if (!dateValidation(from, to)) {
+            req.setAttribute("dateErrorMessage", "First date should be earlier second one");
+            req.getRequestDispatcher("booking.jsp").forward(req, resp);
+        }
+        int apartmentId = 0;
+        int categoryId = 0;
+        int capacityId = 0;
 
-//        User user = (User) session.getAttribute("user");
-//        String capacity = req.getParameter("capacity");
-//        String category = req.getParameter("category");
-//        String from = req.getParameter("trip-start");
-//        String to = req.getParameter("trip-finish");
+        try {
+            categoryId = Integer.parseInt(req.getParameter("category"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("categoryErrorMessage", "Please select category");
+            req.getRequestDispatcher("booking.jsp").forward(req, resp);
+        }
 
-        //Data validation
+        try {
+            capacityId = Integer.parseInt(req.getParameter("capacity"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("capacityErrorMessage", "Please select capacity");
+        }
 
-//        int capacityId =
-//
-//        boolean orderFlag  = UserOrderRepository.createOrder(user.getId(), );
+        try {
+            apartmentId = Integer.parseInt(req.getParameter("apartment"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("appErrorMessage","Please select free apartment");
+            req.getRequestDispatcher("booking.jsp").forward(req, resp);
+        }
+        String comment = req.getParameter("comment");
 
+        boolean orderFlag  = UserOrderRepository.createOrder(user.getId(), apartmentId, categoryId, capacityId,
+                Date.valueOf(from), Date.valueOf(to), comment);
 
-        req.setAttribute("capacity", capacity);
-        req.setAttribute("category", category);
+        req.setAttribute("apartment", apartmentId);
+        req.setAttribute("capacity", capacityId);
+        req.setAttribute("category", categoryId);
+        req.setAttribute("from", from);
+        req.setAttribute("to", to);
+        req.setAttribute("comment", comment);
 
-//        req.setAttribute("message", message);
-        req.getRequestDispatcher("book.jsp").forward(req, resp);
+        if (orderFlag) {
+            req.getRequestDispatcher("thankYouPage.jsp").forward(req, resp);
+        }
+        req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
     }
+
+    private boolean dateValidation(LocalDate from, LocalDate to) {
+        if (to.compareTo(from) > 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.slobodianiuk.hotel.ui.filters;
+package com.slobodianiuk.hotel.filters;
 
 import javax.servlet.http.HttpFilter;
 
