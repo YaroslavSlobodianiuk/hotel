@@ -27,7 +27,6 @@ public class CategoryRepository {
                 categories.add(category);
             }
         } catch (SQLException e) {
-            pool.releaseConnection(connection);
             e.printStackTrace();
         } finally {
             pool.releaseConnection(connection);

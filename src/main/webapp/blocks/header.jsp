@@ -1,7 +1,5 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.StringTokenizer" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -22,21 +20,28 @@
 <body>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal menu"><fmt:message key="logo"/></h5>
+    <div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Language
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/language?locale=en">EN</a>
+            <a class="dropdown-item" href="/language?locale=ru">RU</a>
+        </div>
+    </div>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/apartments">Apartments</a>
         <a class="p-2 text-dark" href="/booking">Booking</a>
         <a class="p-2 text-dark" href="#">Contacts</a>
-        <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/login">Sign in</a>
-        <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Log out</a>
-        <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Language
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/language?locale=en">EN</a>
-                <a class="dropdown-item" href="/language?locale=ru">RU</a>
-            </div>
-        </div>
+        <c:if test="${empty user}">
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/login">Sign in</a>
+        </c:if>
+        <c:if test="${(not empty user) && (user.roleId == 2)}">
+            <a class="p-2 text-dark" href="/me">Account</a>
+        </c:if>
+        <c:if test="${not empty user}">
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Log out</a>
+        </c:if>
     </nav>
 </div>
 </body>

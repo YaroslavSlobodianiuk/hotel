@@ -1,5 +1,6 @@
 package com.slobodianiuk.hotel.db.bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class UserOrderBean {
@@ -13,12 +14,39 @@ public class UserOrderBean {
     private int capacity;
     private int apartmentId;
     private String apartmentName;
+    private Double price;
     private Date arrival;
     private Date departure;
+    private Timestamp transactionStart;
+    private int orderStatusId;
     private String orderStatus;
     private String comment;
 
     public UserOrderBean() {
+    }
+
+    public int getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(int orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
+
+    public Timestamp getTransactionStart() {
+        return transactionStart;
+    }
+
+    public void setTransactionStart(Timestamp transactionStart) {
+        this.transactionStart = transactionStart;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public int getId() {
@@ -137,8 +165,11 @@ public class UserOrderBean {
                 ", capacity=" + capacity +
                 ", apartmentId=" + apartmentId +
                 ", apartmentName='" + apartmentName + '\'' +
+                ", price=" + price +
                 ", arrival=" + arrival +
                 ", departure=" + departure +
+                ", transactionStart=" + transactionStart +
+                ", orderStatusId=" + orderStatusId +
                 ", orderStatus='" + orderStatus + '\'' +
                 ", comment='" + comment + '\'' +
                 '}';

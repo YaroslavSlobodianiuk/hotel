@@ -1,3 +1,11 @@
 
+p
+java:S1989#"SHandle the following exception that could be thrown by "sendRedirect": IOException.(êúì8¿¬ÁËÑ.
+v
+java:S1989"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™Œóœ8®ÛÕÉÑ.
+U	java:S106"9Replace this use of System.out or System.err by a logger.(ö¡¹ê8†‘¢ËÑ.
+p
+java:S1989("SHandle the following exception that could be thrown by "sendRedirect": IOException.(êúì8ÁÁËÑ.
+U	java:S106"9Replace this use of System.out or System.err by a logger.(·Š´8¹İ¡ËÑ.
 ƒ
-java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(÷Ù’Âûÿÿÿÿ8«¨™ÌÍ.
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Í²ûÿÿÿÿ8ĞÎÀËÑ.

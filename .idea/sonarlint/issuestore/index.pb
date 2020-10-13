@@ -53,8 +53,6 @@ O
 src/main/webapp/loginBackup.jsp,6\2\62137537116942acc7c1811f277db7b86f43f577
 K
 src/main/webapp/welcome.jsp,a\9\a9b525d02897189d476c4f767e41ad2f3367abea
-I
-src/main/webapp/admin.jsp,1\6\16c841072742f24edfb63d62f4da7ea207d6a9cd
 u
 Esrc/main/java/com/slobodianiuk/hotel/controllers/AdminController.java,f\d\fd2b024e83ca3b8950ec38b70151bdeea3bfdff5
 t
@@ -105,8 +103,6 @@ x
 Hsrc/main/java/com/slobodianiuk/hotel/controllers/LanguageController.java,8\5\8599306f49800e9ef4357209764b4879c18a6403
 Z
 *src/main/resources/resources_en.properties,5\d\5d29831975e82fd03400e84753eff5ad65339351
-F
-target/hotel/admin.jsp,3\8\389d19d53a5bb6f2d2e83ff4f48e2bfbe4c03d9e
 H
 target/hotel/welcome.jsp,7\d\7de8a5ec2c17b7c2b62059fd80caaa60c86e3214
 `
@@ -131,3 +127,17 @@ U
 %src/main/webapp/notRegisteredUser.jsp,f\2\f2f3f56da4d0d05a5763b879360cf20f335ce775
 G
 src/main/webapp/abc.jsp,0\b\0b14e6e65004e3fbb7672bcb4023f754c736bd2e
+M
+src/main/webapp/errorPage.jsp,6\2\623298baba5501f97cbba1bfb86226a0924b84bc
+P
+ src/main/webapp/thankYouPage.jsp,2\6\26653b128d6d3cac41c94d950c7ca09490536ee6
+o
+?src/main/java/com/slobodianiuk/hotel/db/bean/UserOrderBean.java,2\7\27dcfd974990287e83f612fcd661d814ebe41153
+m
+=src/main/java/com/slobodianiuk/hotel/staticVar/Variables.java,6\6\667d390fba280ac0619521f85e8afd5e7155e93a
+{
+Ksrc/main/java/com/slobodianiuk/hotel/controllers/UserAccountController.java,6\c\6cbf85a1a71661bdc46cfc46999a2d47c2880af7
+N
+src/main/webapp/adminPanel.jsp,c\5\c5874671bed452eb7fba1eedc85d452f83475bf5
+K
+src/main/webapp/account.jsp,e\5\e5c04f67b0a4bbcc3e439174260db42579e802cc

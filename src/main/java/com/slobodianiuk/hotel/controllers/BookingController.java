@@ -20,8 +20,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -131,9 +129,10 @@ public class BookingController extends HttpServlet {
         req.setAttribute("comment", comment);
 
         if (orderFlag) {
-            req.getRequestDispatcher("thankYouPage.jsp").forward(req, resp);
+            resp.sendRedirect("/me");
+        } else {
+            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
     }
 
     private boolean dateValidation(LocalDate from, LocalDate to) {

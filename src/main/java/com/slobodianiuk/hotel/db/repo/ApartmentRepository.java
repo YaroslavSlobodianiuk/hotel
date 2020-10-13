@@ -66,9 +66,7 @@ public class ApartmentRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            System.out.println("size" + connectionPool.getSize());
             connectionPool.releaseConnection(connection);
-            System.out.println("size" + connectionPool.getSize());
             close(preparedStatement, set);
         }
         return apartments;
@@ -88,8 +86,6 @@ public class ApartmentRepository {
                 numberOfRecords = set.getInt(1);
             }
         } catch (SQLException e) {
-            connectionPool.releaseConnection(connection);
-            close(preparedStatement, set);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -118,13 +114,31 @@ public class ApartmentRepository {
                 apartments.add(apartment);
             }
         } catch (SQLException e) {
-            connectionPool.releaseConnection(connection);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);
         }
         return apartments;
+    }
+
+    public static void updateApartmentStatus(int apartmentId, int statusId) {
+        ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("update apartments set status_id = (?) where id = (?);");
+            preparedStatement.setInt(1, statusId);
+            preparedStatement.setInt(2, apartmentId);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connectionPool.releaseConnection(connection);
+            close(preparedStatement);
+        }
     }
 
     private static Apartment extractApartments(ResultSet rs) throws SQLException {

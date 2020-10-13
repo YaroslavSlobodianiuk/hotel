@@ -105,6 +105,11 @@
             $('#apartment').find('option').remove();
             $('#apartment').append('<option>Select Apartment</option>');
 
+            $('#apartment').formSelect('destroy');//уничтожаем
+            $('#apartment').formSelect();//заново создаем materialize
+            $('#capacity').formSelect('destroy');//уничтожаем
+            $('#capacity').formSelect();//заново создаем materialize select
+
             let cid = $('#category').val();
             let data = {
                 operation: "capacity",

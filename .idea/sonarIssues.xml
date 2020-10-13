@@ -238,6 +238,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/controllers/TestController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/controllers/UserAccountController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/BasicConnectionPool.java">
           <value>
             <set />
@@ -393,6 +403,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/staticVar/Variables.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/ui/filters/EncodingFilter.java">
           <value>
             <set />
@@ -454,6 +469,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/abc.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/account.jsp">
           <value>
             <set />
           </value>

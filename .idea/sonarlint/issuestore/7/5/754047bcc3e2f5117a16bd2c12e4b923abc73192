@@ -1,8 +1,6 @@
 
-U	java:S106G"9Replace this use of System.out or System.err by a logger.(ÌóúÓ8î›€¶Ï.
-M
-java:S1144—"*Remove this unused private "close" method.(İ›µÏıÿÿÿÿ8¢İ½ØÎ.
-U	java:S106E"9Replace this use of System.out or System.err by a logger.(ÌóúÓ8¦åÿµÏ.
 W
 java:S1118":Add a private constructor to hide the implicit public one.(’ëìµ8¢İ½ØÎ.
+M
+java:S1144’"*Remove this unused private "close" method.(İ›µÏıÿÿÿÿ8¢İ½ØÎ.
 U	java:S1069"9Replace this use of System.out or System.err by a logger.(Ëº«î8ïÿ¢ÛÎ.

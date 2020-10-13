@@ -32,6 +32,10 @@
     <param-value>en ru</param-value>
   </context-param>
 
+  <listener>
+    <listener-class>com.slobodianiuk.hotel.listeners.ContextListener</listener-class>
+  </listener>
+
 
 
 </web-app>

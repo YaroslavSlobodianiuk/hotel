@@ -26,7 +26,6 @@ public class RoomCapacityRepository {
                 capacities.add(roomCapacity);
             }
         } catch (SQLException e) {
-            connectionPool.releaseConnection(connection);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -52,7 +51,6 @@ public class RoomCapacityRepository {
                 capacities.add(capacity);
             }
         } catch (SQLException e) {
-            connectionPool.releaseConnection(connection);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);

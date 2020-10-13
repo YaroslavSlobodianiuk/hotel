@@ -25,8 +25,10 @@
                 <td>capacity</td>
                 <td>apartmentId</td>
                 <td>apartmentName</td>
+                <td>price</td>
                 <td>arrival</td>
                 <td>departure</td>
+                <td>orderStatusId</td>
                 <td>orderStatus</td>
                 <td>comment</td>
                 <td>action</td>
@@ -42,16 +44,19 @@
                 <td>${order.capacity}</td>
                 <td>${order.apartmentId}</td>
                 <td>${order.apartmentName}</td>
+                <td>${order.price}</td>
                 <td>${order.arrival}</td>
                 <td>${order.departure}</td>
+                <td>${order.orderStatusId}</td>
                 <td>${order.orderStatus}</td>
                 <td>${order.comment}</td>
                 <c:choose>
                     <c:when test="${order.orderStatus eq 'new'}">
                         <td>
                             <form action="/admin" method="post">
+                                <input type="hidden" name="id" value="${order.id}">
                                 <input type="hidden" name="action" value="new">
-                                <input type="submit" value="new">
+                                <input type="submit" value="Send for approval">
                             </form>
                         </td>
                     </c:when>
@@ -59,7 +64,9 @@
                     <c:when test="${order.orderStatus eq 'approved'}">
                         <td>
                             <form action="/admin" method="post">
+                                <input type="hidden" name="id" value="${order.id}">
                                 <input type="hidden" name="action" value="approved">
+                                <input type="submit" value="Send for payment">
                             </form>
                         </td>
                     </c:when>
@@ -70,13 +77,5 @@
             </tr>
         </c:forEach>
     </table>
-
-<script>
-    function handleClick(status) {
-        if (status === 'new') {
-
-        }
-    }
-</script>
 </body>
 </html>

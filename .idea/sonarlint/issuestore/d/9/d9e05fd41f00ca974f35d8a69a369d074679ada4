@@ -1,50 +1,48 @@
 
-I
-java:S1481^",Remove this unused "comment" local variable.(Ü ù8«±ÜöĞ.
-m
-java:S19892"PHandle the following exception that could be thrown by "getWriter": IOException.(Ÿç«†8„ŠüôĞ.
+„
+java:S1989†"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(Ã‡Á¢ıÿÿÿÿ8¥Éª¿Ñ.
 v
-java:S1989W"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(¹ƒ³8¦ëÑ.
-f
-java:S11925"IDefine a constant instead of duplicating this literal "capacity" 3 times.(Ì¢±8–ù™÷Ğ.
-r
-java:S1989;"PHandle the following exception that could be thrown by "getWriter": IOException.(£ şêøÿÿÿÿ8„ŠüôĞ.
-Z	java:S106?"9Replace this use of System.out or System.err by a logger.(®ßüÿÿÿÿ8òçÑ.
-X
-java:S1854^";Remove this useless assignment to local variable "comment".(Ü ù8«±ÜöĞ.
+java:S19899"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™Œóœ8„ŠüôĞ.
+m
+java:S1989K"PHandle the following exception that could be thrown by "getWriter": IOException.(©È½«8Ü•ƒ£Ñ.
 k
-java:S1192-"IDefine a constant instead of duplicating this literal "category" 3 times.(œÃêùÿÿÿÿ8–ù™÷Ğ.
-v
-java:S1989Y"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™¶¤ˆ8ˆÙÍöĞ.
+java:S11920"IDefine a constant instead of duplicating this literal "category" 3 times.(œÃêùÿÿÿÿ8ÓğÖ»Ñ.
+r
+java:S1989>"PHandle the following exception that could be thrown by "getWriter": IOException.(£ şêøÿÿÿÿ8„ŠüôĞ.
+m
+java:S19895"PHandle the following exception that could be thrown by "getWriter": IOException.(Ÿç«†8„ŠüôĞ.
 ~
-java:S1989*"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–šš÷Ğ.
+java:S1989-"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–šš÷Ğ.
+„
+java:S1989ˆ"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8¨ƒ«¿Ñ.
 {
-java:S1989@"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ò¨°õşÿÿÿÿ8¼Í´Ñ.
-Z
-java:S1854V"8Remove this useless assignment to local variable "user".(¾˜ îüÿÿÿÿ8öÛŒ÷Ğ.
-]	java:S125k"<This block of commented-out lines of code should be removed.(Ö£ßışÿÿÿÿ8„ŠüôĞ.
-f
-java:S11921"JDefine a constant instead of duplicating this literal "text/html" 4 times.(µ°H8¼Í´Ñ.
-v
-java:S1989A"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(İ©¨ª8ààµÑ.
-U	java:S106B"9Replace this use of System.out or System.err by a logger.(ˆÛ¥Ë8…óìÑ.
-ƒ
-java:S1989$"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ªıòøüÿÿÿÿ8¸¥ºŒÑ.
+java:S1989C"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ò¨°õşÿÿÿÿ8¼Í´Ñ.
+_
+java:S1126Œ"AReplace this if-then-else statement by a single return statement.(¨ß÷—8ˆš¹½Ñ.
 m
-java:S1989H"PHandle the following exception that could be thrown by "getWriter": IOException.(©È½«8Ü•ƒ£Ñ.
-m
-java:S1989K"PHandle the following exception that could be thrown by "getWriter": IOException.(ÔÅì8Øİ‡£Ñ.
-]	java:S125c"<This block of commented-out lines of code should be removed.(©³Ôíÿÿÿÿÿ8„ŠüôĞ.
-N
-java:S1481W"1Remove this unused "apartmentsId" local variable.(¹ƒ³8¦ëÑ.
-v
-java:S19896"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™Œóœ8„ŠüôĞ.
-v
-java:S1989X"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(Ïó¬8àäÌöĞ.
-]
-java:S1854W"@Remove this useless assignment to local variable "apartmentsId".(¹ƒ³8¦ëÑ.
+java:S1989N"PHandle the following exception that could be thrown by "getWriter": IOException.(ÔÅì8Øİ‡£Ñ.
 ~
-java:S1989l"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¦ÕªŒ8„ŠüôĞ.
-K
-java:S1481V")Remove this unused "user" local variable.(¾˜ îüÿÿÿÿ8öÛŒ÷Ğ.
-Z	java:S106N"9Replace this use of System.out or System.err by a logger.(Æì° úÿÿÿÿ8Ã²ìÑ.
+java:S1989`"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ñ–×½Ñ.
+V
+java:S1128"4Remove this unused import 'java.time.LocalDateTime'.(æÃ§ƒüÿÿÿÿ8ø¿¤¿Ñ.
+f
+java:S11928"IDefine a constant instead of duplicating this literal "capacity" 3 times.(Ì¢±8ê–×»Ñ.
+J
+java:S1128"-Remove this unused import 'java.time.ZoneId'.( Æ½“8½‡ª¿Ñ.
+~
+java:S1989w"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ü‘ì¾Ñ.
+v
+java:S1989D"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(İ©¨ª8ààµÑ.
+Z	java:S106Q"9Replace this use of System.out or System.err by a logger.(Æì° úÿÿÿÿ8Ã²ìÑ.
+i
+java:S1192-"LDefine a constant instead of duplicating this literal "booking.jsp" 4 times.(–éÙĞ8ü‘ì¾Ñ.
+U	java:S106E"9Replace this use of System.out or System.err by a logger.(ˆÛ¥Ë8…óìÑ.
+l
+java:S1192A"JDefine a constant instead of duplicating this literal "apartment" 3 times.(Ğ¦€Éûÿÿÿÿ8ÏˆÇ»Ñ.
+~
+java:S1989j"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ĞÈ€¿Ñ.
+f
+java:S11924"JDefine a constant instead of duplicating this literal "text/html" 4 times.(µ°H8¼Í´Ñ.
+Z	java:S106B"9Replace this use of System.out or System.err by a logger.(®ßüÿÿÿÿ8òçÑ.
+ƒ
+java:S1989'"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ªıòøüÿÿÿÿ8¸¥ºŒÑ.

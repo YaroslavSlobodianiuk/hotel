@@ -15,10 +15,12 @@ public class UserRepository {
     public static Optional<User> registerUser(String login, String password, String firstName, String lastName, String locale) {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
-        User user = null;
+        Connection connection = null;
+        User user;
         ResultSet set;
         try {
-            preparedStatement = connectionPool.getConnection().prepareStatement("insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstName);
@@ -38,6 +40,7 @@ public class UserRepository {
             //Logger
             return Optional.empty();
         } finally {
+            connectionPool.releaseConnection(connection);
             close(preparedStatement);
         }
         return Optional.of(user);

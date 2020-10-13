@@ -1,4 +1,4 @@
-<%@ page import="com.slobodianiuk.hotel.db.entity.User" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: GUEST USER
   Date: 26.09.2020
@@ -13,8 +13,7 @@
 </head>
 <body>
 <h1>
-    <% User user = (User) session.getAttribute("user");%>
-    <%= "Hi, " + user.getFirstName()%>
+<%--    <%= "Hi, " + user.getFirstName()%>--%>
 </h1>
 </body>
 </html>

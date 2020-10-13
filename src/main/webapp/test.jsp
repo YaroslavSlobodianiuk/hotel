@@ -1,117 +1,74 @@
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.Clock" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Dependent Select Option</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <style type="text/css">
-        body{
-            background-size: cover;
-        }
-        .drop-down-list{
-            margin: 150px auto;
-            width: 50%;
-            padding: 30px;
+    <style>
+        p {
+            display: inline;
+            font-size: 40px;
+            margin-top: 0px;
         }
     </style>
 </head>
-<body class="cyan">
-<div class="container">
-    <div class="drop-down-list card">
-        <div class="center">
-            <h5>Dependent Select Item</h5>
-        </div>
-        <div class="divider"></div>
-        <form action="/booking" method="post">
-            <div class="input-field">
-                <select id="category" name="category">
-                    <option>Select Category</option>
-                </select>
-            </div>
-            <div class="input-field">
-                <select id="capacity" name="capacity">
-                    <option>Select Capacity</option>
-                </select>
-            </div>
-            <%
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDateTime currentTime = LocalDateTime.now(Clock.systemDefaultZone());
-                LocalDateTime oneDayAfterCurrentTime = currentTime.plusDays(1);
-                LocalDateTime oneYearAfterCurrentTime = currentTime.plusYears(1);
-                LocalDateTime oneYearAndOneDayAfterCurrentTime = currentTime.plusYears(1).plusDays(1);
-                String currentDay = currentTime.format(formatter);
-                String oneDayAfterCurrentDay = oneDayAfterCurrentTime.format(formatter);
-                String oneYearAfterCurrentDay = oneYearAfterCurrentTime.format(formatter);
-                String oneYearAndOneDayAfterCurrentDay = oneYearAndOneDayAfterCurrentTime.format(formatter);
-            %>
-            <label for="start">From date:</label>
-            <input type="date" id="start" name="trip-start"
-                   value="<%=currentDay%>"
-                   min="<%=currentDay%>" max="<%=oneYearAfterCurrentDay%>">
-            <label for="start">To date:</label>
+<body>
+<body>
+<p id="days"></p>
+<p id="hours"></p>
+<p id="mins"></p>
+<p id="secs"></p>
+<h2 id="end"></h2>
+<script>
+    // The data/time we want to countdown to
+    var countDownDate = new Date(${date}).getTime();
 
-            <input type="date" id="finish" name="trip-finish"
-                   value="<%=oneDayAfterCurrentDay%>"
-                   min="<%=oneDayAfterCurrentDay%>" max="<%=oneYearAndOneDayAfterCurrentDay%>"> <br>
-            Comment: <br>
-            <input type="text" height="100" width="200" name="comment">
-            <div class="center">
-                <button class="btn">Submit</button>
-            </div>
-        </form>
-    </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            url: "/booking",
-            method: "GET",
-            data: {operation: 'category'},
-            success: function (data, textStatus, jqXHR) {
-                console.log(data);
-                let obj = $.parseJSON(data);
-                $.each(obj, function (key, value) {
-                    $('#category').append('<option value="' + value.id + '">' + value.categoryName + '</option>')
-                });
-                $('select').formSelect();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $('#category').append('<option>No categories</option>');
-            },
-            cache: false
-        });
-        $('#category').change(function () {
-            $('#capacity').find('option').remove();
-            $('#capacity').append('<option>Select Capacity</option>');
-            let cid = $('#category').val();
-            let data = {
-                operation: "capacity",
-                id: cid
-            };
-            $.ajax({
-                url: "/booking",
-                method: "GET",
-                data: data,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    let obj = $.parseJSON(data);
-                    $.each(obj, function (key, value) {
-                        $('#capacity').append('<option value="' + value.id + '">' + value.capacity + '</option>')
-                    });
-                    $('select').formSelect();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#capacity').append('<option>No capacities</option>');
-                },
-                cache: false
-            });
-        });
-    });
+    // Run myfunc every second
+    var myfunc = setInterval(function() {
+
+        var now = new Date().getTime();
+        var timeleft = countDownDate - now;
+
+        // Calculating the days, hours, minutes and seconds left
+        var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+        // Result is output to the specific element
+        document.getElementById("days").innerHTML = days + "d ";
+        document.getElementById("hours").innerHTML = hours + "h ";
+        document.getElementById("mins").innerHTML = minutes + "m ";
+        document.getElementById("secs").innerHTML = seconds + "s ";
+
+        // Display the message when countdown is over
+        if (timeleft < 0) {
+            clearInterval(myfunc);
+            document.getElementById("days").innerHTML = "";
+            document.getElementById("hours").innerHTML = "";
+            document.getElementById("mins").innerHTML = "";
+            document.getElementById("secs").innerHTML = "";
+            sendRequest();
+            document.getElementById("end").innerHTML = "TIME UP!!";
+        }
+    }, 1000);
+
+    function sendRequest() {
+        var http = new XMLHttpRequest();
+        var url = '/me';
+        var params = 'action=expired&id=';
+        http.open('POST', url, true);
+
+//Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+
+            }
+        }
+        http.send(params);
+    }
 </script>
+
 </body>
 </html>
