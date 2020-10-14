@@ -15,8 +15,8 @@
 <form action="${pageContext.request.contextPath}/register" method="post">
     <table>
         <tr>
+            <td></td>
             <td>${message}</td>
-            <td>${tmp}</td>
         </tr>
         <tr>
             <td>Login:</td>

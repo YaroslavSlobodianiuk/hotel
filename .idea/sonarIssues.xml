@@ -393,6 +393,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/TransactionsRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserOrderRepository.java">
           <value>
             <set />

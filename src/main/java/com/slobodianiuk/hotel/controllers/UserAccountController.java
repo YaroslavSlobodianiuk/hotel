@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import com.slobodianiuk.hotel.db.repo.TransactionsRepository;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import com.slobodianiuk.hotel.staticVar.Variables;
@@ -44,52 +45,49 @@ public class UserAccountController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String action = req.getParameter("action");
-        int id = Integer.parseInt(req.getParameter("id"));
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
 
-        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", action: " + action + ", orderId: " + id);
+        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", action: " + action + ", orderId: " + orderId);
 
         if ("waiting for approve".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.APPROVED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.APPROVED);
 
             try {
-                UserOrderRepository.updateStatusId(id, Variables.APPROVED);
-                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.RESERVED);
+                TransactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.APPROVED, apartmentId, Variables.RESERVED);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
             }
 
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.APPROVED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.APPROVED);
             resp.sendRedirect("/me");
         }
 
         if ("waiting for payment".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.PAID);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.PAID);
 
             try {
-                UserOrderRepository.updateStatusId(id, Variables.PAID);
-                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.BOOKED);
+                TransactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.PAID, apartmentId, Variables.BOOKED);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
             }
 
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.PAID);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.PAID);
 
             resp.sendRedirect("/me");
         }
 
         if ("declined".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.DECLINED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.DECLINED);
 
             try {
-                UserOrderRepository.updateStatusId(id, Variables.DECLINED);
-                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+                TransactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.DECLINED, apartmentId, Variables.FREE);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -97,24 +95,23 @@ public class UserAccountController extends HttpServlet {
             }
 
 
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.DECLINED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.DECLINED);
             resp.sendRedirect("/me");
         }
 
         if ("expired".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.EXPIRED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.EXPIRED);
 
             try {
-                UserOrderRepository.updateStatusId(id, Variables.EXPIRED);
-                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+                TransactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.EXPIRED, apartmentId, Variables.FREE);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
             }
 
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.EXPIRED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.EXPIRED);
         }
 
     }

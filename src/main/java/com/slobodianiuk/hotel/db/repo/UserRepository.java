@@ -122,7 +122,11 @@ public class UserRepository {
         return Optional.of(user);
     }
 
-
+    /**
+     * Closes Statement and ResultSet
+     * @param stmt
+     * @param rs
+     */
     private static void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {

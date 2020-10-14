@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import com.slobodianiuk.hotel.db.repo.TransactionsRepository;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import com.slobodianiuk.hotel.staticVar.Variables;
@@ -99,8 +100,7 @@ public class AdminController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.CANCELED);
 
             try {
-                UserOrderRepository.updateStatusId(orderId, Variables.CANCELED);
-                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+                TransactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.CANCELED, apartmentId, Variables.FREE);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
