@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -59,7 +60,14 @@ public class LoginController extends HttpServlet {
 
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login);
 
-        Optional<User> optionalUser = UserRepository.getUserByLogin(login);
+        Optional<User> optionalUser = null;
+        try {
+            optionalUser = UserRepository.getUserByLogin(login);
+        } catch (DBException e) {
+            session.setAttribute("errorMessage", e.getMessage());
+            log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+        }
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {

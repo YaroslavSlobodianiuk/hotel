@@ -4,6 +4,7 @@ import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import com.slobodianiuk.hotel.staticVar.Variables;
 import org.apache.log4j.Logger;
 
@@ -25,7 +26,14 @@ public class UserAccountController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
-        List<UserOrderBean> orders = UserOrderRepository.getOrdersByUserId(user.getId());
+        List<UserOrderBean> orders = null;
+        try {
+            orders = UserOrderRepository.getOrdersByUserId(user.getId());
+        } catch (DBException e) {
+            session.setAttribute("errorMessage", e.getMessage());
+            log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+        }
         req.setAttribute("orders", orders);
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId()  + " Account page");
         req.getRequestDispatcher("account.jsp").forward(req, resp);
@@ -44,8 +52,14 @@ public class UserAccountController extends HttpServlet {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.APPROVED);
 
-            UserOrderRepository.updateStatusId(id, Variables.APPROVED);
-            ApartmentRepository.updateApartmentStatus(apartmentId, Variables.RESERVED);
+            try {
+                UserOrderRepository.updateStatusId(id, Variables.APPROVED);
+                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.RESERVED);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.APPROVED);
             resp.sendRedirect("/me");
@@ -55,8 +69,15 @@ public class UserAccountController extends HttpServlet {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.PAID);
 
-            UserOrderRepository.updateStatusId(id, Variables.PAID);
-            ApartmentRepository.updateApartmentStatus(apartmentId, Variables.BOOKED);
+            try {
+                UserOrderRepository.updateStatusId(id, Variables.PAID);
+                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.BOOKED);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
+
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.PAID);
 
             resp.sendRedirect("/me");
@@ -66,8 +87,15 @@ public class UserAccountController extends HttpServlet {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.DECLINED);
 
-            UserOrderRepository.updateStatusId(id, Variables.DECLINED);
-            ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+            try {
+                UserOrderRepository.updateStatusId(id, Variables.DECLINED);
+                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
+
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.DECLINED);
             resp.sendRedirect("/me");
@@ -77,8 +105,14 @@ public class UserAccountController extends HttpServlet {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + id + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.EXPIRED);
 
-            UserOrderRepository.updateStatusId(id, Variables.EXPIRED);
-            ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+            try {
+                UserOrderRepository.updateStatusId(id, Variables.EXPIRED);
+                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + id + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.EXPIRED);
         }

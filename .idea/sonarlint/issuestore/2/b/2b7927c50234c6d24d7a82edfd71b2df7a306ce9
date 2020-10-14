@@ -1,4 +1,5 @@
 
-U	java:S106"9Replace this use of System.out or System.err by a logger.(È‘½ë8á×œ§Í.
 o
-java:S1989"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ˆÝÙJ8®§ë²Í.
+java:S1989"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ˆÝÙJ8ÝÚ°¥Ò.
+I
+java:S1068"'Remove this unused "log" private field.(ª…ãÕüÿÿÿÿ8àÖ²¥Ò.

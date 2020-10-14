@@ -4,6 +4,8 @@ import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import com.slobodianiuk.hotel.db.sql.SQL;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -15,19 +17,19 @@ public class UserRepository {
 
     private UserRepository() {}
 
-    public static Optional<User> registerUser(String login, String password, String firstName, String lastName, String locale) {
+    public static Optional<User> registerUser(String login, String password, String firstName, String lastName, String locale) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         Connection connection = null;
         User user;
         ResultSet set;
 
-        log.trace("time: " + new java.util.Date() + ", sql: insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?);" +
-                ", login: " + login + ", firstName: " + firstName + ", " + lastName + ", locale" + locale);
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_REGISTER_USER +
+                ", login: " + login + ", firstName: " + firstName + ", lastName: " + lastName + ", locale: " + locale);
 
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(SQL.SQL_REGISTER_USER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstName);
@@ -44,8 +46,8 @@ public class UserRepository {
             user = new User(id, login, password, firstName, lastName, RoleEnum.User.getRoleId(), locale);
 
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            return Optional.empty();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to insert data to DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement);
@@ -53,19 +55,19 @@ public class UserRepository {
         return Optional.of(user);
     }
 
-    public static Optional<User> getUserByLogin(String login) {
+    public static Optional<User> getUserByLogin(String login) throws DBException {
         Optional<User> user = Optional.empty();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
 
-        log.trace("time: " + new java.util.Date() + ", sql: select * from users where login = (?);" + ", login: " + login);
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_GET_USER_BY_LOGIN + ", login: " + login);
 
         try {
             connection = connectionPool.getConnection();
-            // ask about sql queries
-            preparedStatement = connection.prepareStatement("select * from users where login = (?);");
+
+            preparedStatement = connection.prepareStatement(SQL.SQL_GET_USER_BY_LOGIN);
             preparedStatement.setString(1, login);
 
             set = preparedStatement.executeQuery();
@@ -73,8 +75,8 @@ public class UserRepository {
                 user = extractUser(set);
             }
         } catch(SQLException e){
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to select data from DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);
@@ -82,24 +84,23 @@ public class UserRepository {
         return user;
     }
 
-    public static boolean updateUser(User user) {
+    public static boolean updateUser(User user) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        log.trace("time: " + new java.util.Date() + ", sql: update users set locale_name = (?) where id = (?);" + ", userId: " + user.getId() + ", localeName: " + user.getLocaleName());
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_UPDATE_USER + ", userId: " + user.getId() + ", localeName: " + user.getLocaleName());
 
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("update users set locale_name = (?) where id = (?);");
+            preparedStatement = connection.prepareStatement(SQL.SQL_UPDATE_USER);
             preparedStatement.setString(1, user.getLocaleName());
             preparedStatement.setInt(2, user.getId());
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
-            return false;
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to update data in the DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement);
@@ -107,19 +108,17 @@ public class UserRepository {
         return true;
     }
 
-    private static Optional<User> extractUser(ResultSet rs) {
+    private static Optional<User> extractUser(ResultSet rs) throws SQLException {
         User user = new User();
-        try {
-            user.setId(rs.getInt("id"));
-            user.setLogin(rs.getString("login"));
-            user.setPassword(rs.getString("password"));
-            user.setFirstName(rs.getString("first_name"));
-            user.setLastName(rs.getString("last_name"));
-            user.setRoleId(rs.getInt("role_id"));
-            user.setLocaleName(rs.getString("locale_name"));
-        } catch (SQLException ex) {
-            log.error("time: " + new java.util.Date() + ", error: " + ex);
-        }
+
+        user.setId(rs.getInt("id"));
+        user.setLogin(rs.getString("login"));
+        user.setPassword(rs.getString("password"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
+        user.setRoleId(rs.getInt("role_id"));
+        user.setLocaleName(rs.getString("locale_name"));
+
         return Optional.of(user);
     }
 
@@ -130,7 +129,7 @@ public class UserRepository {
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                log.error("time: " + new java.util.Date() + ", error: " + ex);
+                log.error("time: " + new java.util.Date() + ", SQLException: " + ex);
             }
         }
     }
@@ -139,7 +138,7 @@ public class UserRepository {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                log.error("time: " + new java.util.Date() + ", error: " + ex);
+                log.error("time: " + new java.util.Date() + ", SQLException: " + ex);
             }
         }
     }

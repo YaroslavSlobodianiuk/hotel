@@ -2,6 +2,7 @@ package com.slobodianiuk.hotel.controllers;
 
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class LanguageController extends HttpServlet {
     private static final Logger log = Logger.getLogger(LanguageController.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         boolean updateUser = false;
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
@@ -34,7 +35,13 @@ public class LanguageController extends HttpServlet {
 
             user.setLocaleName(localeFromRequest);
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
-            UserRepository.updateUser(user);
+            try {
+                UserRepository.updateUser(user);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
 
         } else if (!localeFromRequest.equals(localeFromSession)) {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() +

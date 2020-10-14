@@ -4,6 +4,7 @@ import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.enums.SortingOrder;
 import com.slobodianiuk.hotel.db.enums.SortingType;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -61,8 +62,17 @@ public class ApartmentsController extends HttpServlet {
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", page:" + page +
                 ", recordsPerPage: " + recordsPerPage + ", offset: " + (page-1)*recordsPerPage + ", sortingType: " + sortingType + ", sortingOrder: " + sortingOrder);
 
-        List<Apartment> apartments = ApartmentRepository.getApartments((page-1)*recordsPerPage, recordsPerPage, sortingType, sortingOrder);
-        int numberOfRecords = ApartmentRepository.getNumberOfRecords();
+        List<Apartment> apartments = null;
+        int numberOfRecords = 0;
+        try {
+            apartments = ApartmentRepository.getApartments((page-1)*recordsPerPage, recordsPerPage, sortingType, sortingOrder);
+            numberOfRecords = ApartmentRepository.getNumberOfRecords();
+        } catch (DBException e) {
+            session.setAttribute("errorMessage", e.getMessage());
+            log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+        }
+
         int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
 
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", numberOfRecords: " + numberOfRecords + ", numberOfPages: " + numberOfPages);

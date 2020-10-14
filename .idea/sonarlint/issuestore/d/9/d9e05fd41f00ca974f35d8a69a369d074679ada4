@@ -1,44 +1,53 @@
 
-Z	java:S106O"9Replace this use of System.out or System.err by a logger.(Æì° úÿÿÿÿ8Ã²ìÑ.
+~
+java:S1989h"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ñ–×½Ñ.
+j
+java:S11922"NDefine a constant instead of duplicating this literal ", sessionId: " 6 times.( Çk8á‰˜£Ò.
 i
-java:S1192+"LDefine a constant instead of duplicating this literal "booking.jsp" 4 times.(–éÙĞ8ü‘ì¾Ñ.
-f
-java:S11926"IDefine a constant instead of duplicating this literal "capacity" 3 times.(Ì¢±8ê–×»Ñ.
-_
-java:S1126‹"AReplace this if-then-else statement by a single return statement.(¨ß÷—8ˆš¹½Ñ.
-v
-java:S19897"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(™Œóœ8„ŠüôĞ.
-~
-java:S1989h"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ĞÈ€¿Ñ.
-~
-java:S1989+"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–šš÷Ğ.
-v
-java:S1989B"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(İ©¨ª8ààµÑ.
-l
-java:S1192?"JDefine a constant instead of duplicating this literal "apartment" 3 times.(Ğ¦€Éûÿÿÿÿ8ÏˆÇ»Ñ.
-f
-java:S11922"JDefine a constant instead of duplicating this literal "text/html" 4 times.(µ°H8¼Í´Ñ.
-Z	java:S106@"9Replace this use of System.out or System.err by a logger.(®ßüÿÿÿÿ8òçÑ.
-U	java:S106C"9Replace this use of System.out or System.err by a logger.(ˆÛ¥Ë8…óìÑ.
-m
-java:S1989I"PHandle the following exception that could be thrown by "getWriter": IOException.(©È½«8Ü•ƒ£Ñ.
-~
-java:S1989^"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ñ–×½Ñ.
-m
-java:S19893"PHandle the following exception that could be thrown by "getWriter": IOException.(Ÿç«†8„ŠüôĞ.
-m
-java:S1989L"PHandle the following exception that could be thrown by "getWriter": IOException.(ÔÅì8Øİ‡£Ñ.
-r
-java:S1989<"PHandle the following exception that could be thrown by "getWriter": IOException.(£ şêøÿÿÿÿ8„ŠüôĞ.
-„
-java:S1989†"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8«•ÑôÑ.
-~
-java:S1989u"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ü‘ì¾Ñ.
-v
-java:S1989„"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Ÿ•ÎŒøÿÿÿÿ8•Ğ‹ôÑ.
+java:S1192/"LDefine a constant instead of duplicating this literal "booking.jsp" 5 times.(–éÙĞ8ü‘ì¾Ñ.
 k
-java:S1192."IDefine a constant instead of duplicating this literal "category" 3 times.(œÃêùÿÿÿÿ8ÓğÖ»Ñ.
-{
-java:S1989A"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ò¨°õşÿÿÿÿ8¼Í´Ñ.
+java:S11922"ODefine a constant instead of duplicating this literal ", userRoleId: " 6 times.( Çk8á‰˜£Ò.
+
+java:S1989€"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ü‘ì¾Ñ.
 ƒ
-java:S1989%"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ªıòøüÿÿÿÿ8¸¥ºŒÑ.
+java:S1989)"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ªıòøüÿÿÿÿ8¸¥ºŒÑ.
+q
+java:S1192Q"ODefine a constant instead of duplicating this literal ", capacityId: " 3 times.(è·Ó‡ùÿÿÿÿ8ŸÎå£Ò.
+f
+java:S11928"JDefine a constant instead of duplicating this literal "text/html" 4 times.(µ°H8¼Í´Ñ.
+~
+java:S1989/"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8–šš÷Ğ.
+r
+java:S1989D"PHandle the following exception that could be thrown by "getWriter": IOException.(£ şêøÿÿÿÿ8„ŠüôĞ.
+v
+java:S1989J"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(İ©¨ª8ààµÑ.
+{
+java:S1989I"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ò¨°õşÿÿÿÿ8¼Í´Ñ.
+~
+java:S1989r"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8ĞÈ€¿Ñ.
+^
+java:S22592"BA "NullPointerException" could be thrown; "user" is nullable here.( Çk8üçˆ£Ò.
+_
+java:S1126“"AReplace this if-then-else statement by a single return statement.(¨ß÷—8ˆš¹½Ñ.
+j
+java:S11922"NDefine a constant instead of duplicating this literal ", operation: " 5 times.( Çk8á‰˜£Ò.
+~
+java:S1989y"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(–éÙĞ8„¡Ï£Ò.
+m
+java:S1989W"PHandle the following exception that could be thrown by "getWriter": IOException.(ÔÅì8Øİ‡£Ñ.
+m
+java:S1989:"PHandle the following exception that could be thrown by "getWriter": IOException.(Ÿç«†8„ŠüôĞ.
+q
+java:S1192C"ODefine a constant instead of duplicating this literal ", categoryId: " 4 times.(ª‹Şãÿÿÿÿÿ8“È·£Ò.
+c
+java:S11922"GDefine a constant instead of duplicating this literal "time: " 6 times.( Çk8á‰˜£Ò.
+„
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8«•ÑôÑ.
+g
+java:S11922"KDefine a constant instead of duplicating this literal ", userId: " 6 times.( Çk8á‰˜£Ò.
+m
+java:S1989R"PHandle the following exception that could be thrown by "getWriter": IOException.(©È½«8Ü•ƒ£Ñ.
+v
+java:S1989Œ"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Ÿ•ÎŒøÿÿÿÿ8•Ğ‹ôÑ.
+{
+java:S1989>"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(–£Ûúÿÿÿÿ8„ŠüôĞ.

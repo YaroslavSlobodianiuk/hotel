@@ -4,6 +4,7 @@ import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import com.slobodianiuk.hotel.staticVar.Variables;
 import org.apache.log4j.Logger;
 
@@ -33,7 +34,16 @@ public class AdminController extends HttpServlet {
 
         if (user != null && user.getRoleId() == 1) {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " got /admin page");
-            List<UserOrderBean> orders = UserOrderRepository.getOrders();
+            List<UserOrderBean> orders = null;
+
+            try {
+                orders = UserOrderRepository.getOrders();
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
+
             req.setAttribute("orders", orders);
             req.getRequestDispatcher("adminPanel.jsp").forward(req, resp);
         } else {
@@ -43,7 +53,7 @@ public class AdminController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
@@ -55,7 +65,13 @@ public class AdminController extends HttpServlet {
         if ("new".equals(action)) {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_APPROVE);
 
-            UserOrderRepository.updateStatusId(orderId, Variables.WAITING_FOR_APPROVE);
+            try {
+                UserOrderRepository.updateStatusId(orderId, Variables.WAITING_FOR_APPROVE);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId: " + Variables.WAITING_FOR_APPROVE);
             resp.sendRedirect("/admin");
@@ -65,8 +81,14 @@ public class AdminController extends HttpServlet {
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_PAYMENT);
 
-            UserOrderRepository.setTransactionStart(orderId);
-            UserOrderRepository.updateStatusId(orderId, Variables.WAITING_FOR_PAYMENT);
+            try {
+                UserOrderRepository.setTransactionStart(orderId);
+                UserOrderRepository.updateStatusId(orderId, Variables.WAITING_FOR_PAYMENT);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId: " + Variables.WAITING_FOR_PAYMENT);
             resp.sendRedirect("/admin");
@@ -76,8 +98,15 @@ public class AdminController extends HttpServlet {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.CANCELED);
 
-            UserOrderRepository.updateStatusId(orderId, Variables.CANCELED);
-            ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+            try {
+                UserOrderRepository.updateStatusId(orderId, Variables.CANCELED);
+                ApartmentRepository.updateApartmentStatus(apartmentId, Variables.FREE);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            }
+
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.CANCELED);
 
             resp.sendRedirect("/admin");

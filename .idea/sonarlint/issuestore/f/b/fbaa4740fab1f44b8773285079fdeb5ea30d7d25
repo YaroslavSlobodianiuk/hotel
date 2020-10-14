@@ -1,34 +1,3 @@
 
-]	java:S1254"<This block of commented-out lines of code should be removed.(Åê³øÿÿÿÿ8®›ùÑ.
-n
-java:S1128	"QRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPoolManager'.(’‰’Á8¯âˆÁĞ.
-i
-java:S1128"GRemove this unused import 'com.slobodianiuk.hotel.staticVar.Variables'.(¼ÙıØÿÿÿÿÿ8°§ÀòÑ.
-]	java:S125*"<This block of commented-out lines of code should be removed.(ÿŠ±Åıÿÿÿÿ8äç§ËÑ.
-t
-java:S1128
-"RRemove this unused import 'com.slobodianiuk.hotel.db.repo.RoomCapacityRepository'.(ŒÎŸ§üÿÿÿÿ8ÊŞ¼Ñ.
-‹
-java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(ß‡Ã†8¥¢ùÑ.
-M
-java:S1128"0Remove this unused import 'java.sql.Connection'.(¥ËôÖ8¯âˆÁĞ.
-g
-java:S1128"JRemove this unused import 'com.slobodianiuk.hotel.db.entity.RoomCapacity'.(ßØ8ÊŞ¼Ñ.
-l
-java:S1128"JRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPool'.(ÚˆŸÖùÿÿÿÿ8¯âˆÁĞ.
-
-java:S1130"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(ß‡Ã†8¥¢ùÑ.
-X	java:S125%"<This block of commented-out lines of code should be removed.(­ºĞğ8ØÑ»¶Ï.
-J
-java:S1128"-Remove this unused import 'java.time.ZoneId'.( Æ½“8§‡ÂöÑ.
-U	java:S1060"9Replace this use of System.out or System.err by a logger.(ğÔ‡’8…ö÷Ñ.
-W	java:S1256"<This block of commented-out lines of code should be removed.(üƒÜ<8®›ùÑ.
-T
-java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ8Ùî÷õÑ.
-U	java:S1062"9Replace this use of System.out or System.err by a logger.(ğÔ‡’8Ãë¢ùÑ.
-]	java:S125:"<This block of commented-out lines of code should be removed.(òƒ·ûıÿÿÿÿ8®›ùÑ.
-W	java:S125<"<This block of commented-out lines of code should be removed.(ªÚñ78œáÛöÑ.
-X	java:S1258"<This block of commented-out lines of code should be removed.(Èü§Ç8®›ùÑ.
-q
-java:S1128"ORemove this unused import 'com.slobodianiuk.hotel.db.pool.BasicConnectionPool'.(­Š±ëúÿÿÿÿ8¯âˆÁĞ.
-X	java:S125""<This block of commented-out lines of code should be removed.(«Ó’œ8ØÑ»¶Ï.
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Çµí‘8›Áó¡Ò.

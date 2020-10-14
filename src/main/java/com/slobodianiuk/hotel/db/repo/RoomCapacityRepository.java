@@ -3,6 +3,8 @@ package com.slobodianiuk.hotel.db.repo;
 import com.slobodianiuk.hotel.db.entity.RoomCapacity;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import com.slobodianiuk.hotel.db.sql.SQL;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -13,15 +15,18 @@ public class RoomCapacityRepository {
 
     private static final Logger log = Logger.getLogger(RoomCapacityRepository.class);
 
-    public static List<RoomCapacity> getRoomCapacities() {
+    public static List<RoomCapacity> getRoomCapacities() throws DBException {
         List<RoomCapacity> capacities = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
         Connection connection = null;
+
+        log.trace("time: " + new java.util.Date() + "sql: " + SQL.SQL_GET_ROOM_CAPACITIES);
+
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("select * from room_capacity");
+            preparedStatement = connection.prepareStatement(SQL.SQL_GET_ROOM_CAPACITIES);
             set = preparedStatement.executeQuery();
             RoomCapacity roomCapacity;
             while (set.next()) {
@@ -29,8 +34,8 @@ public class RoomCapacityRepository {
                 capacities.add(roomCapacity);
             }
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to select data from DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);
@@ -38,20 +43,18 @@ public class RoomCapacityRepository {
         return capacities;
     }
 
-    public static List<RoomCapacity> getRoomCapacitiesByCategoryId(int id) {
+    public static List<RoomCapacity> getRoomCapacitiesByCategoryId(int id) throws DBException {
         List<RoomCapacity> capacities = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
         Connection connection = null;
 
-        log.trace("time: " + new java.util.Date() + "sql: select distinct room_capacity.id, capacity from room_capacity " +
-                "inner join apartments on apartments.room_capacity_id = room_capacity.capacity " +
-                "inner join categories on apartments.category_id = categories.id where categories.id = ?;" + ", categoryId: " + id);
+        log.trace("time: " + new java.util.Date() + "sql: " + SQL.SQL_GET_ROOM_CAPACITIES_BY_CATEGORY_ID + ", categoryId: " + id);
 
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("select distinct room_capacity.id, capacity from room_capacity inner join apartments on apartments.room_capacity_id = room_capacity.capacity inner join categories on apartments.category_id = categories.id where categories.id = ?;");
+            preparedStatement = connection.prepareStatement(SQL.SQL_GET_ROOM_CAPACITIES_BY_CATEGORY_ID);
             preparedStatement.setInt(1, id);
             set = preparedStatement.executeQuery();
 
@@ -60,8 +63,8 @@ public class RoomCapacityRepository {
                 capacities.add(capacity);
             }
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to select data from DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);

@@ -1,3 +1,7 @@
 
 ~
-java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(þšÿœ8—ö’„Î.
+java:S1989""aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(þšÿœ8—ö’„Î.
+_
+java:S1128"BRemove this unused import 'com.slobodianiuk.hotel.db.entity.User'.(ÇÝÖÃ8£“†¢Ò.
+d
+java:S1192"GDefine a constant instead of duplicating this literal "time: " 3 times.(êÑîë8ßùž¢Ò.

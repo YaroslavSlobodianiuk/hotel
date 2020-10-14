@@ -3,6 +3,8 @@ package com.slobodianiuk.hotel.db.repo;
 import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import com.slobodianiuk.hotel.db.sql.SQL;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -14,37 +16,17 @@ public class UserOrderRepository {
 
     private static final Logger log = Logger.getLogger(UserOrderRepository.class);
 
-    public static List<UserOrderBean> getOrders() {
+    public static List<UserOrderBean> getOrders() throws DBException {
         List<UserOrderBean> orders = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
 
-        log.trace("time: " + new java.util.Date() + "sql: select * from user_orders" +
-                "inner join order_statuses" +
-                "on user_orders.order_status_id = order_statuses.id" +
-                "inner join apartments" +
-                "on user_orders.apartment_id = apartments.id" +
-                "inner join categories" +
-                "on user_orders.category_id = categories.id" +
-                "inner join room_capacity" +
-                "on user_orders.room_capacity_id = room_capacity.id" +
-                "inner join users" +
-                "on user_orders.user_id = users.id;");
+        log.trace("time: " + new java.util.Date() + "sql: " + SQL.SQL_GET_ORDERS);
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("select * from user_orders\n" +
-                    "inner join order_statuses\n" +
-                    "on user_orders.order_status_id = order_statuses.id\n" +
-                    "inner join apartments\n" +
-                    "on user_orders.apartment_id = apartments.id\n" +
-                    "inner join categories\n" +
-                    "on user_orders.category_id = categories.id\n" +
-                    "inner join room_capacity\n" +
-                    "on user_orders.room_capacity_id = room_capacity.id\n" +
-                    "inner join users\n" +
-                    "on user_orders.user_id = users.id;");
+            preparedStatement = connection.prepareStatement(SQL.SQL_GET_ORDERS);
             set = preparedStatement.executeQuery();
             Calendar calendar = Calendar.getInstance();
             while (set.next()) {
@@ -52,8 +34,8 @@ public class UserOrderRepository {
                 order.ifPresent(orders::add);
             }
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to select data from DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);
@@ -61,16 +43,16 @@ public class UserOrderRepository {
         return orders;
     }
 
-    public static boolean createOrder(int userId, int apartmentId, int categoryId, int roomCapacityId, Date arrival, Date departure, String comment) {
+    public static boolean createOrder(int userId, int apartmentId, int categoryId, int roomCapacityId, Date arrival, Date departure, String comment) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        log.trace("time: " + new java.util.Date() + ", sql: insert into user_orders (user_id, apartment_id, category_id, room_capacity_id, arrival, departure, user_comment) values (?, ?, ?, ?, ?, ?, ?);");
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_CREATE_ORDER);
 
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("insert into user_orders (user_id, apartment_id, category_id, room_capacity_id, arrival, departure, user_comment) values (?, ?, ?, ?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement(SQL.SQL_CREATE_ORDER);
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, apartmentId);
             preparedStatement.setInt(3, categoryId);
@@ -80,9 +62,8 @@ public class UserOrderRepository {
             preparedStatement.setString(7, comment);
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
-            return false;
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to insert data to DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement);
@@ -90,34 +71,18 @@ public class UserOrderRepository {
         return true;
     }
 
-    public static List<UserOrderBean> getOrdersByUserId(int id) {
+    public static List<UserOrderBean> getOrdersByUserId(int id) throws DBException {
         List<UserOrderBean> orders = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         ResultSet set = null;
         PreparedStatement preparedStatement = null;
 
-        log.trace("time: " + new java.util.Date() + ", sql: select * from user_orders inner join order_statuses on user_orders.order_status_id = order_statuses.id +\n" +
-                "inner join apartments on user_orders.apartment_id = apartments.id" +
-                "inner join categories on user_orders.category_id = categories.id" +
-                "inner join room_capacity on user_orders.room_capacity_id = room_capacity.id" +
-                "inner join users on user_orders.user_id = users.id" +
-                "where users.id = (?);" + ", userId: " + id);
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_GET_ORDERS_BY_USER_ID + ", userId: " + id);
 
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("select * from user_orders\n" +
-                    "inner join order_statuses\n" +
-                    "on user_orders.order_status_id = order_statuses.id\n" +
-                    "inner join apartments\n" +
-                    "on user_orders.apartment_id = apartments.id\n" +
-                    "inner join categories\n" +
-                    "on user_orders.category_id = categories.id\n" +
-                    "inner join room_capacity\n" +
-                    "on user_orders.room_capacity_id = room_capacity.id\n" +
-                    "inner join users\n" +
-                    "on user_orders.user_id = users.id\n" +
-                    "where users.id = (?);");
+            preparedStatement = connection.prepareStatement(SQL.SQL_GET_ORDERS_BY_USER_ID);
             preparedStatement.setInt(1, id);
             set = preparedStatement.executeQuery();
             Calendar calendar = Calendar.getInstance();
@@ -126,8 +91,8 @@ public class UserOrderRepository {
                 order.ifPresent(orders::add);
             }
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to select data from DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement, set);
@@ -135,67 +100,64 @@ public class UserOrderRepository {
         return orders;
     }
 
-    private static Optional<UserOrderBean> extractOrder(ResultSet rs, Calendar calendar) {
+    private static Optional<UserOrderBean> extractOrder(ResultSet rs, Calendar calendar) throws SQLException {
         UserOrderBean order = new UserOrderBean();
-        try {
-            order.setId(rs.getInt("user_orders.id"));
-            order.setUserId(rs.getInt("user_id"));
-            order.setUsername(rs.getString("first_name"));
-            order.setCategoryId(rs.getInt("category_id"));
-            order.setCategory(rs.getString("category_name"));
-            order.setCapacityId(rs.getInt("room_capacity_id"));
-            order.setCapacity(rs.getInt("capacity"));
-            order.setApartmentId(rs.getInt("apartment_id"));
-            order.setApartmentName(rs.getString("title"));
-            order.setPrice(rs.getDouble("price"));
-            order.setArrival(rs.getDate("arrival"));
-            order.setDeparture(rs.getDate("departure"));
-            order.setTransactionStart(rs.getTimestamp("transaction_start", calendar));
-            order.setOrderStatusId(rs.getInt("order_status_id"));
-            order.setOrderStatus(rs.getString("status_name"));
-            order.setComment(rs.getString("user_comment"));
-        } catch (SQLException ex) {
-            log.error("time: " + new java.util.Date() + ", error: " + ex);
-            ex.printStackTrace();
-        }
+
+        order.setId(rs.getInt("user_orders.id"));
+        order.setUserId(rs.getInt("user_id"));
+        order.setUsername(rs.getString("first_name"));
+        order.setCategoryId(rs.getInt("category_id"));
+        order.setCategory(rs.getString("category_name"));
+        order.setCapacityId(rs.getInt("room_capacity_id"));
+        order.setCapacity(rs.getInt("capacity"));
+        order.setApartmentId(rs.getInt("apartment_id"));
+        order.setApartmentName(rs.getString("title"));
+        order.setPrice(rs.getDouble("price"));
+        order.setArrival(rs.getDate("arrival"));
+        order.setDeparture(rs.getDate("departure"));
+        order.setTransactionStart(rs.getTimestamp("transaction_start", calendar));
+        order.setOrderStatusId(rs.getInt("order_status_id"));
+        order.setOrderStatus(rs.getString("status_name"));
+        order.setComment(rs.getString("user_comment"));
+
         return Optional.of(order);
     }
 
-    public static void updateStatusId(int id, int statusId) {
+    public static void updateStatusId(int id, int statusId) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        log.trace("time: " + new java.util.Date() + ", sql: update user_orders set order_status_id = (?) where id = (?);" + ", id: " + id + ", statusId: " + statusId);
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_UPDATE_STATUS_ID +  ", id: " + id + ", statusId: " + statusId);
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("update user_orders set order_status_id = (?) where id = (?);");
+            preparedStatement = connection.prepareStatement(SQL.SQL_UPDATE_STATUS_ID);
             preparedStatement.setInt(1, statusId);
             preparedStatement.setInt(2, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to update data in the DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement);
         }
     }
 
-    public static void setTransactionStart(int orderId) {
+    public static void setTransactionStart(int orderId) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        log.trace("time: " + new java.util.Date() + ", sql: update user_orders set transaction_start = now() where id = (?);" + "orderId: " + orderId);
+        log.trace("time: " + new java.util.Date() + ", sql: " + SQL.SQL_SET_TRANSACTION_START + "orderId: " + orderId);
 
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("update user_orders set transaction_start = now() where id = (?);");
+            preparedStatement = connection.prepareStatement(SQL.SQL_SET_TRANSACTION_START);
             preparedStatement.setInt(1, orderId);
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.error("time: " + new java.util.Date() + ", error: " + e);
-            e.printStackTrace();
+            log.error("time: " + new java.util.Date() + ", SQLException: ", e);
+            throw new DBException("Unable to update data in the DB");
         } finally {
             connectionPool.releaseConnection(connection);
             close(preparedStatement);
@@ -208,7 +170,7 @@ public class UserOrderRepository {
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                log.error("time: " + new java.util.Date() + ", error: " + ex);
+                log.error("time: " + new java.util.Date() + ", SQLException: " + ex);
             }
         }
     }
@@ -217,7 +179,7 @@ public class UserOrderRepository {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                log.error("time: " + new java.util.Date() + ", error: " + ex);
+                log.error("time: " + new java.util.Date() + ", SQLException: " + ex);
             }
         }
     }

@@ -1,16 +1,9 @@
 
-U	java:S106$"9Replace this use of System.out or System.err by a logger.(ı³ÓÆ8·›·îÎ.
-U	java:S106="9Replace this use of System.out or System.err by a logger.(öôÊ¡8õùäîÎ.
-h
-java:S1192"FDefine a constant instead of duplicating this literal "order" 3 times.(ˆ¢Ì÷ıÿÿÿÿ8íæ§³Ï.
-X
-java:S1128";Remove this unused import 'javax.servlet.http.HttpSession'.(í¨ô8å´üîÎ.
-Z	java:S106'"9Replace this use of System.out or System.err by a logger.(±éÂÒùÿÿÿÿ8ÔÍ·îÎ.
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(ˆ¢Ì÷ıÿÿÿÿ8³â’³Ï.
-U	java:S106"9Replace this use of System.out or System.err by a logger.(üÍ“Ê8•áèíÎ.
-v
-java:S19893"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ç¤ñı8¿şÛÎ.
-W	java:S125A"<This block of commented-out lines of code should be removed.(‰ˆŠP8¿şÛÎ.
+i
+java:S1192""GDefine a constant instead of duplicating this literal "time: " 4 times.(ãÖˆÅøÿÿÿÿ8×¡É¢Ò.
 ƒ
-java:S1989>"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(íÙ ıÿÿÿÿ8ÃÿîÎ.
-U	java:S106?"9Replace this use of System.out or System.err by a logger.(¢ˆüŞ8Ìü‚ïÎ.
+java:S1989L"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(íÙ ıÿÿÿÿ8ÃÿîÎ.
+v
+java:S1989:"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ç¤ñı8¿şÛÎ.
+p
+java:S1192""NDefine a constant instead of duplicating this literal ", sessionId: " 4 times.(ãÖˆÅøÿÿÿÿ8×¡É¢Ò.

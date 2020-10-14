@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    <h3>Error happened</h3>
+    <h3>Error happened - ${errorMessage}</h3>
 </body>
 </html>

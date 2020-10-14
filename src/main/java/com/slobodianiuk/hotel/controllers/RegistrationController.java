@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -66,27 +67,39 @@ public class RegistrationController extends HttpServlet {
         if (!"".equals(message = emptyValidation(login, password, passwordConfirmation, firstName, lastName))) {
             req.setAttribute("message", message);
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-            System.out.println(message);
+
         }
 
         if (!passwordValidation(password, passwordConfirmation)) {
             req.setAttribute("message", "Password does not match");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-            System.out.println("Password does not match");
+
         }
 
-        System.out.println("login: " + login);
-        Optional<User> optionalUser = UserRepository.getUserByLogin(login);
+        Optional<User> optionalUser = null;
+        try {
+            optionalUser = UserRepository.getUserByLogin(login);
+        } catch (DBException e) {
+            session.setAttribute("errorMessage", e.getMessage());
+            log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+        }
         if (optionalUser.isPresent()) {
             req.setAttribute("message", "Login " + login + " is already exist");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-            System.out.println("Login " + login + "is already exist");
         }
         String locale = session.getAttribute("locale") != null ? (String) session.getAttribute("locale") : "en";
 
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login + ", firstName: " + firstName + " lastName: " + lastName + " registration in progress");
 
-        Optional<User> registeredUser = UserRepository.registerUser(login, password, firstName, lastName, locale);
+        Optional<User> registeredUser = null;
+        try {
+            registeredUser = UserRepository.registerUser(login, password, firstName, lastName, locale);
+        } catch (DBException e) {
+            session.setAttribute("errorMessage", e.getMessage());
+            log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+        }
         if (!registeredUser.isPresent()) {
             req.setAttribute("message", "Something happened while registration, please try again");
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " something happened while registration");
