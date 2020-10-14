@@ -1,19 +1,34 @@
 
-q
-java:S1128"ORemove this unused import 'com.slobodianiuk.hotel.db.pool.BasicConnectionPool'.(­Š±ëúÿÿÿÿ8¯âˆÁÐ.
-M
-java:S1128"0Remove this unused import 'java.sql.Connection'.(¥ËôÖ8¯âˆÁÐ.
-l
-java:S1128"JRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPool'.(ÚˆŸÖùÿÿÿÿ8¯âˆÁÐ.
-X	java:S125"<This block of commented-out lines of code should be removed.(«Ó’œ8ØÑ»¶Ï.
+]	java:S1254"<This block of commented-out lines of code should be removed.(žÅê³øÿÿÿÿ8®›ùÑ.
 n
-java:S1128"QRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPoolManager'.(’‰’Á8¯âˆÁÐ.
+java:S1128	"QRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPoolManager'.(’‰’Á8¯âˆÁÐ.
+i
+java:S1128"GRemove this unused import 'com.slobodianiuk.hotel.staticVar.Variables'.(¼ÙýØÿÿÿÿÿ8°§ÀòÑ.
+]	java:S125*"<This block of commented-out lines of code should be removed.(ÿŠ±Åýÿÿÿÿ8äç§ËÑ.
+t
+java:S1128
+"RRemove this unused import 'com.slobodianiuk.hotel.db.repo.RoomCapacityRepository'.(ŒÎŸ§üÿÿÿÿ8ŽÊÞ¼Ñ.
 ‹
-java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(Á¯¦þ8…äÓÃÑ.
+java:S1130"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(ß‡Ã†8Ž¥¢ùÑ.
+M
+java:S1128"0Remove this unused import 'java.sql.Connection'.(¥ËôÖ8¯âˆÁÐ.
 g
 java:S1128"JRemove this unused import 'com.slobodianiuk.hotel.db.entity.RoomCapacity'.(ßŽØ8ŽÊÞ¼Ñ.
-X	java:S125"<This block of commented-out lines of code should be removed.(­ºÐð8ØÑ»¶Ï.
-Z	java:S106)"9Replace this use of System.out or System.err by a logger.(ºõ–½ýÿÿÿÿ8ÅÜÔÃÑ.
-t
-java:S1128	"RRemove this unused import 'com.slobodianiuk.hotel.db.repo.RoomCapacityRepository'.(ŒÎŸ§üÿÿÿÿ8ŽÊÞ¼Ñ.
-]	java:S125$"<This block of commented-out lines of code should be removed.(ÿŠ±Åýÿÿÿÿ8äç§ËÑ.
+l
+java:S1128"JRemove this unused import 'com.slobodianiuk.hotel.db.pool.ConnectionPool'.(ÚˆŸÖùÿÿÿÿ8¯âˆÁÐ.
+Ž
+java:S1130"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(ß‡Ã†8Ž¥¢ùÑ.
+X	java:S125%"<This block of commented-out lines of code should be removed.(­ºÐð8ØÑ»¶Ï.
+J
+java:S1128"-Remove this unused import 'java.time.ZoneId'.( Æ½“8§‡ÂöÑ.
+U	java:S1060"9Replace this use of System.out or System.err by a logger.(ðÔ‡’8…ö÷Ñ.
+W	java:S1256"<This block of commented-out lines of code should be removed.(üƒÜ<8®›ùÑ.
+T
+java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ8Ùî÷õÑ.
+U	java:S1062"9Replace this use of System.out or System.err by a logger.(ðÔ‡’8Ãë¢ùÑ.
+]	java:S125:"<This block of commented-out lines of code should be removed.(òƒ·ûýÿÿÿÿ8®›ùÑ.
+W	java:S125<"<This block of commented-out lines of code should be removed.(ªÚñ78œáÛöÑ.
+X	java:S1258"<This block of commented-out lines of code should be removed.(Èü§Ç8®›ùÑ.
+q
+java:S1128"ORemove this unused import 'com.slobodianiuk.hotel.db.pool.BasicConnectionPool'.(­Š±ëúÿÿÿÿ8¯âˆÁÐ.
+X	java:S125""<This block of commented-out lines of code should be removed.(«Ó’œ8ØÑ»¶Ï.

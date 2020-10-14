@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
 
 @WebServlet("/register")
 public class RegistrationController extends HttpServlet {
+
+    private static final long serialVersionUID = 2308152438561227727L;
+    private static final Logger log = Logger.getLogger(RegistrationController.class);
 
     public RegistrationController() {
     }
@@ -26,26 +31,23 @@ public class RegistrationController extends HttpServlet {
 
         Integer roleId = (Integer) session.getAttribute("role");
         User userAtt = (User) session.getAttribute("user");
-        String parameter = req.getParameter("tmp");
-        System.out.println(parameter);
-
 
         if (userAtt != null) {
+
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + userAtt.getId() + ", userRoleId: " + userAtt.getRoleId() + " already logged in");
 
             switch (RoleEnum.getRole(roleId)) {
                 case User:
                     session.setAttribute("name", userAtt.getFirstName());
-                    resp.sendRedirect("welcome.jsp");
+                    resp.sendRedirect("/");
                     break;
                 case Admin:
                     session.setAttribute("name", userAtt.getFirstName());
-                    resp.sendRedirect("adminPanel.jsp");
-                    break;
-                default:
+                    resp.sendRedirect("/admin");
                     break;
             }
         } else {
-            req.setAttribute("tmp", parameter);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " was forwarded to registration page");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
     }
@@ -81,15 +83,20 @@ public class RegistrationController extends HttpServlet {
             System.out.println("Login " + login + "is already exist");
         }
         String locale = session.getAttribute("locale") != null ? (String) session.getAttribute("locale") : "en";
+
+        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login + ", firstName: " + firstName + " lastName: " + lastName + " registration in progress");
+
         Optional<User> registeredUser = UserRepository.registerUser(login, password, firstName, lastName, locale);
         if (!registeredUser.isPresent()) {
             req.setAttribute("message", "Something happened while registration, please try again");
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " something happened while registration");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-            System.out.println("Something happened while registration, please try again");
+
         }
         req.setAttribute("message", "User with " + login + " login was successfully registered");
+        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " user with " + login + " was successfully registered");
         resp.sendRedirect("/login");
-        System.out.println("User with " + login + " login was successfully registered");
+
     }
 
     private boolean passwordValidation(String password, String passwordConfirmation) {

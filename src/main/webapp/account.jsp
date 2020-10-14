@@ -1,11 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: GUEST USER
-  Date: 12.10.2020
-  Time: 2:13
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib uri="lib" prefix="ct"%>
+
 <html>
 <head>
     <title>Title</title>
@@ -77,7 +72,7 @@
                     <h2 id="end"></h2>
                     <script>
                         // The data/time we want to countdown to
-                        var countDownDate = new Date(${date}).getTime();
+                        var countDownDate = new Date(<ct:deadline order="${order}"/>).getTime();
 
                         // Run myfunc every second
                         var myfunc = setInterval(function() {
@@ -117,9 +112,9 @@
 //Send the proper header information along with the request
                             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-                            http.onreadystatechange = function() {//Call a function when the state changes.
+                            http.onload = function() {//Call a function when the state changes.
                                 if(http.readyState == 4 && http.status == 200) {
-
+                                    document.location.reload();
                                 }
                             };
                             http.send(params);

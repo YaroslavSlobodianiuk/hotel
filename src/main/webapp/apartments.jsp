@@ -10,65 +10,22 @@
     <html>
 <head>
     <script>
-        // window.addEventListener('DOMContentLoaded', (event) => {
-        //     const queryString = window.location.search;
-        //
-        //     console.log(queryString);
-        //     const urlParams = new URLSearchParams(queryString);
-        //     document.getElementById('sort-select').options[urlParams.get('selected')].selected = true;
-        //     console.log(urlParams.get('selected'));
-        // });
         function getSelectedOption() {
-            // if (localStorage.getItem('selectedItem')) {
-            //     // var id = localStorage.getItem('sort-select').id;
-            //     // document.getElementById(id).selected = true;
-            //     document.getElementById('sort-select').options[localStorage.getItem('selectedItem')].selected = true;
-            //     //$("#sort-select option").eq(localStorage.getItem('sort-select')).prop('selected', true);
-            // }
 
-            // if (localStorage.getItem('selectedItem')) {
-            //     document.getElementById('sort-select').options[localStorage.getItem('selectedItem')].selected = true;
-            // }
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             document.getElementById('sort-select').options[urlParams.get('sort')].selected = true;
             document.getElementById('sort-order').options[urlParams.get('order')].selected = true;
         }
 
-        // function setSelectedItem(value) {
-        //     console.assert(true,"selectedItem");
-        //     localStorage.setItem('selectedItem', value);
-        //
-        // }
         function sort() {
 
-
-            // localStorage.setItem('selectedItem', value);
-            // window.location.replace("/apartments?sort=" + value);
             var e = document.getElementById('sort-select');
             var sort = e.options[e.selectedIndex].value;
 
             var el = document.getElementById('sort-order');
             var order = el.options[el.selectedIndex].value;
             window.location.replace('/apartments?sort=' + sort + '&order=' + order);
-
-
-
-
-
-            // $("#sort-select").on('change', function() {
-            //     localStorage.setItem('sort-select', $('option:selected', this).index());
-            // });
-            // window.location.replace("/apartments?sort="+value);
-
-            //y
-            //
-            //
-            // history.pushState()
-            // var selectEl = document.getElementById("sort-select");
-            // var id = selectEl.options[selectEl.selectedIndex].id;
-            // document.getElementById(id).selected = true;
-
         }
     </script>
     <title>Title</title>
@@ -90,14 +47,6 @@
         <option id="desc" value="desc">desc</option>
     </select>
 </div>
-<%--<script>--%>
-<%--    --%>
-
-<%--    if (window.localStorage.getItem('selectedItem')) {--%>
-<%--        document.getElementById('sort-select').options[window.localStorage.getItem('selectedItem')].selected = true;--%>
-<%--    }--%>
-<%--</script>--%>
-<h1>Sorting: ${sortingType}</h1>
 <c:forEach items="${apartments}" var="apart">
     <div class="container mt-5">
         <div class="alert alert-info mt-2">
@@ -107,11 +56,11 @@
             <p>Price: ${apart.price}</p>
             <p>Status: ${apart.status}</p>
             <form action="/apartments/${apart.id}" method="post">
-                <input type="hidden" name="details" value="${apart.id}">
+                <input type="hidden" name="apartmentId" value="${apart.id}">
                 <button type="submit" class="btn btn-warning">Details...</button>
             </form>
 
-            <form action="/apartments/${apart.id}/book" method="post">
+            <form action="/booking" method="post">
                 <button type="submit" class="btn btn-warning">Book Now</button>
             </form>
         </div>

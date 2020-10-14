@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib version="2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>deadline</short-name>
+    <uri>/WEB-INF/tlds/deadline.tld</uri>
+
+
+    <tag>
+        <name>deadline</name>
+        <tag-class>com.slobodianiuk.hotel.tags.DeadlineTag</tag-class>
+        <attribute>
+            <name>order</name>
+            <required>true</required>
+            <type>com.slobodianiuk.hotel.db.bean.UserOrderBean</type>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>time</name>
+        <tag-class>com.slobodianiuk.hotel.tags.TimeTag</tag-class>
+
+        <attribute>
+            <name>type</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>period</name>
+            <type>java.lang.Integer</type>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

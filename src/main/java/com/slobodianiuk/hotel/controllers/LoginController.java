@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+
+    private static final long serialVersionUID = 1768147553023467819L;
+    private static final Logger log = Logger.getLogger(LoginController.class);
 
     public LoginController() {
     }
@@ -28,15 +33,18 @@ public class LoginController extends HttpServlet {
 
         if (userAtt != null) {
 
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + userAtt.getId() + ", userRoleId: " + userAtt.getRoleId() + " already logged in");
+
             switch (RoleEnum.getRole(userAtt.getRoleId())) {
                 case Admin:
                     resp.sendRedirect(req.getContextPath() + "/admin");
                     break;
                 case User:
-                    resp.sendRedirect(req.getContextPath() + "/welcome");
+                    resp.sendRedirect(req.getContextPath() + "/");
                     break;
             }
         } else {
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " redirected to login page");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }
@@ -49,6 +57,8 @@ public class LoginController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
+        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login);
+
         Optional<User> optionalUser = UserRepository.getUserByLogin(login);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -58,20 +68,24 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("user", user);
                         Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", user.getLocaleName());
                         session.setAttribute("locale", user.getLocaleName());
+                        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " Successfully logged in");
                         resp.sendRedirect(req.getContextPath() + "/admin");
                         break;
                     case User:
                         session.setAttribute("user", user);
                         Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", user.getLocaleName());
                         session.setAttribute("locale", user.getLocaleName());
-                        resp.sendRedirect(req.getContextPath() + "/welcome");
+                        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " Successfully logged in");
+                        resp.sendRedirect(req.getContextPath() + "/");
                         break;
                 }
             } else {
+                log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login + " Invalid login or password");
                 req.setAttribute("message", "Invalid login or password");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
             }
         }  else {
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login + " Invalid login or password");
             req.setAttribute("message", "Invalid login or password");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }

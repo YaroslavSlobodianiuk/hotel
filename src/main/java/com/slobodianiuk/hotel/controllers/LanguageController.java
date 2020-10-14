@@ -2,6 +2,7 @@ package com.slobodianiuk.hotel.controllers;
 
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
+import java.util.Date;
 
 @WebServlet("/language")
 public class LanguageController extends HttpServlet {
 
+    private static final long serialVersionUID = 2604665310889984564L;
+    private static final Logger log = Logger.getLogger(LanguageController.class);
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         boolean updateUser = false;
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
@@ -24,23 +29,19 @@ public class LanguageController extends HttpServlet {
         String localeFromRequest = req.getParameter("locale");
 
         if (user != null && !user.getLocaleName().equals(localeFromRequest)) {
-            user.setLocaleName(localeFromRequest);
-            updateUser = true;
-        }
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() +
+                    ", localeFromSession: " + localeFromSession + ", localeFromRequest: " + localeFromRequest);
 
-        if (!localeFromRequest.equals(localeFromSession)) {
+            user.setLocaleName(localeFromRequest);
+            Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
+            UserRepository.updateUser(user);
+
+        } else if (!localeFromRequest.equals(localeFromSession)) {
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() +
+                    ", localeFromSession: " + localeFromSession + ", localeFromRequest: " + localeFromRequest);
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
             session.setAttribute("locale", localeFromRequest);
         }
-
-        if (updateUser) {
-            try {
-                UserRepository.updateUser(user);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
 
         resp.sendRedirect("/");
     }

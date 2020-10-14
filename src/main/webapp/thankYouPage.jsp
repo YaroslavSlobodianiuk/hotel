@@ -15,3 +15,10 @@
     <h2><a href="/">Return back to main page</a></h2>
 </body>
 </html>
+
+select * from user_orders inner join order_statuses on user_orders.order_status_id = order_statuses.id" +
+"inner join apartments on user_orders.apartment_id = apartments.id" +
+"inner join categories on user_orders.category_id = categories.id" +
+"inner join room_capacity on user_orders.room_capacity_id = room_capacity.id" +
+"inner join users on user_orders.user_id = users.id" +
+"where users.id = (?);

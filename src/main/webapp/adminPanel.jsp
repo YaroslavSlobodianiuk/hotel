@@ -74,6 +74,16 @@
                     <c:when test="${order.orderStatus eq 'paid'}"><td>paid</td></c:when>
                     <c:when test="${order.orderStatus eq 'declined'}"><td>declined</td></c:when>
                 </c:choose>
+                <td>
+                    <c:if test="${order.orderStatusId lt 5}">
+                        <form action="/admin" method="post">
+                            <input type="hidden" name="id" value="${order.id}">
+                            <input type="hidden" name="apartmentId" value="${order.apartmentId}">
+                            <input type="hidden" name="action" value="cancel">
+                            <input type="submit" value="Cancel">
+                        </form>
+                    </c:if>
+                </td>
             </tr>
         </c:forEach>
     </table>

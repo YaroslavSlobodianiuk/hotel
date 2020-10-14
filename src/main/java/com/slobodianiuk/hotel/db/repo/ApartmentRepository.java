@@ -1,10 +1,13 @@
 package com.slobodianiuk.hotel.db.repo;
 
+import com.slobodianiuk.hotel.controllers.AdminController;
 import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.enums.SortingOrder;
 import com.slobodianiuk.hotel.db.enums.SortingType;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import com.slobodianiuk.hotel.staticVar.Variables;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,15 +16,23 @@ import java.util.Optional;
 
 public class ApartmentRepository {
 
+    private static final Logger log = Logger.getLogger(ApartmentRepository.class);
+
     public static Optional<Apartment> getApartmentById(int id) {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
         Connection connection = null;
         Apartment apartment = null;
+
+        log.trace("time: " + new java.util.Date() + ", sql: select * from apartments " +
+                "inner join categories on apartments.category_id = categories.id " +
+                "inner join room_capacity on apartments.room_capacity_id = room_capacity.id " +
+                "inner join statuses on apartments.status_id = statuses.id where apartments.id =(?);" + ", id: " + id);
+
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("select * from apartments inner join categories on apartments.category_id = categories.id inner join room_capacity on apartments.room_capacity_id = room_capacity.id inner join statuses on apartments.status_id = statuses.id where apartments.id =(?)");
+            preparedStatement = connection.prepareStatement("select * from apartments inner join categories on apartments.category_id = categories.id inner join room_capacity on apartments.room_capacity_id = room_capacity.id inner join statuses on apartments.status_id = statuses.id where apartments.id =(?);");
             preparedStatement.setInt(1, id);
             set = preparedStatement.executeQuery();
 
@@ -29,7 +40,7 @@ public class ApartmentRepository {
                 apartment = extractApartments(set);
             }
         } catch (SQLException e) {
-            //Logger
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -54,7 +65,9 @@ public class ApartmentRepository {
             queryBuilder.append(" ").append(sortingOrder.getValue());
         }
         queryBuilder.append(" limit ").append(offset).append(", ").append(numberOfRecords);
-        System.out.println(queryBuilder.toString());
+
+        log.trace("time: " + new java.util.Date() + ", sql:" + queryBuilder.toString() + ", offset: " + offset + ", numberOfRecords: " + numberOfRecords + ", sortingType: " + sortingType + ", sortingOrder: " + sortingOrder);
+
         try {
             connection = connectionPool.getConnection();
 
@@ -64,6 +77,7 @@ public class ApartmentRepository {
                 apartments.add(extractApartments(set));
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -78,6 +92,9 @@ public class ApartmentRepository {
         ResultSet set = null;
         Connection connection = null;
         int numberOfRecords = 0;
+
+        log.trace("time: " + new java.util.Date() + "sql: select count(*) from apartments");
+
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("select count(*) from apartments");
@@ -86,6 +103,7 @@ public class ApartmentRepository {
                 numberOfRecords = set.getInt(1);
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -101,11 +119,15 @@ public class ApartmentRepository {
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
 
+        log.trace("time: " + new java.util.Date() + "sql: select id, title from apartments where category_id = (?) and room_capacity_id = (?) and status_id = (?);"
+                + ", categoryId: " + categoryId + ", capacityId" + capacityId + "status_id: " + Variables.FREE);
+
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("select id, title from apartments where category_id = (?) and room_capacity_id = (?) and status_id = 1;");
+            preparedStatement = connection.prepareStatement("select id, title from apartments where category_id = (?) and room_capacity_id = (?) and status_id = (?);");
             preparedStatement.setInt(1, categoryId);
             preparedStatement.setInt(2, capacityId);
+            preparedStatement.setInt(3, Variables.FREE);
             set = preparedStatement.executeQuery();
             while (set.next()) {
                 Apartment apartment = new Apartment();
@@ -114,6 +136,7 @@ public class ApartmentRepository {
                 apartments.add(apartment);
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -127,6 +150,9 @@ public class ApartmentRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
+        log.trace("time: " + new java.util.Date() + ", sql: update apartments set status_id = (?) where id = (?);" + ", apartmentId: " + apartmentId + ", statusId: " + statusId);
+
+
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("update apartments set status_id = (?) where id = (?);");
@@ -134,6 +160,7 @@ public class ApartmentRepository {
             preparedStatement.setInt(2, apartmentId);
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -141,14 +168,20 @@ public class ApartmentRepository {
         }
     }
 
-    private static Apartment extractApartments(ResultSet rs) throws SQLException {
+    private static Apartment extractApartments(ResultSet rs) {
         Apartment apartments = new Apartment();
-        apartments.setId(rs.getInt("id"));
-        apartments.setTitle(rs.getString("title"));
-        apartments.setRoomCapacity(rs.getInt("capacity"));
-        apartments.setCategory(rs.getString("category_name"));
-        apartments.setPrice(rs.getDouble("price"));
-        apartments.setStatus(rs.getString("status_name"));
+        try {
+            apartments.setId(rs.getInt("id"));
+            apartments.setTitle(rs.getString("title"));
+            apartments.setRoomCapacity(rs.getInt("capacity"));
+            apartments.setCategory(rs.getString("category_name"));
+            apartments.setPrice(rs.getDouble("price"));
+            apartments.setStatus(rs.getString("status_name"));
+        } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
+            e.printStackTrace();
+        }
+
         return apartments;
     }
 
@@ -158,7 +191,7 @@ public class ApartmentRepository {
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }
@@ -167,7 +200,7 @@ public class ApartmentRepository {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }

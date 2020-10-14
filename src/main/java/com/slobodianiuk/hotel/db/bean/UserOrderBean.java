@@ -1,6 +1,7 @@
 package com.slobodianiuk.hotel.db.bean;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 public class UserOrderBean {
@@ -23,6 +24,13 @@ public class UserOrderBean {
     private String comment;
 
     public UserOrderBean() {
+    }
+
+    public long getDeadline() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(transactionStart);
+        calendar.add(Calendar.DATE, 2);
+        return calendar.getTime().getTime();
     }
 
     public int getOrderStatusId() {

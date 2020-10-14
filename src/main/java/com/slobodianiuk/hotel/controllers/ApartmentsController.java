@@ -4,6 +4,7 @@ import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.enums.SortingOrder;
 import com.slobodianiuk.hotel.db.enums.SortingType;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,18 +13,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/apartments")
 public class ApartmentsController extends HttpServlet {
 
+    private static final long serialVersionUID = 1721189415750601025L;
+    private static final Logger log = Logger.getLogger(ApartmentsController.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req.getParameter("order"));
-        System.out.println(req.getParameter("sort"));
+        HttpSession session = req.getSession();
+
+
+
         SortingOrder sortingOrder = SortingOrder.ASC;
         if (req.getParameter("order") != null) {
             String order = req.getParameter("order");
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", order:" + order);
             if (SortingOrder.DESC.getValue().equals(order)) {
                 sortingOrder = SortingOrder.DESC;
             }
@@ -32,11 +40,10 @@ public class ApartmentsController extends HttpServlet {
         SortingType sortingType = SortingType.DEFAULT;
         if (req.getParameter("sort") != null) {
             String sort = req.getParameter("sort").toLowerCase();
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", sort:" + sort);
             if (SortingType.PRICE.getValue().equals(sort)) {
-                System.out.println("a");
                 sortingType = SortingType.PRICE;
             } else if (SortingType.CAPACITY.getValue().equals(sort)) {
-                System.out.println("b");
                 sortingType = SortingType.CAPACITY;
             } else if (SortingType.CATEGORY_NAME.getValue().equals(sort)) {
                 sortingType = SortingType.CATEGORY_NAME;
@@ -50,22 +57,25 @@ public class ApartmentsController extends HttpServlet {
         if (req.getParameter("page") != null) {
             page = Integer.parseInt(req.getParameter("page"));
         }
+
+        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", page:" + page +
+                ", recordsPerPage: " + recordsPerPage + ", offset: " + (page-1)*recordsPerPage + ", sortingType: " + sortingType + ", sortingOrder: " + sortingOrder);
+
         List<Apartment> apartments = ApartmentRepository.getApartments((page-1)*recordsPerPage, recordsPerPage, sortingType, sortingOrder);
         int numberOfRecords = ApartmentRepository.getNumberOfRecords();
         int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
+
+        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", numberOfRecords: " + numberOfRecords + ", numberOfPages: " + numberOfPages);
+
         req.setAttribute("apartments", apartments);
         req.setAttribute("numberOfPages", numberOfPages);
         req.setAttribute("currentPage", page);
         req.setAttribute("sortingType", sortingType.toString().toLowerCase());
         req.setAttribute("sortingOrder", sortingOrder.toString().toLowerCase());
-        System.out.println("c");
-        req.getRequestDispatcher("apartments.jsp").forward(req, resp);
-        System.out.println("d");
 
-//        if (apartmentsAttribute == null) {
-//            List<Apartment> apartments = ApartmentRepository.getApartments();
-//            session.setAttribute("apartments", apartments);
-//        }
-//        req.getRequestDispatcher("apartments.jsp").forward(req, resp);
+        req.getRequestDispatcher("apartments.jsp").forward(req, resp);
+
+
+
     }
 }

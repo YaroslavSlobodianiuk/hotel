@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.db.repo;
 import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.sql.Date;
@@ -11,12 +12,26 @@ import java.util.*;
 
 public class UserOrderRepository {
 
+    private static final Logger log = Logger.getLogger(UserOrderRepository.class);
+
     public static List<UserOrderBean> getOrders() {
         List<UserOrderBean> orders = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
+
+        log.trace("time: " + new java.util.Date() + "sql: select * from user_orders" +
+                "inner join order_statuses" +
+                "on user_orders.order_status_id = order_statuses.id" +
+                "inner join apartments" +
+                "on user_orders.apartment_id = apartments.id" +
+                "inner join categories" +
+                "on user_orders.category_id = categories.id" +
+                "inner join room_capacity" +
+                "on user_orders.room_capacity_id = room_capacity.id" +
+                "inner join users" +
+                "on user_orders.user_id = users.id;");
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("select * from user_orders\n" +
@@ -37,6 +52,7 @@ public class UserOrderRepository {
                 order.ifPresent(orders::add);
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -50,6 +66,8 @@ public class UserOrderRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
+        log.trace("time: " + new java.util.Date() + ", sql: insert into user_orders (user_id, apartment_id, category_id, room_capacity_id, arrival, departure, user_comment) values (?, ?, ?, ?, ?, ?, ?);");
+
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("insert into user_orders (user_id, apartment_id, category_id, room_capacity_id, arrival, departure, user_comment) values (?, ?, ?, ?, ?, ?, ?);");
@@ -62,6 +80,7 @@ public class UserOrderRepository {
             preparedStatement.setString(7, comment);
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
             return false;
         } finally {
@@ -77,6 +96,13 @@ public class UserOrderRepository {
         Connection connection = null;
         ResultSet set = null;
         PreparedStatement preparedStatement = null;
+
+        log.trace("time: " + new java.util.Date() + ", sql: select * from user_orders inner join order_statuses on user_orders.order_status_id = order_statuses.id +\n" +
+                "inner join apartments on user_orders.apartment_id = apartments.id" +
+                "inner join categories on user_orders.category_id = categories.id" +
+                "inner join room_capacity on user_orders.room_capacity_id = room_capacity.id" +
+                "inner join users on user_orders.user_id = users.id" +
+                "where users.id = (?);" + ", userId: " + id);
 
         try {
             connection = connectionPool.getConnection();
@@ -100,6 +126,7 @@ public class UserOrderRepository {
                 order.ifPresent(orders::add);
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -128,8 +155,8 @@ public class UserOrderRepository {
             order.setOrderStatus(rs.getString("status_name"));
             order.setComment(rs.getString("user_comment"));
         } catch (SQLException ex) {
+            log.error("time: " + new java.util.Date() + ", error: " + ex);
             ex.printStackTrace();
-            // Logger
         }
         return Optional.of(order);
     }
@@ -138,7 +165,7 @@ public class UserOrderRepository {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
+        log.trace("time: " + new java.util.Date() + ", sql: update user_orders set order_status_id = (?) where id = (?);" + ", id: " + id + ", statusId: " + statusId);
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("update user_orders set order_status_id = (?) where id = (?);");
@@ -146,6 +173,7 @@ public class UserOrderRepository {
             preparedStatement.setInt(2, id);
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -157,12 +185,16 @@ public class UserOrderRepository {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+
+        log.trace("time: " + new java.util.Date() + ", sql: update user_orders set transaction_start = now() where id = (?);" + "orderId: " + orderId);
+
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("update user_orders set transaction_start = now() where id = (?);");
             preparedStatement.setInt(1, orderId);
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -176,7 +208,7 @@ public class UserOrderRepository {
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }
@@ -185,7 +217,7 @@ public class UserOrderRepository {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }

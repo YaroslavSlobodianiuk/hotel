@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="lib" prefix="ct"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
     </style>
 </head>
 <body>
-<body>
+
 <p id="days"></p>
 <p id="hours"></p>
 <p id="mins"></p>
@@ -20,7 +21,7 @@
 <h2 id="end"></h2>
 <script>
     // The data/time we want to countdown to
-    var countDownDate = new Date(${date}).getTime();
+    var countDownDate = new Date().getTime();
 
     // Run myfunc every second
     var myfunc = setInterval(function() {

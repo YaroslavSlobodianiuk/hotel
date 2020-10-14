@@ -3,12 +3,15 @@ package com.slobodianiuk.hotel.db.repo;
 import com.slobodianiuk.hotel.db.entity.RoomCapacity;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomCapacityRepository {
+
+    private static final Logger log = Logger.getLogger(RoomCapacityRepository.class);
 
     public static List<RoomCapacity> getRoomCapacities() {
         List<RoomCapacity> capacities = new ArrayList<>();
@@ -26,6 +29,7 @@ public class RoomCapacityRepository {
                 capacities.add(roomCapacity);
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -40,6 +44,11 @@ public class RoomCapacityRepository {
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
         Connection connection = null;
+
+        log.trace("time: " + new java.util.Date() + "sql: select distinct room_capacity.id, capacity from room_capacity " +
+                "inner join apartments on apartments.room_capacity_id = room_capacity.capacity " +
+                "inner join categories on apartments.category_id = categories.id where categories.id = ?;" + ", categoryId: " + id);
+
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement("select distinct room_capacity.id, capacity from room_capacity inner join apartments on apartments.room_capacity_id = room_capacity.capacity inner join categories on apartments.category_id = categories.id where categories.id = ?;");
@@ -51,6 +60,7 @@ public class RoomCapacityRepository {
                 capacities.add(capacity);
             }
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -65,7 +75,7 @@ public class RoomCapacityRepository {
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }

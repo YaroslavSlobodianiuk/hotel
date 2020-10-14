@@ -4,11 +4,14 @@ import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.pool.ConnectionPool;
 import com.slobodianiuk.hotel.db.pool.ConnectionPoolManager;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.Optional;
 
 public class UserRepository {
+
+    private static final Logger log = Logger.getLogger(UserRepository.class);
 
     private UserRepository() {}
 
@@ -18,9 +21,13 @@ public class UserRepository {
         Connection connection = null;
         User user;
         ResultSet set;
+
+        log.trace("time: " + new java.util.Date() + ", sql: insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?);" +
+                ", login: " + login + ", firstName: " + firstName + ", " + lastName + ", locale" + locale);
+
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement("insert into users (login, password, first_name, last_name, role_id, locale_name) values (?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstName);
@@ -37,7 +44,7 @@ public class UserRepository {
             user = new User(id, login, password, firstName, lastName, RoleEnum.User.getRoleId(), locale);
 
         } catch (SQLException e) {
-            //Logger
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             return Optional.empty();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -52,10 +59,13 @@ public class UserRepository {
         ResultSet set = null;
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
+
+        log.trace("time: " + new java.util.Date() + ", sql: select * from users where login = (?);" + ", login: " + login);
+
         try {
             connection = connectionPool.getConnection();
             // ask about sql queries
-            preparedStatement = connection.prepareStatement("select * from users where login = (?)");
+            preparedStatement = connection.prepareStatement("select * from users where login = (?);");
             preparedStatement.setString(1, login);
 
             set = preparedStatement.executeQuery();
@@ -63,7 +73,7 @@ public class UserRepository {
                 user = extractUser(set);
             }
         } catch(SQLException e){
-            //Logger
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -77,14 +87,17 @@ public class UserRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
+        log.trace("time: " + new java.util.Date() + ", sql: update users set locale_name = (?) where id = (?);" + ", userId: " + user.getId() + ", localeName: " + user.getLocaleName());
+
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("update users set locale_name = (?) where id = (?)");
+            preparedStatement = connection.prepareStatement("update users set locale_name = (?) where id = (?);");
             preparedStatement.setString(1, user.getLocaleName());
             preparedStatement.setInt(2, user.getId());
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.error("time: " + new java.util.Date() + ", error: " + e);
             e.printStackTrace();
             return false;
         } finally {
@@ -105,7 +118,7 @@ public class UserRepository {
             user.setRoleId(rs.getInt("role_id"));
             user.setLocaleName(rs.getString("locale_name"));
         } catch (SQLException ex) {
-            // Logger
+            log.error("time: " + new java.util.Date() + ", error: " + ex);
         }
         return Optional.of(user);
     }
@@ -117,7 +130,7 @@ public class UserRepository {
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }
@@ -126,7 +139,7 @@ public class UserRepository {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                // Logger
+                log.error("time: " + new java.util.Date() + ", error: " + ex);
             }
         }
     }

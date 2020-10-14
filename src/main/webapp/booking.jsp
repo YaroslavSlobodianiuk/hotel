@@ -2,6 +2,7 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.Clock" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="lib" prefix="ct"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,17 +23,17 @@
         }
     </style>
 </head>
-<%
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDateTime currentTime = LocalDateTime.now(Clock.systemDefaultZone());
-    LocalDateTime oneDayAfterCurrentTime = currentTime.plusDays(1);
-    LocalDateTime oneYearAfterCurrentTime = currentTime.plusYears(1);
-    LocalDateTime oneYearAndOneDayAfterCurrentTime = currentTime.plusYears(1).plusDays(1);
-    String currentDay = currentTime.format(formatter);
-    String oneDayAfterCurrentDay = oneDayAfterCurrentTime.format(formatter);
-    String oneYearAfterCurrentDay = oneYearAfterCurrentTime.format(formatter);
-    String oneYearAndOneDayAfterCurrentDay = oneYearAndOneDayAfterCurrentTime.format(formatter);
-%>
+<%--<%--%>
+<%--    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");--%>
+<%--    LocalDateTime currentTime = LocalDateTime.now(Clock.systemDefaultZone());--%>
+<%--    LocalDateTime oneDayAfterCurrentTime = currentTime.plusDays(1);--%>
+<%--    LocalDateTime oneYearAfterCurrentTime = currentTime.plusYears(1);--%>
+<%--    LocalDateTime oneYearAndOneDayAfterCurrentTime = currentTime.plusYears(1).plusDays(1);--%>
+<%--    String currentDay = currentTime.format(formatter);--%>
+<%--    String oneDayAfterCurrentDay = oneDayAfterCurrentTime.format(formatter);--%>
+<%--    String oneYearAfterCurrentDay = oneYearAfterCurrentTime.format(formatter);--%>
+<%--    String oneYearAndOneDayAfterCurrentDay = oneYearAndOneDayAfterCurrentTime.format(formatter);--%>
+<%--%>--%>
 <body class="cyan">
 <div class="container">
     <div class="drop-down-list card">
@@ -61,13 +62,13 @@
             <h6>${appErrorMessage}</h6>
             <label for="start">From date:</label>
             <input type="date" id="start" name="trip-start"
-                   value="<%=currentDay%>"
-                   min="<%=currentDay%>" max="<%=oneYearAfterCurrentDay%>">
+                   value="<ct:time type="days" period="0"/>"
+                   min="<ct:time type="days" period="0"/>" max="<ct:time type="years" period="1"/>">
             <label for="start">To date:</label>
             <h6>${dateErrorMessage}</h6>
             <input type="date" id="finish" name="trip-finish"
-                   value="<%=oneDayAfterCurrentDay%>"
-                   min="<%=oneDayAfterCurrentDay%>" max="<%=oneYearAndOneDayAfterCurrentDay%>"> <br>
+                   value="<ct:time type="days" period="1"/>"
+                   min="<ct:time type="days" period="1"/>" max="<ct:time type="yearsAndDays" period="1"/>"> <br>
             Comment: <br>
             <input type="text" height="100" width="200" name="comment">
             <div class="center">
