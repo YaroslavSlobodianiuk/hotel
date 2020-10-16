@@ -94,7 +94,7 @@ public class AdminControllerTest extends Mockito {
         when(request.getParameter("action")).thenReturn("new");
         when(request.getParameter("id")).thenReturn(String.valueOf(2));
 
-        //adminController.doPost(request, response);
+        adminController.doPost(request, response);
 
         verify(response, times(3)).sendRedirect("/admin");
     }

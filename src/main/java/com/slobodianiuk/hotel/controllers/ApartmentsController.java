@@ -90,6 +90,7 @@ public class ApartmentsController extends HttpServlet {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
             req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            return;
         }
 
         int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);

@@ -15,7 +15,7 @@ public class ApartmentRepositorySingleton extends ApartmentRepository {
     public static ApartmentRepository getInstance() {
         ApartmentRepository localInstance = instance;
         if (localInstance == null) {
-            synchronized (UserOrderRepository.class) {
+            synchronized (ApartmentRepository.class) {
                 localInstance = instance;
                 if (localInstance == null) {
                     instance  = localInstance = new ApartmentRepository();

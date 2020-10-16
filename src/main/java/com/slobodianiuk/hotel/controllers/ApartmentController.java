@@ -52,7 +52,7 @@ public class ApartmentController extends HttpServlet {
         try {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", apartmentId: " + apartmentId);
-            Optional<Apartment> apartmentOptional = null;
+            Optional<Apartment> apartmentOptional;
             try {
                 apartmentOptional = apartmentRepository.getApartmentById(apartmentId);
             } catch (DBException e) {
@@ -64,7 +64,6 @@ public class ApartmentController extends HttpServlet {
             if (apartmentOptional.isPresent()) {
                 req.setAttribute("apartment", apartmentOptional.get());
                 req.getRequestDispatcher("/apartment.jsp").forward(req, resp);
-                return;
             } else {
                 log.trace("time: " + new Date() + ", sessionId: " + session.getId() + "==> 404");
                 resp.setStatus(404);

@@ -31,9 +31,8 @@
                 <td>orderStatusId</td>
                 <td>orderStatus</td>
                 <td>comment</td>
-                <c:if test="${order.orderStatusId lt 5}">
-                    <td>action</td>
-                </c:if>
+                <td>action</td>
+
             </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
@@ -73,8 +72,6 @@
                         </td>
                     </c:when>
                     <c:when test="${order.orderStatus eq 'waiting for payment'}"><td>waiting for payment</td></c:when>
-                    <c:when test="${order.orderStatus eq 'paid'}"><td>paid</td></c:when>
-                    <c:when test="${order.orderStatus eq 'declined'}"><td>declined</td></c:when>
                 </c:choose>
                 <td>
                     <c:if test="${order.orderStatusId lt 5}">

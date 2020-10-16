@@ -22,7 +22,7 @@
     <h5 class="my-0 mr-md-auto font-weight-normal menu"><fmt:message key="logo"/></h5>
     <div class="dropdown">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Language
+            <fmt:message key="language"/>
         </button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="/language?locale=en">EN</a>
@@ -30,17 +30,17 @@
         </div>
     </div>
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="/apartments">Apartments</a>
-        <a class="p-2 text-dark" href="/booking">Booking</a>
-        <a class="p-2 text-dark" href="#">Contacts</a>
+        <a class="p-2 text-dark" href="/apartments"><fmt:message key="apartments"/></a>
+        <a class="p-2 text-dark" href="/booking"><fmt:message key="booking"/></a>
+        <a class="p-2 text-dark" href="#"><fmt:message key="contacts"/></a>
         <c:if test="${empty user}">
-            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/login">Sign in</a>
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/login"><fmt:message key="signIn"/></a>
         </c:if>
         <c:if test="${(not empty user) && (user.roleId == 2)}">
-            <a class="p-2 text-dark" href="/me">Account</a>
+            <a class="p-2 text-dark" href="/me"><fmt:message key="account"/></a>
         </c:if>
         <c:if test="${not empty user}">
-            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Log out</a>
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout"><fmt:message key="logOut"/></a>
         </c:if>
     </nav>
 </div>

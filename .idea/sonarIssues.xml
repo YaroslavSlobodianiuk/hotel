@@ -198,6 +198,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/GsonSingleton.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/Main.java">
           <value>
             <set />
@@ -694,6 +699,21 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/slobodianiuk/hotel/controllers/LanguageControllerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/slobodianiuk/hotel/controllers/LoginControllerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/slobodianiuk/hotel/controllers/RegistrationControllerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/slobodianiuk/hotel/controllers/UserAccountControllerTest.java">
           <value>
             <set />
           </value>

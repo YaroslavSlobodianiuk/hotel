@@ -16,7 +16,7 @@ public class UserRepositorySingleton extends UserRepository {
     public static UserRepository getInstance() {
         UserRepository localInstance = instance;
         if (localInstance == null) {
-            synchronized (UserOrderRepository.class) {
+            synchronized (UserRepository.class) {
                 localInstance = instance;
                 if (localInstance == null) {
                     instance  = localInstance = new UserRepository();

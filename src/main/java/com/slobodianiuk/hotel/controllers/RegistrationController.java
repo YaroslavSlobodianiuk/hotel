@@ -98,7 +98,7 @@ public class RegistrationController extends HttpServlet {
             req.getRequestDispatcher("register.jsp").forward(req, resp);
             return;
         }
-        Optional<User> optionalUser = null;
+        Optional<User> optionalUser;
         try {
 
             optionalUser = userRepository.getUserByLogin(login);
@@ -106,6 +106,7 @@ public class RegistrationController extends HttpServlet {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
             req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            return;
         }
         if (optionalUser.isPresent()) {
             req.setAttribute("message", "Login " + login + " is already exist");
@@ -123,17 +124,17 @@ public class RegistrationController extends HttpServlet {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
             req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            return;
         }
         if (!registeredUser.isPresent()) {
             req.setAttribute("message", "Something happened while registration, please try again");
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " something happened while registration");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-
+            return;
         }
         req.setAttribute("message", "User with " + login + " login was successfully registered");
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " user with " + login + " was successfully registered");
         resp.sendRedirect("/login");
-
     }
 
     private boolean passwordValidation(String password, String passwordConfirmation) {

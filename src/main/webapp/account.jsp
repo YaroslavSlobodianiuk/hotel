@@ -47,7 +47,7 @@
                 <c:when test="${order.orderStatus eq 'waiting for approve'}">
                     <td>
                         <form action="/me" method="post">
-                            <input type="hidden" name="id" value="${order.id}">
+                            <input type="hidden" name="orderId" value="${order.id}">
                             <input type="hidden" name="apartmentId" value="${order.apartmentId}">
                             <input type="hidden" name="action" value="waiting for approve">
                             <input type="submit" value="Approve">
@@ -58,7 +58,7 @@
                 <c:when test="${order.orderStatus eq 'waiting for payment'}">
                     <td>
                         <form action="/me" method="post">
-                            <input type="hidden" name="id" value="${order.id}">
+                            <input type="hidden" name="orderId" value="${order.id}">
                             <input type="hidden" name="apartmentId" value="${order.apartmentId}">
                             <input type="hidden" name="action" value="waiting for payment">
                             <input type="submit" value="Pay">
@@ -109,7 +109,6 @@
                             var params = 'action=expired&id=${order.id}&apartmentId=${order.apartmentId}';
                             http.open('POST', url, true);
 
-//Send the proper header information along with the request
                             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
                             http.onload = function() {//Call a function when the state changes.
@@ -121,12 +120,11 @@
                         }
                     </script>
                 </c:when>
-                <c:when test="${order.orderStatus eq 'paid'}"><td>paid</td></c:when>
             </c:choose>
             <c:if test="${order.orderStatusId lt 5}">
                 <td>
                     <form action="/me" method="post">
-                        <input type="hidden" name="id" value="${order.id}">
+                        <input type="hidden" name="orderId" value="${order.id}">
                         <input type="hidden" name="apartmentId" value="${order.apartmentId}">
                         <input type="hidden" name="action" value="declined">
                         <input type="submit" value="Decline">

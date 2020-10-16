@@ -97,7 +97,6 @@ public class AdminController extends HttpServlet {
         if ("new".equals(action)) {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_APPROVE);
             try {
-                ///!!!!!!!!!!!!!!!!!!!!!
                 orderRepository.updateStatusId(orderId, Variables.WAITING_FOR_APPROVE);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
@@ -116,7 +115,6 @@ public class AdminController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_PAYMENT);
 
             try {
-                //!!!!!!!!!!!!!!!!
                 orderRepository.setTransactionStart(orderId);
                 orderRepository.updateStatusId(orderId, Variables.WAITING_FOR_PAYMENT);
             } catch (DBException e) {
@@ -133,7 +131,6 @@ public class AdminController extends HttpServlet {
         if ("cancel".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.CANCELED);
-
             try {
                 transactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.CANCELED, apartmentId, Variables.FREE);
             } catch (DBException e) {
@@ -142,12 +139,9 @@ public class AdminController extends HttpServlet {
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
                 return;
             }
-
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.CANCELED);
-
             resp.sendRedirect("/admin");
             return;
         }
     }
-
 }

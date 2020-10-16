@@ -15,7 +15,7 @@ public class TransactionsRepositorySingleton extends TransactionsRepository {
     public static TransactionsRepository getInstance() {
         TransactionsRepository localInstance = instance;
         if (localInstance == null) {
-            synchronized (UserOrderRepository.class) {
+            synchronized (TransactionsRepository.class) {
                 localInstance = instance;
                 if (localInstance == null) {
                     instance  = localInstance = new TransactionsRepository();

@@ -15,7 +15,7 @@ public class RoomCapacityRepositorySingleton extends RoomCapacityRepository {
     public static RoomCapacityRepository getInstance() {
         RoomCapacityRepository localInstance = instance;
         if (localInstance == null) {
-            synchronized (UserOrderRepository.class) {
+            synchronized (RoomCapacityRepository.class) {
                 localInstance = instance;
                 if (localInstance == null) {
                     instance  = localInstance = new RoomCapacityRepository();

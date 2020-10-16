@@ -48,17 +48,20 @@ public class UserAccountController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
-        List<UserOrderBean> orders = null;
-        try {
-            orders = userOrderRepository.getOrdersByUserId(user.getId());
-        } catch (DBException e) {
-            session.setAttribute("errorMessage", e.getMessage());
-            log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
-            req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+        if (user != null) {
+            List<UserOrderBean> orders;
+            try {
+                orders = userOrderRepository.getOrdersByUserId(user.getId());
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
+            }
+            req.setAttribute("orders", orders);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId()  + " Account page");
+            req.getRequestDispatcher("account.jsp").forward(req, resp);
         }
-        req.setAttribute("orders", orders);
-        log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId()  + " Account page");
-        req.getRequestDispatcher("account.jsp").forward(req, resp);
     }
 
     /**
@@ -72,6 +75,7 @@ public class UserAccountController extends HttpServlet {
         String action = req.getParameter("action");
         int orderId = Integer.parseInt(req.getParameter("orderId"));
 
+
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", action: " + action + ", orderId: " + orderId);
 
         if ("waiting for approve".equals(action)) {
@@ -84,6 +88,7 @@ public class UserAccountController extends HttpServlet {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.APPROVED);
@@ -101,6 +106,7 @@ public class UserAccountController extends HttpServlet {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.PAID);
@@ -121,8 +127,6 @@ public class UserAccountController extends HttpServlet {
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
                 return;
             }
-
-
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.DECLINED);
             resp.sendRedirect("/me");
             return;

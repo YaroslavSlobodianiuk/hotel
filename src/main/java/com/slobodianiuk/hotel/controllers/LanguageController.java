@@ -74,7 +74,6 @@ public class LanguageController extends HttpServlet {
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
             session.setAttribute("locale", localeFromRequest);
         }
-
         resp.sendRedirect("/");
     }
 }

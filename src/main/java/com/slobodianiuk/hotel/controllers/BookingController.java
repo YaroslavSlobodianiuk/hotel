@@ -34,6 +34,7 @@ public class BookingController extends HttpServlet {
 
     private static final long serialVersionUID = -6929357303989579846L;
     private static final Logger log = Logger.getLogger(BookingController.class);
+    private static final Gson json = new Gson();
 
     private final ApartmentRepository apartmentRepository;
     private final CategoryRepository categoryRepository;
@@ -79,7 +80,7 @@ public class BookingController extends HttpServlet {
         log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op);
 
         if ("category".equals(op)) {
-            List<Category> categories = null;
+            List<Category> categories;
             try {
                 categories = categoryRepository.getCategories();
             } catch (DBException e) {
@@ -88,7 +89,6 @@ public class BookingController extends HttpServlet {
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
                 return;
             }
-            Gson json = new Gson();
             String categoriesList = json.toJson(categories);
             resp.setContentType("text/html");
             log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoriesList: " + categoriesList);
@@ -98,7 +98,7 @@ public class BookingController extends HttpServlet {
 
         if ("capacity".equals(op)) {
             int categoryId = Integer.parseInt(req.getParameter("id"));
-            List<RoomCapacity> capacities = null;
+            List<RoomCapacity> capacities;
             try {
                 capacities = roomCapacityRepository.getRoomCapacitiesByCategoryId(categoryId);
             } catch (DBException e) {
@@ -107,7 +107,6 @@ public class BookingController extends HttpServlet {
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
                 return;
             }
-            Gson json = new Gson();
             String capacitiesList = json.toJson(capacities);
             resp.setContentType("text/html");
             log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacitiesList: " + capacitiesList);
@@ -120,7 +119,7 @@ public class BookingController extends HttpServlet {
             int categoryId = Integer.parseInt(req.getParameter("categoryId"));
             int capacityId = Integer.parseInt(req.getParameter("capacityId"));
 
-            List<Apartment> apartments = null;
+            List<Apartment> apartments;
             try {
                 apartments = apartmentRepository.getFreeApartmentsByCategoryAndCapacity(categoryId, capacityId);
             } catch (DBException e) {
@@ -130,12 +129,10 @@ public class BookingController extends HttpServlet {
                 return;
             }
             if (!apartments.isEmpty()) {
-                Gson json = new Gson();
                 String apartmentsList = json.toJson(apartments);
                 resp.setContentType("text/html");
                 log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacityId: " + capacityId + ", apartmentsList: " + apartmentsList);
                 resp.getWriter().write(apartmentsList);
-                return;
             } else {
                 log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacityId: " + capacityId);
 
@@ -159,27 +156,47 @@ public class BookingController extends HttpServlet {
         LocalDate from = LocalDate.parse(req.getParameter("trip-start"), formatter);
         LocalDate to = LocalDate.parse(req.getParameter("trip-finish"), formatter);
 
+
         if (!dateValidation(from, to)) {
             req.setAttribute("dateErrorMessage", "First date should be earlier second one");
             req.getRequestDispatcher("booking.jsp").forward(req, resp);
+            return;
         }
 
         int categoryId = 0;
         int capacityId = 0;
         int apartmentId = 0;
 
-        List<Integer> numbers = selectValidation(req, resp);
+        boolean forward = false;
 
-        categoryId = numbers.get(0);
-        capacityId = numbers.get(1);
-        apartmentId = numbers.get(2);
+        try {
+            categoryId = Integer.parseInt(req.getParameter("category"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("categoryErrorMessage", "Please select category");
+            forward = true;
+        }
+
+        try {
+            capacityId = Integer.parseInt(req.getParameter("capacity"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("capacityErrorMessage", "Please select capacity");
+            forward = true;
+        }
+        try {
+            apartmentId = Integer.parseInt(req.getParameter("apartment"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("appErrorMessage","Please select free apartment");
+            forward = true;
+        }
+        if (forward) {
+            req.getRequestDispatcher("booking.jsp").forward(req, resp);
+            return;
+        }
 
         String comment = req.getParameter("comment");
-
         log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() +
                 ", from: " + from + ", to: " + to + ", apartmentId: " + apartmentId + ", categoryId: " + categoryId + ", capacityId: " + capacityId + ", comment: " + comment);
-
-        boolean orderFlag  = false;
+        boolean orderFlag;
         try {
             orderFlag = userOrderRepository.createOrder(user.getId(), apartmentId, categoryId, capacityId,
                     Date.valueOf(from), Date.valueOf(to), comment);
@@ -187,8 +204,8 @@ public class BookingController extends HttpServlet {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new java.util.Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
             req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            return;
         }
-
         if (orderFlag) {
             resp.sendRedirect("/me");
         } else {
@@ -196,42 +213,7 @@ public class BookingController extends HttpServlet {
         }
     }
 
-    private List<Integer> selectValidation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<Integer> numbers = new ArrayList<>();
-
-        boolean forward = false;
-        try {
-            numbers.add(Integer.parseInt(req.getParameter("category")));
-        } catch (NumberFormatException e) {
-            req.setAttribute("categoryErrorMessage", "Please select category");
-            forward = true;
-        }
-
-        try {
-            numbers.add(Integer.parseInt(req.getParameter("capacity")));
-        } catch (NumberFormatException e) {
-            req.setAttribute("capacityErrorMessage", "Please select capacity");
-            forward = true;
-        }
-
-        try {
-            numbers.add(Integer.parseInt(req.getParameter("apartment")));
-        } catch (NumberFormatException e) {
-            req.setAttribute("appErrorMessage","Please select free apartment");
-            forward = true;
-        }
-        if (forward) {
-            req.getRequestDispatcher("booking.jsp").forward(req, resp);
-        }
-        return numbers;
-    }
-
-
     private boolean dateValidation(LocalDate from, LocalDate to) {
-        if (to.compareTo(from) > 0) {
-            return true;
-        }
-        return false;
+        return to.compareTo(from) > 0;
     }
 }

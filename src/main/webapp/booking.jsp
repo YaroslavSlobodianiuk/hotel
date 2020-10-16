@@ -23,17 +23,6 @@
         }
     </style>
 </head>
-<%--<%--%>
-<%--    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");--%>
-<%--    LocalDateTime currentTime = LocalDateTime.now(Clock.systemDefaultZone());--%>
-<%--    LocalDateTime oneDayAfterCurrentTime = currentTime.plusDays(1);--%>
-<%--    LocalDateTime oneYearAfterCurrentTime = currentTime.plusYears(1);--%>
-<%--    LocalDateTime oneYearAndOneDayAfterCurrentTime = currentTime.plusYears(1).plusDays(1);--%>
-<%--    String currentDay = currentTime.format(formatter);--%>
-<%--    String oneDayAfterCurrentDay = oneDayAfterCurrentTime.format(formatter);--%>
-<%--    String oneYearAfterCurrentDay = oneYearAfterCurrentTime.format(formatter);--%>
-<%--    String oneYearAndOneDayAfterCurrentDay = oneYearAndOneDayAfterCurrentTime.format(formatter);--%>
-<%--%>--%>
 <body class="cyan">
 <div class="container">
     <div class="drop-down-list card">

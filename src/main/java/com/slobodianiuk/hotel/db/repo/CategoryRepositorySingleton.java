@@ -15,7 +15,7 @@ public class CategoryRepositorySingleton extends CategoryRepository {
     public static CategoryRepository getInstance() {
         CategoryRepository localInstance = instance;
         if (localInstance == null) {
-            synchronized (UserOrderRepository.class) {
+            synchronized (CategoryRepository.class) {
                 localInstance = instance;
                 if (localInstance == null) {
                     instance  = localInstance = new CategoryRepository();

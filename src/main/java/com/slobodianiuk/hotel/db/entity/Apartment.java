@@ -7,7 +7,7 @@ public class Apartment {
 
     private int id;
     private String title;
-    private int roomCapacity;
+    private Integer roomCapacity;
     private String category;
     private Double price;
     private String status;
@@ -15,7 +15,7 @@ public class Apartment {
     public Apartment() {
     }
 
-    public Apartment(int id, String title, int roomCapacity, String category, Double price, String status) {
+    public Apartment(int id, String title, Integer roomCapacity, String category, Double price, String status) {
         this.id = id;
         this.title = title;
         this.roomCapacity = roomCapacity;
