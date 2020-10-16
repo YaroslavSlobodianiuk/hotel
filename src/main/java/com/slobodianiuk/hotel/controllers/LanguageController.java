@@ -1,7 +1,10 @@
 package com.slobodianiuk.hotel.controllers;
 
 import com.slobodianiuk.hotel.db.entity.User;
+import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import com.slobodianiuk.hotel.db.repo.ApartmentRepositorySingleton;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import com.slobodianiuk.hotel.db.repo.UserRepositorySingleton;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
@@ -26,6 +29,16 @@ public class LanguageController extends HttpServlet {
     private static final long serialVersionUID = 2604665310889984564L;
     private static final Logger log = Logger.getLogger(LanguageController.class);
 
+    private final UserRepository userRepository;
+
+    public LanguageController() {
+        this(UserRepositorySingleton.getInstance());
+    }
+
+    public LanguageController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     /**
      * Receives GET request to change language on page
      * In case language from request differs from language from session it changes and
@@ -34,7 +47,7 @@ public class LanguageController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        boolean updateUser = false;
+
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String localeFromSession = (String) session.getAttribute("locale");
@@ -47,12 +60,12 @@ public class LanguageController extends HttpServlet {
             user.setLocaleName(localeFromRequest);
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
             try {
-                UserRepository userRepository = new UserRepository();
                 userRepository.updateUser(user);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
 
         } else if (!localeFromRequest.equals(localeFromSession)) {

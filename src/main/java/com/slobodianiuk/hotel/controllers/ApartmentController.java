@@ -2,7 +2,7 @@ package com.slobodianiuk.hotel.controllers;
 
 import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.entity.User;
-import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import com.slobodianiuk.hotel.db.repo.*;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
@@ -29,6 +29,16 @@ public class ApartmentController extends HttpServlet {
     private static final long serialVersionUID = 8112143507193620200L;
     private static final Logger log = Logger.getLogger(ApartmentController.class);
 
+    private final ApartmentRepository apartmentRepository;
+
+    public ApartmentController() {
+        this(ApartmentRepositorySingleton.getInstance());
+    }
+
+    public ApartmentController(ApartmentRepository apartmentRepository) {
+        this.apartmentRepository = apartmentRepository;
+    }
+
     /**
      * Returns dynamic apartment page by id
      * If not apartment with specified id or
@@ -44,7 +54,6 @@ public class ApartmentController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", apartmentId: " + apartmentId);
             Optional<Apartment> apartmentOptional = null;
             try {
-                ApartmentRepository apartmentRepository = new ApartmentRepository();
                 apartmentOptional = apartmentRepository.getApartmentById(apartmentId);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());

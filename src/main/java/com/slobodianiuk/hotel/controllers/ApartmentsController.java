@@ -4,6 +4,7 @@ import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.enums.SortingOrder;
 import com.slobodianiuk.hotel.db.enums.SortingType;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
+import com.slobodianiuk.hotel.db.repo.ApartmentRepositorySingleton;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
@@ -28,6 +29,16 @@ public class ApartmentsController extends HttpServlet {
 
     private static final long serialVersionUID = 1721189415750601025L;
     private static final Logger log = Logger.getLogger(ApartmentsController.class);
+
+    private final ApartmentRepository apartmentRepository;
+
+    public ApartmentsController() {
+        this(ApartmentRepositorySingleton.getInstance());
+    }
+
+    public ApartmentsController(ApartmentRepository apartmentRepository) {
+        this.apartmentRepository = apartmentRepository;
+    }
 
     /**
      * Returns page with all apartments
@@ -73,7 +84,6 @@ public class ApartmentsController extends HttpServlet {
         List<Apartment> apartments = null;
         int numberOfRecords = 0;
         try {
-            ApartmentRepository apartmentRepository = new ApartmentRepository();
             apartments = apartmentRepository.getApartments((page-1)*recordsPerPage, recordsPerPage, sortingType, sortingOrder);
             numberOfRecords = apartmentRepository.getNumberOfRecords();
         } catch (DBException e) {

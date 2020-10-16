@@ -22,7 +22,7 @@ public class ApartmentRepository {
 
     private static final Logger log = Logger.getLogger(ApartmentRepository.class);
 
-    public ApartmentRepository() {
+    protected ApartmentRepository() {
     }
 
     /**

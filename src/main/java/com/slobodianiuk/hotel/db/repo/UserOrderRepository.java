@@ -18,7 +18,7 @@ public class UserOrderRepository {
 
     private static final Logger log = Logger.getLogger(UserOrderRepository.class);
 
-    public UserOrderRepository() {}
+    protected UserOrderRepository() {}
 
     /**
      * Returns list of orders

@@ -18,7 +18,7 @@ public class CategoryRepository {
 
     private static final Logger log = Logger.getLogger(CategoryRepository.class);
 
-    public CategoryRepository() {
+    protected CategoryRepository() {
     }
 
     /**

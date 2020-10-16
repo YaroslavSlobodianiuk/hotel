@@ -2,8 +2,7 @@ package com.slobodianiuk.hotel.controllers;
 
 import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.User;
-import com.slobodianiuk.hotel.db.repo.TransactionsRepository;
-import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
+import com.slobodianiuk.hotel.db.repo.*;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import com.slobodianiuk.hotel.staticVar.Variables;
 import org.apache.log4j.Logger;
@@ -26,6 +25,18 @@ public class UserAccountController extends HttpServlet {
     private static final long serialVersionUID = 5119304756105727785L;
     private static final Logger log = Logger.getLogger(UserAccountController.class);
 
+    private final UserOrderRepository userOrderRepository;
+    private final TransactionsRepository transactionsRepository;
+
+    public UserAccountController() {
+        this(UserOrderRepositorySingleton.getInstance(), TransactionsRepositorySingleton.getInstance());
+    }
+
+    public UserAccountController(UserOrderRepository userOrderRepository, TransactionsRepository transactionsRepository) {
+        this.userOrderRepository = userOrderRepository;
+        this.transactionsRepository = transactionsRepository;
+    }
+
     /**
      * Returns all users applications and
      * information about it,
@@ -39,7 +50,6 @@ public class UserAccountController extends HttpServlet {
 
         List<UserOrderBean> orders = null;
         try {
-            UserOrderRepository userOrderRepository = new UserOrderRepository();
             orders = userOrderRepository.getOrdersByUserId(user.getId());
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());
@@ -63,8 +73,6 @@ public class UserAccountController extends HttpServlet {
         int orderId = Integer.parseInt(req.getParameter("orderId"));
 
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", action: " + action + ", orderId: " + orderId);
-
-        TransactionsRepository transactionsRepository = new TransactionsRepository();
 
         if ("waiting for approve".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));

@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import com.slobodianiuk.hotel.db.repo.UserRepositorySingleton;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
@@ -27,7 +28,14 @@ public class RegistrationController extends HttpServlet {
     private static final long serialVersionUID = 2308152438561227727L;
     private static final Logger log = Logger.getLogger(RegistrationController.class);
 
+    private final UserRepository userRepository;
+
     public RegistrationController() {
+        this(UserRepositorySingleton.getInstance());
+    }
+
+    public RegistrationController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
@@ -90,7 +98,6 @@ public class RegistrationController extends HttpServlet {
             req.getRequestDispatcher("register.jsp").forward(req, resp);
             return;
         }
-        UserRepository userRepository = new UserRepository();
         Optional<User> optionalUser = null;
         try {
 

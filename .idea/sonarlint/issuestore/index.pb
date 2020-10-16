@@ -1,8 +1,6 @@
 
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-f
-6src/main/java/com/slobodianiuk/hotel/db/DBManager.java,6\c\6cc3216478668e9a690c7295fbe13b2f8b97fad0
 ^
 .src/main/java/com/slobodianiuk/hotel/Main.java,f\b\fbaa4740fab1f44b8773285079fdeb5ea30d7d25
 h
@@ -19,8 +17,6 @@ o
 ?src/main/java/com/slobodianiuk/hotel/db/entity/OrderStatus.java,f\8\f863fa687b9d1062da78d469d3b0d46e616fbe87
 m
 =src/main/java/com/slobodianiuk/hotel/db/entity/UserOrder.java,8\5\85e4a23fc29b7a62a1eb98758610866164e53308
-r
-Bsrc/main/java/com/slobodianiuk/hotel/db/entity/ProcessedOrder.java,a\f\afa8b39d79d478d3b98d86224fce3a10c0e9e19b
 m
 =src/main/java/com/slobodianiuk/hotel/db/entity/Apartment.java,6\0\6072a0a27f44ca3a3cf0f35f71fb15abb93df5e0
 u
@@ -39,8 +35,6 @@ L
 src/main/webapp/register.jsp,b\d\bde35d3876092f82f8efadc1a6675aaf6bd96946
 u
 Esrc/main/java/com/slobodianiuk/hotel/db/pool/BasicConnectionPool.java,1\8\181bcdf1f010d025bb5bf6f306a7e8c3894c68c6
-w
-Gsrc/main/java/com/slobodianiuk/hotel/properties/DatabaseProperties.java,2\a\2a529259837f90a1de89eacdfc437b6a65712de1
 p
 @src/main/java/com/slobodianiuk/hotel/db/pool/ConnectionPool.java,4\0\40d089e4d6c552e2272e959643af42f375242962
 w
@@ -55,8 +49,6 @@ t
 Dsrc/main/java/com/slobodianiuk/hotel/db/repo/CategoryRepository.java,4\4\4466d941fda17aef5ba2a0a691e760714866cf19
 k
 ;src/main/java/com/slobodianiuk/hotel/db/enums/RoleEnum.java,3\0\308760fd822e46624865250b688376c5dd4db8ad
-o
-?src/main/java/com/slobodianiuk/hotel/db/enums/CategoryEnum.java,7\d\7d34074d0bacedf157362e0d00f9c997beb9f6ae
 |
 Lsrc/main/java/com/slobodianiuk/hotel/controllers/RegistrationController.java,c\c\ccfed502841476b45fc504d54a435d7336647654
 u
@@ -161,3 +153,5 @@ d
 4src/main/java/com/slobodianiuk/hotel/db/sql/SQL.java,2\f\2fabf741ca03a7a8625914f57031fee6da212195
 x
 Hsrc/main/java/com/slobodianiuk/hotel/db/repo/TransactionsRepository.java,1\f\1fd9f6a1a83352f4d06425a6bc84e69d3e358ceb
+s
+Csrc/test/resources/mockito-extensions/org.mockito.plugins.MockMaker,5\1\5189aade9e7246224cb5067a6976d52149bf7d02

@@ -6,10 +6,7 @@ import com.slobodianiuk.hotel.db.entity.Apartment;
 import com.slobodianiuk.hotel.db.entity.Category;
 import com.slobodianiuk.hotel.db.entity.RoomCapacity;
 import com.slobodianiuk.hotel.db.entity.User;
-import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
-import com.slobodianiuk.hotel.db.repo.CategoryRepository;
-import com.slobodianiuk.hotel.db.repo.RoomCapacityRepository;
-import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
+import com.slobodianiuk.hotel.db.repo.*;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
@@ -37,6 +34,24 @@ public class BookingController extends HttpServlet {
 
     private static final long serialVersionUID = -6929357303989579846L;
     private static final Logger log = Logger.getLogger(BookingController.class);
+
+    private final ApartmentRepository apartmentRepository;
+    private final CategoryRepository categoryRepository;
+    private final RoomCapacityRepository roomCapacityRepository;
+    private final UserOrderRepository userOrderRepository;
+
+    public BookingController() {
+        this(ApartmentRepositorySingleton.getInstance(), CategoryRepositorySingleton.getInstance(),
+                RoomCapacityRepositorySingleton.getInstance(), UserOrderRepositorySingleton.getInstance());
+    }
+
+    public BookingController(ApartmentRepository apartmentRepository, CategoryRepository categoryRepository,
+                             RoomCapacityRepository roomCapacityRepository, UserOrderRepository userOrderRepository) {
+        this.apartmentRepository = apartmentRepository;
+        this.categoryRepository = categoryRepository;
+        this.roomCapacityRepository = roomCapacityRepository;
+        this.userOrderRepository = userOrderRepository;
+    }
 
     /**
      * Displays page with form to apply for a reservation
@@ -66,7 +81,6 @@ public class BookingController extends HttpServlet {
         if ("category".equals(op)) {
             List<Category> categories = null;
             try {
-                CategoryRepository categoryRepository = new CategoryRepository();
                 categories = categoryRepository.getCategories();
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
@@ -76,7 +90,6 @@ public class BookingController extends HttpServlet {
             }
             Gson json = new Gson();
             String categoriesList = json.toJson(categories);
-            System.out.println(categoriesList);
             resp.setContentType("text/html");
             log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoriesList: " + categoriesList);
             resp.getWriter().write(categoriesList);
@@ -87,7 +100,6 @@ public class BookingController extends HttpServlet {
             int categoryId = Integer.parseInt(req.getParameter("id"));
             List<RoomCapacity> capacities = null;
             try {
-                RoomCapacityRepository roomCapacityRepository = new RoomCapacityRepository();
                 capacities = roomCapacityRepository.getRoomCapacitiesByCategoryId(categoryId);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
@@ -97,7 +109,6 @@ public class BookingController extends HttpServlet {
             }
             Gson json = new Gson();
             String capacitiesList = json.toJson(capacities);
-            System.out.println(capacitiesList);
             resp.setContentType("text/html");
             log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacitiesList: " + capacitiesList);
             resp.getWriter().write(capacitiesList);
@@ -111,7 +122,6 @@ public class BookingController extends HttpServlet {
 
             List<Apartment> apartments = null;
             try {
-                ApartmentRepository apartmentRepository = new ApartmentRepository();
                 apartments = apartmentRepository.getFreeApartmentsByCategoryAndCapacity(categoryId, capacityId);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
@@ -122,7 +132,6 @@ public class BookingController extends HttpServlet {
             if (!apartments.isEmpty()) {
                 Gson json = new Gson();
                 String apartmentsList = json.toJson(apartments);
-                System.out.println(apartmentsList);
                 resp.setContentType("text/html");
                 log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacityId: " + capacityId + ", apartmentsList: " + apartmentsList);
                 resp.getWriter().write(apartmentsList);
@@ -170,10 +179,8 @@ public class BookingController extends HttpServlet {
         log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() +
                 ", from: " + from + ", to: " + to + ", apartmentId: " + apartmentId + ", categoryId: " + categoryId + ", capacityId: " + capacityId + ", comment: " + comment);
 
-
         boolean orderFlag  = false;
         try {
-            UserOrderRepository userOrderRepository = new UserOrderRepository();
             orderFlag = userOrderRepository.createOrder(user.getId(), apartmentId, categoryId, capacityId,
                     Date.valueOf(from), Date.valueOf(to), comment);
         } catch (DBException e) {
@@ -227,5 +234,4 @@ public class BookingController extends HttpServlet {
         }
         return false;
     }
-
 }

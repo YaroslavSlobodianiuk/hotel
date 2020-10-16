@@ -388,7 +388,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/ApartmentRepositorySingleton.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/CategoryRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/CategoryRepositorySingleton.java">
           <value>
             <set />
           </value>
@@ -398,7 +408,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/RoomCapacityRepositorySingleton.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/TransactionsRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/TransactionsRepositorySingleton.java">
           <value>
             <set />
           </value>
@@ -408,7 +428,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserOrderRepositorySingleton.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/slobodianiuk/hotel/db/repo/UserRepositorySingleton.java">
           <value>
             <set />
           </value>
@@ -659,6 +689,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/slobodianiuk/hotel/controllers/ErrorController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/slobodianiuk/hotel/controllers/LanguageControllerTest.java">
           <value>
             <set />
           </value>

@@ -3,6 +3,7 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.enums.RoleEnum;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.UserRepository;
+import com.slobodianiuk.hotel.db.repo.UserRepositorySingleton;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.apache.log4j.Logger;
 
@@ -28,7 +29,14 @@ public class LoginController extends HttpServlet {
     private static final long serialVersionUID = 1768147553023467819L;
     private static final Logger log = Logger.getLogger(LoginController.class);
 
+    private final UserRepository userRepository;
+
     public LoginController() {
+        this(UserRepositorySingleton.getInstance());
+    }
+
+    public LoginController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
@@ -78,7 +86,6 @@ public class LoginController extends HttpServlet {
 
         Optional<User> optionalUser = null;
         try {
-            UserRepository userRepository = new UserRepository();
             optionalUser = userRepository.getUserByLogin(login);
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());

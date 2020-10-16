@@ -5,65 +5,92 @@ import com.slobodianiuk.hotel.db.entity.Category;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.ApartmentRepository;
 import com.slobodianiuk.hotel.db.repo.CategoryRepository;
+import com.slobodianiuk.hotel.db.repo.RoomCapacityRepository;
+import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ CategoryRepository.class })
+import static org.junit.Assert.assertTrue;
+
+@RunWith(MockitoJUnitRunner.class)
 public class BookingControllerTest extends Mockito {
+    @Mock
+    HttpServletRequest request;
+    @Mock
+    HttpServletResponse response;
+    @Mock
+    HttpSession session;
+    @Mock
+    RequestDispatcher rd;
+    @Mock
+    ApartmentRepository apartmentRepository;
+    @Mock
+    CategoryRepository categoryRepository;
+    @Mock
+    RoomCapacityRepository roomCapacityRepository;
+    @Mock
+    UserOrderRepository userOrderRepository;
+    @Mock
+    List<Category> categories;
+    @Mock
+    User user;
+    @Mock
+    Gson gson;
 
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-    private RequestDispatcher rd;
-    private HttpSession session;
+    @Mock
+    PrintWriter printWriter;
 
-    @Before
-    public void setUp() {
-
-        request = mock(HttpServletRequest.class);
-        response = mock(HttpServletResponse.class);
-        rd = mock(RequestDispatcher.class);
-        session = mock(HttpSession.class);
-    }
+    @InjectMocks
+    BookingController bookingController;
 
     @Test
-    public void doGetCategoryTest() throws DBException, ServletException, IOException {
-        PowerMockito.mockStatic(CategoryRepository.class);
-        User user = mock(User.class);
-        List<Category> categories = mock(ArrayList.class);
+    public void doGetCategoryTest() throws ServletException, IOException, DBException {
 
-        Gson gson = new Gson();
-        Gson mock = mock(Gson.class);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(user);
         when(request.getParameter("operation")).thenReturn("category");
-//        PowerMockito.when(CategoryRepository.getCategories()).thenReturn(categories);
-        when(mock.toJson(categories)).thenReturn("[{\"id\":1,\"categoryName\":\"econom\"},{\"id\":2,\"categoryName\":\"standard\"},{\"id\":3,\"categoryName\":\"luxe\"},{\"id\":4,\"categoryName\":\"deluxe\"}]");
-        when(request.getRequestDispatcher(anyString())).thenReturn(rd);
+        when(categoryRepository.getCategories()).thenReturn(categories);
+        when(gson.toJson(categories)).thenReturn("[{\"id\":1,\"categoryName\":\"econom\"},{\"id\":2,\"categoryName\":\"standard\"},{\"id\":3,\"categoryName\":\"luxe\"},{\"id\":4,\"categoryName\":\"deluxe\"}]");
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(writer);
 
-        new BookingController().doGet(request, response);
+        bookingController.doGet(request, response);
 
-        verify(rd).forward(request, response);
+        writer.flush();
+        assertTrue(stringWriter.toString().contains("[{\"id\":1,\"categoryName\":\"econom\"},{\"id\":2,\"categoryName\":\"standard\"},{\"id\":3,\"categoryName\":\"luxe\"},{\"id\":4,\"categoryName\":\"deluxe\"}]"));
+        //verify(response).getWriter().write("[{\"id\":1,\"categoryName\":\"econom\"},{\"id\":2,\"categoryName\":\"standard\"},{\"id\":3,\"categoryName\":\"luxe\"},{\"id\":4,\"categoryName\":\"deluxe\"}]");
 
+    }
 
+    @Test
+    public void doGetCapacityTest() throws IOException {
 
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+        when(request.getParameter("operation")).thenReturn("capacity");
 
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(writer);
     }
 }

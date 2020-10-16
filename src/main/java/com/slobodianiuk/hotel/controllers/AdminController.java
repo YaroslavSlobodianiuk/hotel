@@ -3,7 +3,9 @@ package com.slobodianiuk.hotel.controllers;
 import com.slobodianiuk.hotel.db.bean.UserOrderBean;
 import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.TransactionsRepository;
+import com.slobodianiuk.hotel.db.repo.TransactionsRepositorySingleton;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
+import com.slobodianiuk.hotel.db.repo.UserOrderRepositorySingleton;
 import com.slobodianiuk.hotel.exceptions.DBException;
 import com.slobodianiuk.hotel.staticVar.Variables;
 import org.apache.log4j.Logger;
@@ -31,7 +33,16 @@ public class AdminController extends HttpServlet {
     private static final long serialVersionUID = -2329553678423385742L;
     private static final Logger log = Logger.getLogger(AdminController.class);
 
+    private final UserOrderRepository orderRepository;
+    private final TransactionsRepository transactionsRepository;
+
     public AdminController() {
+        this(UserOrderRepositorySingleton.getInstance(), TransactionsRepositorySingleton.getInstance());
+    }
+
+    public AdminController(UserOrderRepository orderRepository, TransactionsRepository transactionsRepository) {
+        this.orderRepository = orderRepository;
+        this.transactionsRepository = transactionsRepository;
     }
 
     /**
@@ -50,8 +61,7 @@ public class AdminController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " got /admin page");
             List<UserOrderBean> orders = null;
             try {
-                UserOrderRepository userOrderRepository = new UserOrderRepository();
-                orders = userOrderRepository.getOrders();
+                orders = orderRepository.getOrders();
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -87,8 +97,8 @@ public class AdminController extends HttpServlet {
         if ("new".equals(action)) {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_APPROVE);
             try {
-                UserOrderRepository userOrderRepository = getUserOrderRepository();
-                userOrderRepository.updateStatusId(orderId, Variables.WAITING_FOR_APPROVE);
+                ///!!!!!!!!!!!!!!!!!!!!!
+                orderRepository.updateStatusId(orderId, Variables.WAITING_FOR_APPROVE);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -106,9 +116,9 @@ public class AdminController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_PAYMENT);
 
             try {
-                UserOrderRepository userOrderRepository = new UserOrderRepository();
-                userOrderRepository.setTransactionStart(orderId);
-                userOrderRepository.updateStatusId(orderId, Variables.WAITING_FOR_PAYMENT);
+                //!!!!!!!!!!!!!!!!
+                orderRepository.setTransactionStart(orderId);
+                orderRepository.updateStatusId(orderId, Variables.WAITING_FOR_PAYMENT);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -125,7 +135,6 @@ public class AdminController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.CANCELED);
 
             try {
-                TransactionsRepository transactionsRepository = new TransactionsRepository();
                 transactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.CANCELED, apartmentId, Variables.FREE);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
@@ -141,11 +150,4 @@ public class AdminController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns repository(dao) class
-     * @return UserOrderRepository
-     */
-    public UserOrderRepository getUserOrderRepository() {
-        return new UserOrderRepository();
-    }
 }

@@ -20,7 +20,7 @@ public class TransactionsRepository {
 
     private static final Logger log = Logger.getLogger(TransactionsRepository.class);
 
-    public TransactionsRepository() {
+    protected TransactionsRepository() {
     }
 
     /**

@@ -18,7 +18,7 @@ public class RoomCapacityRepository {
 
     private static final Logger log = Logger.getLogger(RoomCapacityRepository.class);
 
-    public RoomCapacityRepository() {
+    protected RoomCapacityRepository() {
     }
 
     /**

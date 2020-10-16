@@ -18,7 +18,7 @@ public class UserRepository {
 
     private static final Logger log = Logger.getLogger(UserRepository.class);
 
-    public UserRepository() {}
+    protected UserRepository() {}
 
     /**
      * Registers user
