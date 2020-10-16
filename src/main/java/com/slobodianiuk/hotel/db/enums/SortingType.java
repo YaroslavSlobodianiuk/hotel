@@ -1,5 +1,10 @@
 package com.slobodianiuk.hotel.db.enums;
 
+/**
+ * Enum responsible for sorting type
+ *
+ * @author Yarosalv Slobodianiuk
+ */
 public enum  SortingType {
     DEFAULT("apartments.id"),
     PRICE("price"),

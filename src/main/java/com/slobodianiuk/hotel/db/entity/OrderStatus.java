@@ -1,5 +1,8 @@
 package com.slobodianiuk.hotel.db.entity;
 
+/**
+ * @author Yarosalv Slobodianiuk
+ */
 public class OrderStatus {
 
     private int id;

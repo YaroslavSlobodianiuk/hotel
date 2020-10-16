@@ -1,12 +1,15 @@
 package com.slobodianiuk.hotel.db.pool;
 
-import com.slobodianiuk.hotel.properties.DatabaseProperties;
-
 import java.sql.SQLException;
 
+/**
+ * Singleton class that helps to use only connection pool
+ *
+ * @author Yarosalv Slobodianiuk
+ */
 public class ConnectionPoolManager {
 
-    private static volatile ConnectionPool instance;
+    private static ConnectionPool instance;
 
     private ConnectionPoolManager() {}
 

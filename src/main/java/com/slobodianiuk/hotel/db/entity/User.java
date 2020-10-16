@@ -2,6 +2,9 @@ package com.slobodianiuk.hotel.db.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author Yarosalv Slobodianiuk
+ */
 public class User implements Serializable {
     private int id;
     private String login;
@@ -80,15 +83,4 @@ public class User implements Serializable {
         this.localeName = localeName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", roleId=" + roleId +
-                '}';
-    }
 }

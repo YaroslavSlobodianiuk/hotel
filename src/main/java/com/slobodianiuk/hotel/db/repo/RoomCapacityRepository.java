@@ -11,11 +11,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class RoomCapacityRepository {
 
     private static final Logger log = Logger.getLogger(RoomCapacityRepository.class);
 
-    public static List<RoomCapacity> getRoomCapacities() throws DBException {
+    public RoomCapacityRepository() {
+    }
+
+    /**
+     * Returns number of places
+     *
+     * @return List<RoomCapacity> number of places
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<RoomCapacity> getRoomCapacities() throws DBException {
         List<RoomCapacity> capacities = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
@@ -43,7 +55,14 @@ public class RoomCapacityRepository {
         return capacities;
     }
 
-    public static List<RoomCapacity> getRoomCapacitiesByCategoryId(int id) throws DBException {
+    /**
+     * Returns number of places by category id
+     *
+     * @param id category id
+     * @return List<RoomCapacity> number of places
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<RoomCapacity> getRoomCapacitiesByCategoryId(int id) throws DBException {
         List<RoomCapacity> capacities = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
@@ -72,7 +91,7 @@ public class RoomCapacityRepository {
         return capacities;
     }
 
-    private static void close(Statement stmt, ResultSet rs) {
+    private void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {
                 stmt.close();

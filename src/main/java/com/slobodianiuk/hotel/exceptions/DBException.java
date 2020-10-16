@@ -1,5 +1,8 @@
 package com.slobodianiuk.hotel.exceptions;
 
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class DBException extends Exception{
     public DBException() {
     }

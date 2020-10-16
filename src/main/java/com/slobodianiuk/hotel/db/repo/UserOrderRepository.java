@@ -11,12 +11,22 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
-
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class UserOrderRepository {
 
     private static final Logger log = Logger.getLogger(UserOrderRepository.class);
 
-    public static List<UserOrderBean> getOrders() throws DBException {
+    public UserOrderRepository() {}
+
+    /**
+     * Returns list of orders
+     *
+     * @return List<UserOrderBean> of orders
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<UserOrderBean> getOrders() throws DBException {
         List<UserOrderBean> orders = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
@@ -43,7 +53,20 @@ public class UserOrderRepository {
         return orders;
     }
 
-    public static boolean createOrder(int userId, int apartmentId, int categoryId, int roomCapacityId, Date arrival, Date departure, String comment) throws DBException {
+    /**
+     * Creates new order
+     *
+     * @param userId user id
+     * @param apartmentId apartment id
+     * @param categoryId category id
+     * @param roomCapacityId room capacity id
+     * @param arrival date to arrive
+     * @param departure date to departure
+     * @param comment comment
+     * @return true if order successfully was added to DB
+     * @throws DBException when db crashes, connection lost
+     */
+    public boolean createOrder(int userId, int apartmentId, int categoryId, int roomCapacityId, Date arrival, Date departure, String comment) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -71,7 +94,14 @@ public class UserOrderRepository {
         return true;
     }
 
-    public static List<UserOrderBean> getOrdersByUserId(int id) throws DBException {
+    /**
+     * Returns list of orders by user id
+     *
+     * @param id user id
+     * @return List<UserOrderBean> orders by user id
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<UserOrderBean> getOrdersByUserId(int id) throws DBException {
         List<UserOrderBean> orders = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
@@ -100,7 +130,7 @@ public class UserOrderRepository {
         return orders;
     }
 
-    private static Optional<UserOrderBean> extractOrder(ResultSet rs, Calendar calendar) throws SQLException {
+    private Optional<UserOrderBean> extractOrder(ResultSet rs, Calendar calendar) throws SQLException {
         UserOrderBean order = new UserOrderBean();
 
         order.setId(rs.getInt("user_orders.id"));
@@ -123,7 +153,14 @@ public class UserOrderRepository {
         return Optional.of(order);
     }
 
-    public static void updateStatusId(int id, int statusId) throws DBException {
+    /**
+     * Updates order status id
+     * @param id order id
+     * @param statusId status id
+     * @return true if update was successful, false otherwise
+     * @throws DBException when db crashes, connection lost
+     */
+    public boolean updateStatusId(int id, int statusId) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -141,9 +178,16 @@ public class UserOrderRepository {
             connectionPool.releaseConnection(connection);
             close(preparedStatement);
         }
+        return true;
     }
 
-    public static void setTransactionStart(int orderId) throws DBException {
+    /**
+     * Sets start of transaction
+     *
+     * @param orderId
+     * @throws DBException when db crashes, connection lost
+     */
+    public void setTransactionStart(int orderId) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -164,7 +208,7 @@ public class UserOrderRepository {
         }
     }
 
-    private static void close(Statement stmt, ResultSet rs) {
+    private void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -174,7 +218,7 @@ public class UserOrderRepository {
             }
         }
     }
-    private static void close(Statement stmt) {
+    private void close(Statement stmt) {
         if (stmt != null) {
             try {
                 stmt.close();

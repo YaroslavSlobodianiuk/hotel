@@ -11,13 +11,26 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.Optional;
 
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class UserRepository {
 
     private static final Logger log = Logger.getLogger(UserRepository.class);
 
-    private UserRepository() {}
+    public UserRepository() {}
 
-    public static Optional<User> registerUser(String login, String password, String firstName, String lastName, String locale) throws DBException {
+    /**
+     * Registers user
+     * @param login user login
+     * @param password password
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param locale language
+     * @return Optional<User> if success, otherwise throws exception
+     * @throws DBException when db crashes, connection lost
+     */
+    public Optional<User> registerUser(String login, String password, String firstName, String lastName, String locale) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         Connection connection = null;
@@ -55,7 +68,13 @@ public class UserRepository {
         return Optional.of(user);
     }
 
-    public static Optional<User> getUserByLogin(String login) throws DBException {
+    /**
+     * Returns user by login
+     * @param login login
+     * @return Optional<User> if user exists, Optional.empty() if does not
+     * @throws DBException when db crashes, connection lost
+     */
+    public Optional<User> getUserByLogin(String login) throws DBException {
         Optional<User> user = Optional.empty();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
@@ -84,7 +103,14 @@ public class UserRepository {
         return user;
     }
 
-    public static boolean updateUser(User user) throws DBException {
+    /**
+     * Updates user information
+     *
+     * @param user
+     * @return true if update was done successfully, throws exception in other case
+     * @throws DBException when db crashes, connection lost
+     */
+    public boolean updateUser(User user) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -108,7 +134,7 @@ public class UserRepository {
         return true;
     }
 
-    private static Optional<User> extractUser(ResultSet rs) throws SQLException {
+    private Optional<User> extractUser(ResultSet rs) throws SQLException {
         User user = new User();
 
         user.setId(rs.getInt("id"));
@@ -122,12 +148,7 @@ public class UserRepository {
         return Optional.of(user);
     }
 
-    /**
-     * Closes Statement and ResultSet
-     * @param stmt
-     * @param rs
-     */
-    private static void close(Statement stmt, ResultSet rs) {
+    private void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -137,7 +158,7 @@ public class UserRepository {
             }
         }
     }
-    private static void close(Statement stmt) {
+    private void close(Statement stmt) {
         if (stmt != null) {
             try {
                 stmt.close();

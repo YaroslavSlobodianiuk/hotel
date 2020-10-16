@@ -51,7 +51,7 @@
         <tr>
             <td><input type="submit" value="Register" name="register"></td>
             <td>
-                <a href="login.jsp">Log in</a>
+                <a href="/login">Log in</a>
             </td>
         </tr>
     </table>

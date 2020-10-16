@@ -2,6 +2,9 @@ package com.slobodianiuk.hotel.db.entity;
 
 import java.util.Date;
 
+/**
+ * @author Yarosalv Slobodianiuk
+ */
 public class UserOrder {
 
     private int id;
@@ -99,20 +102,5 @@ public class UserOrder {
 
     public void setOrderStatusId(int orderStatusId) {
         this.orderStatusId = orderStatusId;
-    }
-
-    @Override
-    public String toString() {
-        return "UserOrder{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", apartmentId=" + apartmentId +
-                ", roomCapacityId=" + roomCapacityId +
-                ", categoryId=" + categoryId +
-                ", arrival=" + arrival +
-                ", departure=" + departure +
-                ", orderStatusId=" + orderStatusId +
-                ", comment='" + comment + '\'' +
-                '}';
     }
 }

@@ -8,7 +8,9 @@ import javax.servlet.ServletContextListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class ContextListener implements ServletContextListener {
 
     private static final Logger log = Logger.getLogger(ContextListener.class);

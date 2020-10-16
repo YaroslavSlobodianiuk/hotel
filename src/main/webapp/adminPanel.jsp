@@ -31,7 +31,9 @@
                 <td>orderStatusId</td>
                 <td>orderStatus</td>
                 <td>comment</td>
-                <td>action</td>
+                <c:if test="${order.orderStatusId lt 5}">
+                    <td>action</td>
+                </c:if>
             </tr>
         <c:forEach items="${orders}" var="order">
             <tr>

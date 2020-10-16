@@ -1,7 +1,5 @@
 package com.slobodianiuk.hotel.tags;
 
-import com.slobodianiuk.hotel.db.bean.UserOrderBean;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -10,6 +8,13 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Tag class that returns future date depends on two parameters:
+ * type: day, year, etc
+ * period: 0 - Long.MAX_VALUE
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 public class TimeTag extends TagSupport {
 
     private static final long serialVersionUID = -5246409001497897805L;

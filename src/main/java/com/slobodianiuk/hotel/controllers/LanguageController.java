@@ -15,12 +15,23 @@ import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Language page class
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 @WebServlet("/language")
 public class LanguageController extends HttpServlet {
 
     private static final long serialVersionUID = 2604665310889984564L;
     private static final Logger log = Logger.getLogger(LanguageController.class);
 
+    /**
+     * Receives GET request to change language on page
+     * In case language from request differs from language from session it changes and
+     * if it is session of registered user then changes language for this user in DB
+     * In case language from request the same as language from session does nothing
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         boolean updateUser = false;
@@ -36,7 +47,8 @@ public class LanguageController extends HttpServlet {
             user.setLocaleName(localeFromRequest);
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
             try {
-                UserRepository.updateUser(user);
+                UserRepository userRepository = new UserRepository();
+                userRepository.updateUser(user);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());

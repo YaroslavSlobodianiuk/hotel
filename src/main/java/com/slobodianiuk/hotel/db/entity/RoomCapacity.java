@@ -1,5 +1,8 @@
 package com.slobodianiuk.hotel.db.entity;
 
+/**
+ * @author Yarosalv Slobodianiuk
+ */
 public class RoomCapacity {
 
     private int id;
@@ -29,11 +32,4 @@ public class RoomCapacity {
         this.capacity = capacity;
     }
 
-    @Override
-    public String toString() {
-        return "RoomCapacity{" +
-                "id=" + id +
-                ", capacity=" + capacity +
-                '}';
-    }
 }

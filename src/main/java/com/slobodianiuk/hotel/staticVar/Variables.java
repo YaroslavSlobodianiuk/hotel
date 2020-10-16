@@ -1,5 +1,10 @@
 package com.slobodianiuk.hotel.staticVar;
 
+/**
+ * Static variables class for convenient work with constants
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 public class Variables {
 
     public static final int WAITING_FOR_APPROVE = 2;

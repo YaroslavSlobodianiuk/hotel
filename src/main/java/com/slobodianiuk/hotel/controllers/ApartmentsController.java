@@ -17,17 +17,25 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * Class that responsible for displaying all apartments
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 @WebServlet("/apartments")
 public class ApartmentsController extends HttpServlet {
 
     private static final long serialVersionUID = 1721189415750601025L;
     private static final Logger log = Logger.getLogger(ApartmentsController.class);
 
+    /**
+     * Returns page with all apartments
+     * Support sorting and pagination
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-
-
 
         SortingOrder sortingOrder = SortingOrder.ASC;
         if (req.getParameter("order") != null) {
@@ -65,8 +73,9 @@ public class ApartmentsController extends HttpServlet {
         List<Apartment> apartments = null;
         int numberOfRecords = 0;
         try {
-            apartments = ApartmentRepository.getApartments((page-1)*recordsPerPage, recordsPerPage, sortingType, sortingOrder);
-            numberOfRecords = ApartmentRepository.getNumberOfRecords();
+            ApartmentRepository apartmentRepository = new ApartmentRepository();
+            apartments = apartmentRepository.getApartments((page-1)*recordsPerPage, recordsPerPage, sortingType, sortingOrder);
+            numberOfRecords = apartmentRepository.getNumberOfRecords();
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -84,8 +93,5 @@ public class ApartmentsController extends HttpServlet {
         req.setAttribute("sortingOrder", sortingOrder.toString().toLowerCase());
 
         req.getRequestDispatcher("apartments.jsp").forward(req, resp);
-
-
-
     }
 }

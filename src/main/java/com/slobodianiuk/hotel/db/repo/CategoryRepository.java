@@ -11,11 +11,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class CategoryRepository {
 
     private static final Logger log = Logger.getLogger(CategoryRepository.class);
 
-    public static List<Category> getCategories() throws DBException {
+    public CategoryRepository() {
+    }
+
+    /**
+     * Returns apartment categories
+     *
+     * @return List<Category> categories
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<Category> getCategories() throws DBException {
         List<Category> categories = new ArrayList<>();
         ConnectionPool pool = ConnectionPoolManager.getInstance();
         Connection connection = null;
@@ -43,7 +55,7 @@ public class CategoryRepository {
         return categories;
     }
 
-    private static void close(Statement stmt, ResultSet rs) {
+    private void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {
                 stmt.close();

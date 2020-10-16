@@ -11,9 +11,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * TransactionsRepository class for support transactions
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 public class TransactionsRepository {
 
     private static final Logger log = Logger.getLogger(TransactionsRepository.class);
+
+    public TransactionsRepository() {
+    }
 
     /**
      * Method for transaction operations which updating
@@ -25,7 +33,7 @@ public class TransactionsRepository {
      * @param apartmentStatusId id that identificates apartment status
      * @throws DBException if db crashed, connection was lost
      */
-    public static void updateOrderStatusIdAndApartmentStatus(int orderId, int orderStatusId, int apartmentId, int apartmentStatusId) throws DBException {
+    public boolean updateOrderStatusIdAndApartmentStatus(int orderId, int orderStatusId, int apartmentId, int apartmentStatusId) throws DBException {
 
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
@@ -64,9 +72,10 @@ public class TransactionsRepository {
             close(updateStatusIdStatement);
             close(updateApartmentStatusStatement);
         }
+        return true;
     }
 
-    private static void close(Statement stmt) {
+    private void close(Statement stmt) {
         if (stmt != null) {
             try {
                 stmt.close();

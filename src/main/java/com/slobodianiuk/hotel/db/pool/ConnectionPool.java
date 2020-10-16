@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Connection pool interface
+ *
+ * @author Yarosalv Slobodianiuk
+ */
 public interface ConnectionPool {
 
     Connection getConnection() throws SQLException;

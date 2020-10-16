@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * Login page class
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
@@ -26,6 +31,11 @@ public class LoginController extends HttpServlet {
     public LoginController() {
     }
 
+    /**
+     * Returns login page
+     * In case user or admin already logged
+     * in returns main page according to user role
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -39,17 +49,23 @@ public class LoginController extends HttpServlet {
             switch (RoleEnum.getRole(userAtt.getRoleId())) {
                 case Admin:
                     resp.sendRedirect(req.getContextPath() + "/admin");
-                    break;
+                    return;
                 case User:
                     resp.sendRedirect(req.getContextPath() + "/");
-                    break;
+                    return;
             }
         } else {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " redirected to login page");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
+            return;
         }
     }
 
+    /**
+     * Checks if login exists in DB, if password equals to specified
+     * If OK redirects to main page with access to private account
+     * If NO returns message about invalid login or password
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -62,11 +78,13 @@ public class LoginController extends HttpServlet {
 
         Optional<User> optionalUser = null;
         try {
-            optionalUser = UserRepository.getUserByLogin(login);
+            UserRepository userRepository = new UserRepository();
+            optionalUser = userRepository.getUserByLogin(login);
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
             req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+            return;
         }
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -78,24 +96,26 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("locale", user.getLocaleName());
                         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " Successfully logged in");
                         resp.sendRedirect(req.getContextPath() + "/admin");
-                        break;
+                        return;
                     case User:
                         session.setAttribute("user", user);
                         Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", user.getLocaleName());
                         session.setAttribute("locale", user.getLocaleName());
                         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " Successfully logged in");
                         resp.sendRedirect(req.getContextPath() + "/");
-                        break;
+                        return;
                 }
             } else {
                 log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login + " Invalid login or password");
                 req.setAttribute("message", "Invalid login or password");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
+                return;
             }
         }  else {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", login: " + login + " Invalid login or password");
             req.setAttribute("message", "Invalid login or password");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
+            return;
         }
     }
 }

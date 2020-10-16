@@ -1,36 +1,40 @@
 
-i
-java:S1192%"GDefine a constant instead of duplicating this literal "time: " 5 times.(÷ĞãÉøÿÿÿÿ8æ±Ë¥Ò.
-p
-java:S1192%"NDefine a constant instead of duplicating this literal ", sessionId: " 5 times.(÷ĞãÉøÿÿÿÿ8æ±Ë¥Ò.
-u
-java:S1989*"SHandle the following exception that could be thrown by "sendRedirect": IOException.(òÉÂ„øÿÿÿÿ8°íµ°Í.
-j
-java:S1192C"HDefine a constant instead of duplicating this literal "message" 5 times.(±îƒÇùÿÿÿÿ8ÑÜéøÌ.
 ƒ
-java:S1989D"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8æ¿ÀĞ.
+java:S1989Y"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8€¿ÁÒ.
 ƒ
-java:S1989R"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8æ¿ÀĞ.
-ƒ
-java:S1989J"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8œ¿ñÀĞ.
+java:S1989j"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8€¿ÁÒ.
 o
-java:S1989b"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ˆİÙJ8½¦È±Í.
-ƒ
-java:S19893"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8Øò´±Í.
-ƒ
-java:S1989]"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
-£
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Êª³ºùÿÿÿÿ8ÑÜéøÌ.
-Z	java:S106K"9Replace this use of System.out or System.err by a logger.(È¸‚ìøÿÿÿÿ8æ¿ÀĞ.
-o
-java:S11923"MDefine a constant instead of duplicating this literal "register.jsp" 5 times.(ÏçˆÎüÿÿÿÿ8ÑÜéøÌ.
-T	java:S106N"9Replace this use of System.out or System.err by a logger.(¥˜8»÷¿Ğ.
-Z	java:S106S"9Replace this use of System.out or System.err by a logger.(íö—úÿÿÿÿ8ÑÜéøÌ.
-Z	java:S106E"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ8æ¿ÀĞ.
-p
-java:S1989."SHandle the following exception that could be thrown by "sendRedirect": IOException.(êúì8Ç¸¯°Í.
-u	java:S131'"YComplete cases by adding the missing enum constants or add a default case to this switch.(İàşé8ÈŒÂ¥Ò.
+java:S11924"MDefine a constant instead of duplicating this literal "register.jsp" 5 times.(ÏçˆÎüÿÿÿÿ8€¿ÁÒ.
 K
-java:S1121B".Extract the assignment out of this expression.(ÊÑü8æ¿ÀĞ.
+java:S1121C".Extract the assignment out of this expression.(ÊÑü8€¿ÁÒ.
 h
-java:S1301'"KReplace this "switch" statement by "if" statements to increase readability.(İàşé8ÈŒÂ¥Ò.
+java:S1301("KReplace this "switch" statement by "if" statements to increase readability.(İàşé8€¿ÁÒ.
+j
+java:S1192D"HDefine a constant instead of duplicating this literal "message" 5 times.(±îƒÇùÿÿÿÿ8€¿ÁÒ.
+£
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Êª³ºùÿÿÿÿ8€¿ÁÒ.
+ƒ
+java:S1989E"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8€¿ÁÒ.
+p
+java:S1192&"NDefine a constant instead of duplicating this literal ", sessionId: " 7 times.(÷ĞãÉøÿÿÿÿ8€¿ÁÒ.
+p
+java:S1989/"SHandle the following exception that could be thrown by "sendRedirect": IOException.(êúì8€¿ÁÒ.
+n
+java:S2259g"LA "NullPointerException" could be thrown; "registeredUser" is nullable here.(†áàîÿÿÿÿÿ8€¿ÁÒ.
+u
+java:S1989+"SHandle the following exception that could be thrown by "sendRedirect": IOException.(òÉÂ„øÿÿÿÿ8€¿ÁÒ.
+ƒ
+java:S1989e"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8€¿ÁÒ.
+ƒ
+java:S1989K"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8€¿ÁÒ.
+o
+java:S1989o"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ˆİÙJ8€¿ÁÒ.
+i
+java:S1192&"GDefine a constant instead of duplicating this literal "time: " 7 times.(÷ĞãÉøÿÿÿÿ8€¿ÁÒ.
+g
+java:S2259W"JA "NullPointerException" could be thrown; "optionalUser" is nullable here.(¶‰éÊ8€¿ÁÒ.
+u	java:S131("YComplete cases by adding the missing enum constants or add a default case to this switch.(İàşé8€¿ÁÒ.
+ƒ
+java:S19894"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÏçˆÎüÿÿÿÿ8€¿ÁÒ.
+ƒ
+java:S1989U"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8€¿ÁÒ.

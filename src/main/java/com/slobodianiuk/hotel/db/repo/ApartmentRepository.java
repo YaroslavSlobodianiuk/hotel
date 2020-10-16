@@ -15,11 +15,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Yaroslav Slobodianiuk
+ */
 public class ApartmentRepository {
 
     private static final Logger log = Logger.getLogger(ApartmentRepository.class);
 
-    public static Optional<Apartment> getApartmentById(int id) throws DBException {
+    public ApartmentRepository() {
+    }
+
+    /**
+     * Returns apartment by id
+     *
+     * @param id apartment id
+     * @return Optional<Apartment> apartment
+     * @throws DBException when db crashes, connection lost
+     */
+    public Optional<Apartment> getApartmentById(int id) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
@@ -47,7 +60,19 @@ public class ApartmentRepository {
         return Optional.of(apartment);
     }
 
-    public static List<Apartment> getApartments(int offset, int numberOfRecords, SortingType sortingType, SortingOrder sortingOrder) throws DBException {
+    /**
+     * Returns apartments depends on sorting type,
+     * order, page and number of records
+     *
+     * @param offset start point number to get
+     * @param numberOfRecords number of records per page
+     * or how many you need to get from DB
+     * @param sortingType sorting type
+     * @param sortingOrder sorting order
+     * @return List<Apartment> apartments
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<Apartment> getApartments(int offset, int numberOfRecords, SortingType sortingType, SortingOrder sortingOrder) throws DBException {
         StringBuilder queryBuilder = new StringBuilder();
         List<Apartment> apartments = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
@@ -68,12 +93,12 @@ public class ApartmentRepository {
 
         try {
             connection = connectionPool.getConnection();
-
             preparedStatement = connection.prepareStatement(queryBuilder.toString());
             set = preparedStatement.executeQuery();
             while (set.next()) {
                 apartments.add(extractApartments(set));
             }
+
         } catch (SQLException e) {
             log.error("time: " + new java.util.Date() + ", SQLException: ", e);
             throw new DBException("Unable to select data from DB");
@@ -84,7 +109,13 @@ public class ApartmentRepository {
         return apartments;
     }
 
-    public static int getNumberOfRecords() throws DBException {
+    /**
+     * Returns number of records
+     *
+     * @return int - number of records
+     * @throws DBException when db crashes, connection lost
+     */
+    public int getNumberOfRecords() throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         PreparedStatement preparedStatement = null;
         ResultSet set = null;
@@ -110,7 +141,14 @@ public class ApartmentRepository {
         return numberOfRecords;
     }
 
-    public static List<Apartment> getFreeApartmentsByCategoryAndCapacity(int categoryId, int capacityId) throws DBException {
+    /**
+     * Returns free apartments by category and capacity
+     * @param categoryId category id
+     * @param capacityId capacity id
+     * @return free apartments List<Apartment>
+     * @throws DBException when db crashes, connection lost
+     */
+    public List<Apartment> getFreeApartmentsByCategoryAndCapacity(int categoryId, int capacityId) throws DBException {
         List<Apartment> apartments = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
@@ -143,7 +181,14 @@ public class ApartmentRepository {
         return apartments;
     }
 
-    public static void updateApartmentStatus(int apartmentId, int statusId) throws DBException {
+    /**
+     * Updates apartment status id
+     *
+     * @param apartmentId apartment id
+     * @param statusId status id
+     * @throws DBException when db crashes, connection lost
+     */
+    public void updateApartmentStatus(int apartmentId, int statusId) throws DBException {
         ConnectionPool connectionPool = ConnectionPoolManager.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -166,7 +211,7 @@ public class ApartmentRepository {
         }
     }
 
-    private static Apartment extractApartments(ResultSet rs) throws SQLException {
+    private Apartment extractApartments(ResultSet rs) throws SQLException {
         Apartment apartments = new Apartment();
 
         apartments.setId(rs.getInt("id"));
@@ -179,7 +224,7 @@ public class ApartmentRepository {
         return apartments;
     }
 
-    private static void close(Statement stmt, ResultSet rs) {
+    private  void close(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -189,7 +234,7 @@ public class ApartmentRepository {
             }
         }
     }
-    private static void close(Statement stmt) {
+    private void close(Statement stmt) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -198,4 +243,5 @@ public class ApartmentRepository {
             }
         }
     }
+
 }

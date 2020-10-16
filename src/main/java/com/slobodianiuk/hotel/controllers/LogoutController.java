@@ -12,19 +12,32 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Logout class
+ * @author Yaroslav Slobodianiuk
+ */
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
 
     private static final long serialVersionUID = -3234733105217010163L;
     private static final Logger log = Logger.getLogger(LogoutController.class);
 
+    /**
+     * Receives request from user to log out
+     * If request comes from not registered user
+     * redirects to main page
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         User user = (User) session.getAttribute("user");
 
-        log("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " logged out");
-        session.invalidate(); //removes all session attributes bound to the session
-        resp.sendRedirect("/login");
+        if (user != null) {
+            log("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " logged out");
+            session.invalidate(); //removes all session attributes bound to the session
+            resp.sendRedirect("/login");
+        } else {
+            resp.sendRedirect("/");
+        }
     }
 }

@@ -27,8 +27,6 @@ u
 Esrc/main/java/com/slobodianiuk/hotel/db/repo/ApartmentRepository.java,7\5\754047bcc3e2f5117a16bd2c12e4b923abc73192
 u
 Esrc/main/java/com/slobodianiuk/hotel/db/repo/UserOrderRepository.java,3\2\32943c97474f07f78164d38a9f98c18cebdbe0c4
-z
-Jsrc/main/java/com/slobodianiuk/hotel/db/repo/ProcessedOrderRepository.java,2\3\2397ec49014289e0115dd154c201ffe5a4e54d2f
 y
 Isrc/main/java/com/slobodianiuk/hotel/controllers/ApartmentController.java,1\6\169bcadacdbc6cb37fcad219e78427426ac4d8a1
 O
@@ -157,3 +155,9 @@ Y
 )src/main/webapp/WEB-INF/tlds/deadline.tld,1\3\137f15d2a13f501a8f71c40fbe65b389896c8754
 X
 (src/main/webapp/WEB-INF/log4j.properties,e\4\e4dc62a5cae25b2d6e76633def3ed772afe4b7b4
+p
+@src/main/java/com/slobodianiuk/hotel/exceptions/DBException.java,5\3\530445a69c3d510479b0e417da44d6777eb5b21d
+d
+4src/main/java/com/slobodianiuk/hotel/db/sql/SQL.java,2\f\2fabf741ca03a7a8625914f57031fee6da212195
+x
+Hsrc/main/java/com/slobodianiuk/hotel/db/repo/TransactionsRepository.java,1\f\1fd9f6a1a83352f4d06425a6bc84e69d3e358ceb

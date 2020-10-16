@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * Registration class
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 @WebServlet("/register")
 public class RegistrationController extends HttpServlet {
 
@@ -25,10 +30,14 @@ public class RegistrationController extends HttpServlet {
     public RegistrationController() {
     }
 
+    /**
+     * Returns registration page
+     * In case user is logged in redirects
+     * according to role
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-
 
         Integer roleId = (Integer) session.getAttribute("role");
         User userAtt = (User) session.getAttribute("user");
@@ -41,11 +50,11 @@ public class RegistrationController extends HttpServlet {
                 case User:
                     session.setAttribute("name", userAtt.getFirstName());
                     resp.sendRedirect("/");
-                    break;
+                    return;
                 case Admin:
                     session.setAttribute("name", userAtt.getFirstName());
                     resp.sendRedirect("/admin");
-                    break;
+                    return;
             }
         } else {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + " was forwarded to registration page");
@@ -53,6 +62,12 @@ public class RegistrationController extends HttpServlet {
         }
     }
 
+    /**
+     * Registers user: validates all fields,
+     * check if does not exist user with given login,
+     * checks current locale, writes it with all provided
+     * information to DB
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -67,18 +82,19 @@ public class RegistrationController extends HttpServlet {
         if (!"".equals(message = emptyValidation(login, password, passwordConfirmation, firstName, lastName))) {
             req.setAttribute("message", message);
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-
+            return;
         }
 
         if (!passwordValidation(password, passwordConfirmation)) {
             req.setAttribute("message", "Password does not match");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
-
+            return;
         }
-
+        UserRepository userRepository = new UserRepository();
         Optional<User> optionalUser = null;
         try {
-            optionalUser = UserRepository.getUserByLogin(login);
+
+            optionalUser = userRepository.getUserByLogin(login);
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -87,6 +103,7 @@ public class RegistrationController extends HttpServlet {
         if (optionalUser.isPresent()) {
             req.setAttribute("message", "Login " + login + " is already exist");
             req.getRequestDispatcher("register.jsp").forward(req, resp);
+            return;
         }
         String locale = session.getAttribute("locale") != null ? (String) session.getAttribute("locale") : "en";
 
@@ -94,7 +111,7 @@ public class RegistrationController extends HttpServlet {
 
         Optional<User> registeredUser = null;
         try {
-            registeredUser = UserRepository.registerUser(login, password, firstName, lastName, locale);
+            registeredUser = userRepository.registerUser(login, password, firstName, lastName, locale);
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());
             log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());

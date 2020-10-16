@@ -26,6 +26,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Booking apartments class
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 @WebServlet("/booking")
 public class BookingController extends HttpServlet {
 
@@ -33,6 +38,11 @@ public class BookingController extends HttpServlet {
     private static final long serialVersionUID = -6929357303989579846L;
     private static final Logger log = Logger.getLogger(BookingController.class);
 
+    /**
+     * Displays page with form to apply for a reservation
+     * Returns number of places by category
+     * Returns free apartments by category and number of places
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -41,12 +51,14 @@ public class BookingController extends HttpServlet {
 
         if (user == null) {
             req.getRequestDispatcher("notRegisteredUser.jsp").forward(req, resp);
+            return;
         }
 
         String op = req.getParameter("operation");
 
         if (op == null) {
             req.getRequestDispatcher("booking.jsp").forward(req, resp);
+            return;
         }
 
         log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op);
@@ -54,34 +66,42 @@ public class BookingController extends HttpServlet {
         if ("category".equals(op)) {
             List<Category> categories = null;
             try {
-                categories = CategoryRepository.getCategories();
+                CategoryRepository categoryRepository = new CategoryRepository();
+                categories = categoryRepository.getCategories();
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new java.util.Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
             Gson json = new Gson();
             String categoriesList = json.toJson(categories);
+            System.out.println(categoriesList);
             resp.setContentType("text/html");
             log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoriesList: " + categoriesList);
             resp.getWriter().write(categoriesList);
+            return;
         }
 
         if ("capacity".equals(op)) {
             int categoryId = Integer.parseInt(req.getParameter("id"));
             List<RoomCapacity> capacities = null;
             try {
-                capacities = RoomCapacityRepository.getRoomCapacitiesByCategoryId(categoryId);
+                RoomCapacityRepository roomCapacityRepository = new RoomCapacityRepository();
+                capacities = roomCapacityRepository.getRoomCapacitiesByCategoryId(categoryId);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new java.util.Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
             Gson json = new Gson();
             String capacitiesList = json.toJson(capacities);
+            System.out.println(capacitiesList);
             resp.setContentType("text/html");
             log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacitiesList: " + capacitiesList);
             resp.getWriter().write(capacitiesList);
+            return;
         }
 
         if ("apartment".equals(op)) {
@@ -91,28 +111,36 @@ public class BookingController extends HttpServlet {
 
             List<Apartment> apartments = null;
             try {
-                apartments = ApartmentRepository.getFreeApartmentsByCategoryAndCapacity(categoryId, capacityId);
+                ApartmentRepository apartmentRepository = new ApartmentRepository();
+                apartments = apartmentRepository.getFreeApartmentsByCategoryAndCapacity(categoryId, capacityId);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new java.util.Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
             if (!apartments.isEmpty()) {
                 Gson json = new Gson();
                 String apartmentsList = json.toJson(apartments);
+                System.out.println(apartmentsList);
                 resp.setContentType("text/html");
                 log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacityId: " + capacityId + ", apartmentsList: " + apartmentsList);
                 resp.getWriter().write(apartmentsList);
+                return;
             } else {
                 log.trace("time: "+ new java.util.Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", operation: " + op + ", categoryId: " + categoryId + ", capacityId: " + capacityId);
 
                 resp.setContentType("text/html");
                 resp.getWriter().write("");
             }
-
         }
     }
 
+    /**
+     * Processes information provided by user in form,
+     * validating it and create a record in DB in case
+     * of success
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -145,7 +173,8 @@ public class BookingController extends HttpServlet {
 
         boolean orderFlag  = false;
         try {
-            orderFlag = UserOrderRepository.createOrder(user.getId(), apartmentId, categoryId, capacityId,
+            UserOrderRepository userOrderRepository = new UserOrderRepository();
+            orderFlag = userOrderRepository.createOrder(user.getId(), apartmentId, categoryId, capacityId,
                     Date.valueOf(from), Date.valueOf(to), comment);
         } catch (DBException e) {
             session.setAttribute("errorMessage", e.getMessage());

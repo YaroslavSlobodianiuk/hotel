@@ -1,5 +1,9 @@
 package com.slobodianiuk.hotel.db.sql;
 
+/**
+ * SQL requests keeper class
+ * @author Yaroslav Slobodianiuk
+ */
 public class SQL {
 
     // UserRepository

@@ -1,9 +1,9 @@
 
-l
-java:S1128"ORemove this unused import 'com.slobodianiuk.hotel.controllers.AdminController'.(‹Èèë8½…¡Ò.
-d
-java:S1192"HDefine a constant instead of duplicating this literal "time: " 13 times.(Óñìn8ç¡Ò.
 W
-java:S1118":Add a private constructor to hide the implicit public one.(’ëìµ8¢İ½ØÎ.
-l
-java:S1192+"JDefine a constant instead of duplicating this literal ", error: " 8 times.(¼½ÿûùÿÿÿÿ8ç¡Ò.
+java:S1118":Add a private constructor to hide the implicit public one.(’ëìµ8¢İ½ØÎ.
+j
+java:S1192"HDefine a constant instead of duplicating this literal "time: " 12 times.(Ÿò½§øÿÿÿÿ8ç¡Ò.
+€
+java:S1192*"^Define a constant instead of duplicating this literal "Unable to select data from DB" 3 times.(™‡ß‘şÿÿÿÿ8åù‰ºÒ.
+s
+java:S1192)"QDefine a constant instead of duplicating this literal ", SQLException: " 5 times.(ìŠ²÷ıÿÿÿÿ8Çœ¼ºÒ.

@@ -4,6 +4,12 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Class responsible for keeping information
+ * about orders
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 public class UserOrderBean {
 
     private int id;
@@ -25,6 +31,7 @@ public class UserOrderBean {
 
     public UserOrderBean() {
     }
+
 
     public long getDeadline() {
         Calendar calendar = Calendar.getInstance();
@@ -161,25 +168,4 @@ public class UserOrderBean {
         this.comment = comment;
     }
 
-    @Override
-    public String toString() {
-        return "UserOrderBean{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", username='" + username + '\'' +
-                ", categoryId=" + categoryId +
-                ", category='" + category + '\'' +
-                ", capacityId=" + capacityId +
-                ", capacity=" + capacity +
-                ", apartmentId=" + apartmentId +
-                ", apartmentName='" + apartmentName + '\'' +
-                ", price=" + price +
-                ", arrival=" + arrival +
-                ", departure=" + departure +
-                ", transactionStart=" + transactionStart +
-                ", orderStatusId=" + orderStatusId +
-                ", orderStatus='" + orderStatus + '\'' +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
 }

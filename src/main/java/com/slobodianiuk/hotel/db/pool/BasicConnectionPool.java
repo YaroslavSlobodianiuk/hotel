@@ -5,7 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Basic implementation of connection pool mechanism
+ *
+ * @author Yarosalv Slobodianiuk
+ */
 public class BasicConnectionPool implements ConnectionPool {
 
     private final String url;
@@ -44,9 +48,9 @@ public class BasicConnectionPool implements ConnectionPool {
 
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
 
-//        if(!connection.isValid(MAX_TIMEOUT)){
-//            connection = createConnection(url, user, password);
-//        }
+        if(!connection.isValid(MAX_TIMEOUT)){
+            connection = createConnection(url, user, password);
+        }
 
         usedConnections.add(connection);
         return connection;

@@ -16,12 +16,25 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * Class that handling the displaying of
+ * separate dynamic apartment page
+ *
+ * @author Yaroslav Slobodianiuk
+ */
+
 @WebServlet("/apartments/*")
 public class ApartmentController extends HttpServlet {
 
     private static final long serialVersionUID = 8112143507193620200L;
     private static final Logger log = Logger.getLogger(ApartmentController.class);
 
+    /**
+     * Returns dynamic apartment page by id
+     * If not apartment with specified id or
+     * format of id does meet requirements
+     * returns 404 error page
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -31,15 +44,18 @@ public class ApartmentController extends HttpServlet {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", apartmentId: " + apartmentId);
             Optional<Apartment> apartmentOptional = null;
             try {
-                apartmentOptional = ApartmentRepository.getApartmentById(apartmentId);
+                ApartmentRepository apartmentRepository = new ApartmentRepository();
+                apartmentOptional = apartmentRepository.getApartmentById(apartmentId);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
             }
             if (apartmentOptional.isPresent()) {
                 req.setAttribute("apartment", apartmentOptional.get());
                 req.getRequestDispatcher("/apartment.jsp").forward(req, resp);
+                return;
             } else {
                 log.trace("time: " + new Date() + ", sessionId: " + session.getId() + "==> 404");
                 resp.setStatus(404);

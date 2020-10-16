@@ -8,6 +8,12 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.util.Calendar;
 
+/**
+ * Tag class that calculating deadline of
+ * possibility to pay the order
+ *
+ * @author Yaroslav Slobodianiuk
+ */
 public class DeadlineTag extends TagSupport {
 
     private static final long serialVersionUID = -5349897599307910060L;
