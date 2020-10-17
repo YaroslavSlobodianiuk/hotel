@@ -41,8 +41,6 @@ w
 Gsrc/main/java/com/slobodianiuk/hotel/db/pool/ConnectionPoolManager.java,0\c\0c22c03189c16e20bdea5eacad7cbca25a7da287
 p
 @src/main/java/com/slobodianiuk/hotel/db/repo/UserRepository.java,e\c\ec9fb05aba30db03aba65478ff46556e2e700ae3
-O
-src/main/webapp/loginBackup.jsp,6\2\62137537116942acc7c1811f277db7b86f43f577
 u
 Esrc/main/java/com/slobodianiuk/hotel/controllers/AdminController.java,f\d\fd2b024e83ca3b8950ec38b70151bdeea3bfdff5
 t
@@ -69,8 +67,6 @@ F
 target/hotel/index.jsp,8\b\8b724abd1979590aa564827eda7727ea692ac78c
 Q
 !src/main/webapp/blocks/header.jsp,1\f\1f576a2330774d134f45dde322268afc04e97caa
-H
-src/main/webapp/book.jsp,0\c\0ca48331b84003de2e5d29a08185dfd57b312ce6
 K
 src/main/webapp/booking.jsp,3\d\3d577505c7e3232bfee90b8f0393405639aa5828
 K
@@ -87,8 +83,6 @@ Hsrc/main/java/com/slobodianiuk/hotel/db/repo/RoomCapacityRepository.java,7\4\7
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
 x
 Hsrc/main/java/com/slobodianiuk/hotel/controllers/LanguageController.java,8\5\8599306f49800e9ef4357209764b4879c18a6403
-`
-0src/main/webapp/dynamicDependentDropDownList.jsp,0\9\094a55d720118e3122143da46af56792aef928b8
 p
 @src/main/java/com/slobodianiuk/hotel/filters/EncodingFilter.java,f\d\fd75fc4f16d3a40967e478ab1bd1ca8cd0483f41
 F
@@ -97,14 +91,10 @@ L
 target/hotel/loginBackup.jsp,0\8\083274842b76b0312ee4e8310e0fc4c06ddc13ee
 I
 target/hotel/register.jsp,3\8\389ea3ae136e466806225c084d6eca162c8b8ff6
-H
-src/main/webapp/test.jsp,2\7\2794cd4f47feb7b38b89b4a34cc3a594b17aac16
 s
 Csrc/main/java/com/slobodianiuk/hotel/listeners/ContextListener.java,b\8\b8793fae4ce30f834fe32061534036692fa91843
 U
 %src/main/webapp/notRegisteredUser.jsp,f\2\f2f3f56da4d0d05a5763b879360cf20f335ce775
-G
-src/main/webapp/abc.jsp,0\b\0b14e6e65004e3fbb7672bcb4023f754c736bd2e
 M
 src/main/webapp/errorPage.jsp,6\2\623298baba5501f97cbba1bfb86226a0924b84bc
 P

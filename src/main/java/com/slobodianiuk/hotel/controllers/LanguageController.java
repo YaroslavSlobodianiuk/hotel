@@ -67,13 +67,12 @@ public class LanguageController extends HttpServlet {
                 req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
                 return;
             }
-
         } else if (!localeFromRequest.equals(localeFromSession)) {
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() +
                     ", localeFromSession: " + localeFromSession + ", localeFromRequest: " + localeFromRequest);
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", localeFromRequest);
             session.setAttribute("locale", localeFromRequest);
         }
-        resp.sendRedirect("/");
+        resp.sendRedirect(req.getHeader("referer"));
     }
 }

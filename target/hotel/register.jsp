@@ -8,7 +8,8 @@
 <%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <%@ include file="blocks/header.jsp"%>
+    <title><fmt:message key="register_page_title"/></title>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
 </head>
 <body>
@@ -19,39 +20,39 @@
             <td>${message}</td>
         </tr>
         <tr>
-            <td>Login:</td>
+            <td><fmt:message key="register_page_login"/></td>
             <td>
                 <input type="text" name="login">
             </td>
         </tr>
         <tr>
-            <td>Password:</td>
+            <td><fmt:message key="register_page_password"/></td>
             <td>
                 <input type="password" name="password">
             </td>
         </tr>
         <tr>
-            <td>Confirm Password:</td>
+            <td><fmt:message key="register_page_password_confirmation"/></td>
             <td>
                 <input type="password" name="password_confirmation">
             </td>
         </tr>
         <tr>
-            <td>First Name</td>
+            <td><fmt:message key="register_page_first_name"/></td>
             <td>
                 <input type="text" name="first_name">
             </td>
         </tr>
         <tr>
-            <td>Last Name</td>
+            <td><fmt:message key="register_page_last_name"/></td>
             <td>
                 <input type="text" name="last_name">
             </td>
         </tr>
         <tr>
-            <td><input type="submit" value="Register" name="register"></td>
+            <td><input type="submit" value="<fmt:message key="register_page_register_btn"/>" name="register"></td>
             <td>
-                <a href="/login">Log in</a>
+                <a href="/login"><fmt:message key="register_page_log_in_link"/></a>
             </td>
         </tr>
     </table>

@@ -34,7 +34,7 @@ public class LogoutController extends HttpServlet {
 
         if (user != null) {
             log("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + " logged out");
-            session.invalidate(); //removes all session attributes bound to the session
+            session.invalidate();
             resp.sendRedirect("/login");
         } else {
             resp.sendRedirect("/");
