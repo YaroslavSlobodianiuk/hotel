@@ -1,9 +1,7 @@
 
-
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(›ΰ8½Ώ΅ξÒ.
-€
-java:S11927"^Define a constant instead of duplicating this literal "Unable to select data from DB" 3 times.(™‡ί‘ώÿÿÿÿ8εω‰ΊÒ.
-s
-java:S11926"QDefine a constant instead of duplicating this literal ", SQLException: " 5 times.(μ²χύÿÿÿÿ8ΗΌΊÒ.
 j
 java:S1192*"HDefine a constant instead of duplicating this literal "time: " 12 times.(ς½§ψÿÿÿÿ8η΅Ò.
+s
+java:S11926"QDefine a constant instead of duplicating this literal ", SQLException: " 5 times.(μ²χύÿÿÿÿ8ΗΌΊÒ.
+€
+java:S11927"^Define a constant instead of duplicating this literal "Unable to select data from DB" 3 times.(™‡ί‘ώÿÿÿÿ8εω‰ΊÒ.

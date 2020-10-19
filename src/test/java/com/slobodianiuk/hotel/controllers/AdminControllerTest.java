@@ -4,9 +4,9 @@ import com.slobodianiuk.hotel.db.entity.User;
 import com.slobodianiuk.hotel.db.repo.TransactionsRepository;
 import com.slobodianiuk.hotel.db.repo.UserOrderRepository;
 import com.slobodianiuk.hotel.exceptions.DBException;
+
+
 import com.slobodianiuk.hotel.staticVar.Variables;
-
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +83,7 @@ public class AdminControllerTest extends Mockito {
 
         adminController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/login");
+        verify(response).sendRedirect("/login");
     }
 
     @Test
@@ -96,7 +96,7 @@ public class AdminControllerTest extends Mockito {
 
         adminController.doPost(request, response);
 
-        verify(response, times(3)).sendRedirect("/admin");
+        verify(response).sendRedirect("/admin");
     }
 
     @Test
@@ -120,14 +120,14 @@ public class AdminControllerTest extends Mockito {
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(user);
-        when(request.getParameter("action")).thenReturn("approved");
+        when(request.getParameter("action")).thenReturn("confirmed");
         when(request.getParameter("id")).thenReturn(String.valueOf(1));
         when(userOrderRepository.updateStatusId(anyInt(), anyInt())).thenReturn(true);
 
         adminController.doPost(request, response);
 
         Assert.assertTrue(userOrderRepository.updateStatusId(1, Variables.WAITING_FOR_PAYMENT));
-        verify(response, times(3)).sendRedirect("/admin");
+        verify(response).sendRedirect("/admin");
     }
 
     @Test
@@ -136,7 +136,7 @@ public class AdminControllerTest extends Mockito {
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(user);
-        when(request.getParameter("action")).thenReturn("approved");
+        when(request.getParameter("action")).thenReturn("confirmed");
         when(request.getParameter("id")).thenReturn(String.valueOf(1));
         when(userOrderRepository.updateStatusId(anyInt(), anyInt())).thenThrow(DBException.class);
         when(request.getRequestDispatcher(anyString())).thenReturn(rd);
@@ -158,7 +158,7 @@ public class AdminControllerTest extends Mockito {
 
         adminController.doPost(request, response);
 
-        verify(response, times(3)).sendRedirect("/admin");
+        verify(response).sendRedirect("/admin");
     }
 
     @Test

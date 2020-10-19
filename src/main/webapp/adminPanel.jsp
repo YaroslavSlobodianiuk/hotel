@@ -1,38 +1,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: GUEST USER
-  Date: 28.09.2020
-  Time: 17:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
     <%@ include file="blocks/header.jsp"%>
+    <title><fmt:message key="admin_page_title"/></title>
 </head>
 <body>
-    <h1>Orders</h1>
+    <h1><fmt:message key="admin_page__orders"/></h1>
     <table border="2px" >
             <tr>
-                <td>id</td>
-                <td>userId</td>
-                <td>username</td>
-                <td>categoryId</td>
-                <td>category</td>
-                <td>capacityId</td>
-                <td>capacity</td>
-                <td>apartmentId</td>
-                <td>apartmentName</td>
-                <td>price</td>
-                <td>arrival</td>
-                <td>departure</td>
-                <td>orderStatusId</td>
-                <td>orderStatus</td>
-                <td>comment</td>
-                <td>action</td>
-
+                <td><fmt:message key="admin_page_id"/></td>
+                <td><fmt:message key="admin_page_user_id"/></td>
+                <td><fmt:message key="admin_page_username"/></td>
+                <td><fmt:message key="admin_page_category_id"/></td>
+                <td><fmt:message key="admin_page_category"/></td>
+                <td><fmt:message key="admin_page_capacity"/></td>
+                <td><fmt:message key="admin_page_apartment_id"/></td>
+                <td><fmt:message key="admin_page_apartment_name"/></td>
+                <td><fmt:message key="admin_page_price"/></td>
+                <td><fmt:message key="admin_page_arrival"/></td>
+                <td><fmt:message key="admin_page_departure"/></td>
+                <td><fmt:message key="admin_page_order_status_id"/></td>
+                <td><fmt:message key="admin_page_order_status"/></td>
+                <td><fmt:message key="admin_page_comment"/></td>
             </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
@@ -41,7 +31,6 @@
                 <td>${order.username}</td>
                 <td>${order.categoryId}</td>
                 <td>${order.category}</td>
-                <td>${order.capacityId}</td>
                 <td>${order.capacity}</td>
                 <td>${order.apartmentId}</td>
                 <td>${order.apartmentName}</td>
@@ -57,21 +46,21 @@
                             <form action="/admin" method="post">
                                 <input type="hidden" name="id" value="${order.id}">
                                 <input type="hidden" name="action" value="new">
-                                <input type="submit" value="Send for approval">
+                                <input type="submit" value="<fmt:message key="admin_page_send_for_confirmation_btn"/>">
                             </form>
                         </td>
                     </c:when>
-                    <c:when test="${order.orderStatus eq 'waiting for approve'}"><td>waiting for approve</td></c:when>
-                    <c:when test="${order.orderStatus eq 'approved'}">
+                    <c:when test="${order.orderStatus eq 'waiting for confirmation'}"><td><fmt:message key="admin_page_waiting_for_confirmation_status"/></td></c:when>
+                    <c:when test="${order.orderStatus eq 'confirmed'}">
                         <td>
                             <form action="/admin" method="post">
                                 <input type="hidden" name="id" value="${order.id}">
-                                <input type="hidden" name="action" value="approved">
-                                <input type="submit" value="Send for payment">
+                                <input type="hidden" name="action" value="confirmed">
+                                <input type="submit" value="<fmt:message key="admin_page_send_for_payment_btn"/>">
                             </form>
                         </td>
                     </c:when>
-                    <c:when test="${order.orderStatus eq 'waiting for payment'}"><td>waiting for payment</td></c:when>
+                    <c:when test="${order.orderStatus eq 'waiting for payment'}"><td><fmt:message key="admin_page_waiting_for_payment_status"/></td></c:when>
                 </c:choose>
                 <td>
                     <c:if test="${order.orderStatusId lt 5}">
@@ -79,7 +68,7 @@
                             <input type="hidden" name="id" value="${order.id}">
                             <input type="hidden" name="apartmentId" value="${order.apartmentId}">
                             <input type="hidden" name="action" value="cancel">
-                            <input type="submit" value="Cancel">
+                            <input type="submit" value="<fmt:message key="admin_page_cancel_btn"/>">
                         </form>
                     </c:if>
                 </td>

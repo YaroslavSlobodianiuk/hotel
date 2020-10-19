@@ -78,12 +78,12 @@ public class UserAccountController extends HttpServlet {
 
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", action: " + action + ", orderId: " + orderId);
 
-        if ("waiting for approve".equals(action)) {
+        if ("waiting for confirmation".equals(action)) {
             int apartmentId = Integer.parseInt(req.getParameter("apartmentId"));
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.APPROVED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", apartmentId: " + apartmentId + ", orderStatusId ==> " + Variables.CONFIRMED);
 
             try {
-                transactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.APPROVED, apartmentId, Variables.RESERVED);
+                transactionsRepository.updateOrderStatusIdAndApartmentStatus(orderId, Variables.CONFIRMED, apartmentId, Variables.RESERVED);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -91,7 +91,7 @@ public class UserAccountController extends HttpServlet {
                 return;
             }
 
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.APPROVED);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId: " + orderId + ", apartmentId: " + apartmentId + ", orderStatusId: " + Variables.CONFIRMED);
             resp.sendRedirect("/me");
             return;
         }

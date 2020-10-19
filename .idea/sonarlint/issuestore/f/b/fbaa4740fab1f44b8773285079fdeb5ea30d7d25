@@ -1,14 +1,15 @@
 
+d
+java:S1128"GRemove this unused import 'com.slobodianiuk.hotel.db.entity.Apartment'.(«¾Óê8¤İÏîÒ.
 j
 java:S1128"HRemove this unused import 'com.slobodianiuk.hotel.db.enums.SortingType'.( ˜ÄÙøÿÿÿÿ8¤İÏîÒ.
 q
 java:S1128"ORemove this unused import 'com.slobodianiuk.hotel.db.repo.ApartmentRepository'.(Å”·€üÿÿÿÿ8¤İÏîÒ.
+f
+java:S1128"IRemove this unused import 'com.slobodianiuk.hotel.db.enums.SortingOrder'.(¶œÇ8¤İÏîÒ.
 M
 java:S1128
 "+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¤İÏîÒ.
-f
-java:S1128"IRemove this unused import 'com.slobodianiuk.hotel.db.enums.SortingOrder'.(¶œÇ8¤İÏîÒ.
-d
-java:S1128"GRemove this unused import 'com.slobodianiuk.hotel.db.entity.Apartment'.(«¾Óê8¤İÏîÒ.
-
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ØòÏš8¤İÏîÒ.
+¤
+java:S1130"†Remove the declaration of thrown exception 'com.slobodianiuk.hotel.exceptions.DBException', as it cannot be thrown from method's body.(ØòÏš8‚ÂÈÓ.
+U	java:S106"9Replace this use of System.out or System.err by a logger.(Ùßññ8‚ÂÈÓ.

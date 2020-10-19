@@ -61,16 +61,10 @@ M
 src/main/webapp/apartment.jsp,f\8\f844140afedffc72a49db8629825dae102125e0c
 J
 src/main/webapp/js/sort.js,2\d\2d951ea06584cb5c9ee2cbc6871b5d47bb0ded07
-L
-target/hotel/WEB-INF/web.xml,3\e\3e0be8740339be1a0ab069f0f166f5e3cd33fed7
-F
-target/hotel/index.jsp,8\b\8b724abd1979590aa564827eda7727ea692ac78c
 Q
 !src/main/webapp/blocks/header.jsp,1\f\1f576a2330774d134f45dde322268afc04e97caa
 K
 src/main/webapp/booking.jsp,3\d\3d577505c7e3232bfee90b8f0393405639aa5828
-K
-target/hotel/apartments.jsp,5\8\58330ecf4a9b366a7adcbaf40ec62d4568074079
 w
 Gsrc/main/java/com/slobodianiuk/hotel/controllers/BookingController.java,d\9\d9e05fd41f00ca974f35d8a69a369d074679ada4
 o
@@ -85,20 +79,12 @@ x
 Hsrc/main/java/com/slobodianiuk/hotel/controllers/LanguageController.java,8\5\8599306f49800e9ef4357209764b4879c18a6403
 p
 @src/main/java/com/slobodianiuk/hotel/filters/EncodingFilter.java,f\d\fd75fc4f16d3a40967e478ab1bd1ca8cd0483f41
-F
-target/hotel/login.jsp,b\1\b17f8181411690ae1c123228a6561e5ac73ca3d9
-L
-target/hotel/loginBackup.jsp,0\8\083274842b76b0312ee4e8310e0fc4c06ddc13ee
-I
-target/hotel/register.jsp,3\8\389ea3ae136e466806225c084d6eca162c8b8ff6
 s
 Csrc/main/java/com/slobodianiuk/hotel/listeners/ContextListener.java,b\8\b8793fae4ce30f834fe32061534036692fa91843
 U
 %src/main/webapp/notRegisteredUser.jsp,f\2\f2f3f56da4d0d05a5763b879360cf20f335ce775
 M
 src/main/webapp/errorPage.jsp,6\2\623298baba5501f97cbba1bfb86226a0924b84bc
-P
- src/main/webapp/thankYouPage.jsp,2\6\26653b128d6d3cac41c94d950c7ca09490536ee6
 o
 ?src/main/java/com/slobodianiuk/hotel/db/bean/UserOrderBean.java,2\7\27dcfd974990287e83f612fcd661d814ebe41153
 m
@@ -145,3 +131,8 @@ x
 Hsrc/main/java/com/slobodianiuk/hotel/db/repo/TransactionsRepository.java,1\f\1fd9f6a1a83352f4d06425a6bc84e69d3e358ceb
 s
 Csrc/test/resources/mockito-extensions/org.mockito.plugins.MockMaker,5\1\5189aade9e7246224cb5067a6976d52149bf7d02
+:
+
+sql/db.sql,1\4\144f09c2870333b9c71c066028db5b5c6da46bbc
+L
+.idea/codeStyles/Project.xml,6\e\6ecd6000a7b6f4a2884412ff19f74193ed089648

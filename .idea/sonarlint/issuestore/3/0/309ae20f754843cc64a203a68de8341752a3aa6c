@@ -1,43 +1,41 @@
 
-£
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦¯ÇÑÿÿÿÿÿ8¢¤«ÁÒ.
+g
+java:S1192U"JDefine a constant instead of duplicating this literal ", login: " 3 times.(ˆ²™ª8¢¤«ÁÒ.
 8
-java:S3626p"Remove this redundant jump.(ûÁİ…8ÓêãóÒ.
-p
-java:S1989b"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Â¸ı8¢¤«ÁÒ.
+java:S3626}"Remove this redundant jump.(ûÁİ…8¯ëäóÒ.
+8
+java:S3626D"Remove this redundant jump.(ûÁİ…8ÓêãóÒ.
+z	java:S131c"YComplete cases by adding the missing enum constants or add a default case to this switch.(½ìê‘ûÿÿÿÿ8¢¤«ÁÒ.
 m
-java:S1192/"KDefine a constant instead of duplicating this literal ", userId: " 3 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
-8
-java:S3626<"Remove this redundant jump.(ûÁİ…8şÄÙóÒ.
+java:S1301c"KReplace this "switch" statement by "if" statements to increase readability.(½ìê‘ûÿÿÿÿ8¢¤«ÁÒ.
+u
+java:S1989>"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Í¢¬™úÿÿÿÿ8¢¤«ÁÒ.
+~
+java:S1989v"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8¢¤«ÁÒ.
+p
+java:S11927"NDefine a constant instead of duplicating this literal ", sessionId: " 8 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
+g
+java:S1192C"JDefine a constant instead of duplicating this literal "login.jsp" 3 times.(¾Õ ‹8¢¤«ÁÒ.
+p
+java:S1989;"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Â¸ı8¢¤«ÁÒ.
 ƒ
-java:S1989V"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8¢¤«ÁÒ.
-u
-java:S1989i"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Í¢¬™úÿÿÿÿ8¢¤«ÁÒ.
+java:S1989]"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßé–Èıÿÿÿÿ8¢¤«ÁÒ.
 i
-java:S1192/"GDefine a constant instead of duplicating this literal "time: " 8 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
-m
-java:S1301\"KReplace this "switch" statement by "if" statements to increase readability.(½ìê‘ûÿÿÿÿ8¢¤«ÁÒ.
-g
-java:S1192M"JDefine a constant instead of duplicating this literal ", login: " 3 times.(ˆ²™ª8¢¤«ÁÒ.
-p
-java:S1192/"NDefine a constant instead of duplicating this literal ", sessionId: " 8 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
-g
-java:S1192;"JDefine a constant instead of duplicating this literal "login.jsp" 3 times.(¾Õ ‹8¢¤«ÁÒ.
-p
-java:S19893"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Â¸ı8¢¤«ÁÒ.
-~
-java:S1989o"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8¢¤«ÁÒ.
-z	java:S1311"YComplete cases by adding the missing enum constants or add a default case to this switch.(Ñ­¤¢üÿÿÿÿ8¢¤«ÁÒ.
-q
-java:S1192/"ODefine a constant instead of duplicating this literal ", userRoleId: " 3 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
-m
-java:S13011"KReplace this "switch" statement by "if" statements to increase readability.(Ñ­¤¢üÿÿÿÿ8¢¤«ÁÒ.
-z	java:S131\"YComplete cases by adding the missing enum constants or add a default case to this switch.(½ìê‘ûÿÿÿÿ8¢¤«ÁÒ.
-~
-java:S1989u"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8¢¤«ÁÒ.
-u
-java:S19896"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Í¢¬™úÿÿÿÿ8¢¤«ÁÒ.
+java:S11927"GDefine a constant instead of duplicating this literal "time: " 8 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
 8
-java:S3626v"Remove this redundant jump.(ûÁİ…8¯ëäóÒ.
+java:S3626w"Remove this redundant jump.(ûÁİ…8şÄÙóÒ.
+p
+java:S1989i"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Â¸ı8¢¤«ÁÒ.
+z	java:S1319"YComplete cases by adding the missing enum constants or add a default case to this switch.(Ñ­¤¢üÿÿÿÿ8¢¤«ÁÒ.
+u
+java:S1989p"SHandle the following exception that could be thrown by "sendRedirect": IOException.(Í¢¬™úÿÿÿÿ8Ê¡œŸÓ.
+q
+java:S11927"ODefine a constant instead of duplicating this literal ", userRoleId: " 3 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
 ~
-java:S1989;"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8¢¤«ÁÒ.
+java:S1989|"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8¢¤«ÁÒ.
+m
+java:S11927"KDefine a constant instead of duplicating this literal ", userId: " 3 times.(÷ĞãÉøÿÿÿÿ8¢¤«ÁÒ.
+m
+java:S13019"KReplace this "switch" statement by "if" statements to increase readability.(Ñ­¤¢üÿÿÿÿ8¢¤«ÁÒ.
+~
+java:S1989C"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¾Õ ‹8¢¤«ÁÒ.

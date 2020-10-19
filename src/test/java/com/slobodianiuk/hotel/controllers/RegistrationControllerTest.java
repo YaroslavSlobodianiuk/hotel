@@ -44,7 +44,7 @@ public class RegistrationControllerTest extends Mockito {
 
         registrationController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/admin");
+        verify(response).sendRedirect("/admin");
     }
 
     @Test
@@ -56,7 +56,7 @@ public class RegistrationControllerTest extends Mockito {
 
         registrationController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/");
+        verify(response).sendRedirect("/");
     }
 
     @Test

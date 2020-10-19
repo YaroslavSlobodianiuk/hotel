@@ -62,7 +62,7 @@ public class ApartmentControllerTest extends Mockito {
 
         apartmentController.doPost(request, response);
 
-        verify(response, times(3)).setStatus(404);
+        verify(response).setStatus(404);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ApartmentControllerTest extends Mockito {
 
         apartmentController.doPost(request, response);
 
-        verify(response, times(3)).setStatus(404);
+        verify(response).setStatus(404);
 
     }
 

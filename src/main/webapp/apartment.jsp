@@ -2,21 +2,19 @@
 <%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
     <%@ include file="blocks/header.jsp"%>
+    <title><fmt:message key="apartment_page_title"/></title>
 </head>
 <body>
 <div class="container mt-5">
     <div class="alert alert-info mt-2">
         <h3>${apartment.title}</h3>
-        <p>Max guests: ${apartment.roomCapacity}</p>
-        <p>Category: ${apartment.category}</p>
-        <p>Price: ${apartment.price}</p>
-        <p>Status: ${apartment.status}</p>
+        <p><fmt:message key="apartment_page_capacity"/> ${apartment.roomCapacity}</p>
+        <p><fmt:message key="apartment_page_category"/> ${apartment.category}</p>
+        <p><fmt:message key="apartment_page_price"/> ${apartment.price}</p>
+        <p><fmt:message key="apartment_page_status"/> ${apartment.status}</p>
 
-        <form action="/booking" method="post">
-            <button type="submit" class="btn btn-warning">Book Now</button>
-        </form>
+        <a class="btn btn-warning" href="/booking"><fmt:message key="apartment_page_book_now_btn"/></a>
     </div>
 </div>
 </body>

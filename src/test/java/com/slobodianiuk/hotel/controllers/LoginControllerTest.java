@@ -46,7 +46,7 @@ public class LoginControllerTest extends Mockito {
 
         loginController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/admin");
+        verify(response).sendRedirect("null/admin");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class LoginControllerTest extends Mockito {
 
         loginController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/");
+        verify(response).sendRedirect("null/");
     }
 
     @Test

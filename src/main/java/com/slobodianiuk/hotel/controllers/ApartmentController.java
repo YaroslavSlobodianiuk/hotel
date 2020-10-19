@@ -39,6 +39,35 @@ public class ApartmentController extends HttpServlet {
         this.apartmentRepository = apartmentRepository;
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        String apartmentIdStr = req.getRequestURI();
+        try {
+            int apartmentId = Integer.parseInt(String.valueOf(apartmentIdStr.charAt(apartmentIdStr.length() -1)));
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", apartmentId: " + apartmentId);
+            Optional<Apartment> apartmentOptional;
+            try {
+                apartmentOptional = apartmentRepository.getApartmentById(apartmentId);
+            } catch (DBException e) {
+                session.setAttribute("errorMessage", e.getMessage());
+                log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
+                req.getRequestDispatcher("errorPage.jsp").forward(req, resp);
+                return;
+            }
+            if (apartmentOptional.isPresent()) {
+                req.setAttribute("apartment", apartmentOptional.get());
+                req.getRequestDispatcher("/apartment.jsp").forward(req, resp);
+            } else {
+                log.trace("time: " + new Date() + ", sessionId: " + session.getId() + "==> 404");
+                resp.setStatus(404);
+            }
+        } catch (NumberFormatException ex) {
+            log.error("time: " + new Date() + ", error: " + ex);
+            resp.setStatus(404);
+        }
+    }
+
     /**
      * Returns dynamic apartment page by id
      * If not apartment with specified id or

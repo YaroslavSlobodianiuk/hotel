@@ -223,7 +223,7 @@ public class BookingControllerTest extends Mockito {
 
         bookingController.doPost(request, response);
 
-        verify(response, times(3)).sendRedirect("/me");
+        verify(response).sendRedirect("/me");
 
     }
 
@@ -243,7 +243,7 @@ public class BookingControllerTest extends Mockito {
 
         bookingController.doPost(request, response);
 
-        verify(response, times(3)).sendRedirect("/me");
+        verify(response).sendRedirect("/me");
     }
 
     @Test

@@ -95,9 +95,9 @@ public class AdminController extends HttpServlet {
 
         log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", action: " + action + ", orderId: " + orderId);
         if ("new".equals(action)) {
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_APPROVE);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_CONFIRMATION);
             try {
-                orderRepository.updateStatusId(orderId, Variables.WAITING_FOR_APPROVE);
+                orderRepository.updateStatusId(orderId, Variables.WAITING_FOR_CONFIRMATION);
             } catch (DBException e) {
                 session.setAttribute("errorMessage", e.getMessage());
                 log.error("time: " + new Date() + ", sessionId: " + session.getId() + ", errorMessage: " + e.getMessage());
@@ -105,12 +105,12 @@ public class AdminController extends HttpServlet {
                 rd.forward(req, resp);
                 return;
             }
-            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId: " + Variables.WAITING_FOR_APPROVE);
+            log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId: " + Variables.WAITING_FOR_CONFIRMATION);
             resp.sendRedirect("/admin");
             return;
         }
 
-        if ("approved".equals(action)) {
+        if ("confirmed".equals(action)) {
 
             log.trace("time: "+ new Date() + ", sessionId: " + session.getId() + ", userId: " + user.getId() + ", userRoleId: " + user.getRoleId() + ", orderId:" + orderId + ", orderStatusId ==> " + Variables.WAITING_FOR_PAYMENT);
 

@@ -1,13 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<%--
-  Created by IntelliJ IDEA.
-  User: GUEST USER
-  Date: 02.10.2020
-  Time: 13:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -18,7 +10,7 @@
 </head>
 <body>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal menu"><fmt:message key="header_logo"/></h5>
+    <h5 class="my-0 mr-md-auto font-weight-normal menu"><a href="/"><fmt:message key="header_logo"/></a></h5>
     <div class="dropdown">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             <fmt:message key="header_language"/>

@@ -47,7 +47,7 @@ public class LanguageControllerTest extends Mockito {
 
         languageController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/");
+        verify(response).sendRedirect(null);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class LanguageControllerTest extends Mockito {
 
         languageController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/");
+        verify(response).sendRedirect(null);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class LanguageControllerTest extends Mockito {
 
         languageController.doGet(request, response);
 
-        verify(response, times(3)).sendRedirect("/");
+        verify(response).sendRedirect(null);
     }
 
     @Test
