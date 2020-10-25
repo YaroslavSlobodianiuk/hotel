@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class ConnectionPoolManager {
 
-    private static ConnectionPool instance;
+    private static volatile ConnectionPool instance;
 
     private ConnectionPoolManager() {}
 

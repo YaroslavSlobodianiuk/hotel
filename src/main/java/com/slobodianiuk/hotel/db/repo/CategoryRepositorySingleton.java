@@ -8,7 +8,7 @@ package com.slobodianiuk.hotel.db.repo;
 
 public class CategoryRepositorySingleton extends CategoryRepository {
 
-    private static CategoryRepository instance;
+    private static volatile CategoryRepository instance;
 
     private CategoryRepositorySingleton() {}
 

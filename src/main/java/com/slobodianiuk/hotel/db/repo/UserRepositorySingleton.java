@@ -9,7 +9,7 @@ package com.slobodianiuk.hotel.db.repo;
 public class UserRepositorySingleton extends UserRepository {
 
 
-    private static UserRepository instance;
+    private static volatile UserRepository instance;
 
     private UserRepositorySingleton() {}
 

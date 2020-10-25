@@ -8,7 +8,7 @@ package com.slobodianiuk.hotel.db.repo;
 
 public class RoomCapacityRepositorySingleton extends RoomCapacityRepository {
 
-    private static RoomCapacityRepository instance;
+    private static volatile RoomCapacityRepository instance;
 
     private RoomCapacityRepositorySingleton() {}
 

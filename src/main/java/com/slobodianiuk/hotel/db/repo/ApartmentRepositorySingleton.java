@@ -8,7 +8,7 @@ package com.slobodianiuk.hotel.db.repo;
 
 public class ApartmentRepositorySingleton extends ApartmentRepository {
 
-    private static ApartmentRepository instance;
+    private static volatile ApartmentRepository instance;
 
     private ApartmentRepositorySingleton() {}
 

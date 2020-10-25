@@ -8,7 +8,7 @@ package com.slobodianiuk.hotel.db.repo;
 
 public class TransactionsRepositorySingleton extends TransactionsRepository {
 
-    private static TransactionsRepository instance;
+    private static volatile TransactionsRepository instance;
 
     private TransactionsRepositorySingleton() {}
 
